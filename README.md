@@ -104,3 +104,12 @@ bun next telemetry enable
 ```
 
 You may also opt-out by setting an environment variable: `NEXT_TELEMETRY_DISABLED=1`.
+
+## Useful Links
+
+- Editor setup: [https://tailwindcss.com/docs/editor-setup](https://tailwindcss.com/docs/editor-setup).
+- Colors: [https://tailwindcss.com/docs/colors](https://tailwindcss.com/docs/colors).
+- color-mix(): [https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix).
+- Using CSS custom properties (variables): [https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
+- Core concepts:
+   - Styling with utility classes: [https://tailwindcss.com/docs/styling-with-utility-classes](https://tailwindcss.com/docs/styling-with-utility-classes).
