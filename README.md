@@ -34,3 +34,73 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Additional Note
+
+This Next.js project was created using the following command:
+
+```bash
+npx create-next-app@latest my-tailwind-project --typescript --eslint --app
+```
+
+For more info, visit: [https://tailwindcss.com/docs/installation/framework-guides/nextjs](https://tailwindcss.com/docs/installation/framework-guides/nextjs).
+
+---
+
+As mentioned in [https://nextjs.org/telemetry](https://nextjs.org/telemetry), Next.js collects completely anonymous telemetry data about general usage. Participation in this anonymous program is optional, and you may opt-out if you'd not like to share any information.
+
+You may opt out-by running next telemetry disable in the root of your project directory:
+
+```bash
+npx next telemetry disable
+```
+
+```bash
+yarn next telemetry disable
+```
+
+```bash
+pnpm exec next telemetry disable
+```
+
+```bash
+bun next telemetry disable
+```
+
+You may check the status of telemetry collection at any time by running next telemetry status in the root of your project directory:
+
+```bash
+npx next telemetry status
+```
+
+```bash
+yarn next telemetry status
+```
+
+```bash
+pnpm exec next telemetry status
+```
+
+```bash
+bun next telemetry status
+```
+
+You may re-enable telemetry if you'd like to re-join the program by running the following in the root of your project directory:
+
+```bash
+npx next telemetry enable
+```
+
+```bash
+yarn next telemetry enable
+```
+
+```bash
+pnpm exec next telemetry enable
+```
+
+```bash
+bun next telemetry enable
+```
+
+You may also opt-out by setting an environment variable: `NEXT_TELEMETRY_DISABLED=1`.
