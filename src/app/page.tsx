@@ -15,7 +15,7 @@ export default function Home() {
       />
       <div>
         <div className="text-xl font-medium text-black dark:text-white">ChitChat</div>
-        <p className="text-gray-500 dark:text-gray-400">You have a newe message!</p>
+        <p className="text-gray-500 dark:text-gray-400">You have a new message!</p>
       </div>
     </div>
   )
