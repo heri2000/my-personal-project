@@ -4,7 +4,7 @@ import erinLindford from './img/erin-lindford.90b9d461.jpg'
 
 export default function Home() {
   return (
-    <div className='mx-auto flex flex-col gap-10'>
+    <div className="mx-auto flex flex-col gap-10">
 
       <div className="mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10 mt-10">
         <Image
@@ -25,10 +25,14 @@ export default function Home() {
             <p className="text-lg font-semibold text-black">Erin Lindford</p>
             <p className="font-medium text-gray-500">Product Engineer</p>
           </div>
-          <button className="border-purple-200 text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700 ...">
+          <button type="button" className="border-purple-400 border text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700 rounded-full px-3 py">
             Message
           </button>
         </div>
+      </div>
+
+      <div className="mx-auto flex flex-col gap-10">
+        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Default</button>
       </div>
 
     </div>
