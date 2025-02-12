@@ -3,6 +3,7 @@ import chitChat from './img/chit-chat.svg'
 import erinLindford from './img/erin-lindford.90b9d461.jpg'
 
 export default function Home() {
+  // Comment 1
   return (
     <div className="mx-auto flex flex-col gap-10">
 
