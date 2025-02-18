@@ -1,11 +1,10 @@
 import Image from 'next/image'
 import chitChat from './img/chit-chat.svg'
-import erinLindford from './img/erin-lindford.90b9d461.jpg'
 
 export default function Home() {
   // Comment 1
   return (
-    <div className="mx-auto flex flex-col gap-10 pb-20">
+    <div className="mx-auto flex flex-col w-6/12 gap-10 pb-20">
 
       <div className="mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10 mt-10">
         <Image
@@ -20,7 +19,7 @@ export default function Home() {
       </div>
 
       <div className="mx-auto flex max-w-sm flex-col gap-2 rounded-xl p-8 sm:flex-row sm:items-center sm:gap-6 sm:py-4 bg-white">
-        <Image className="mx-auto block h-24 w-24 rounded-full sm:mx-0 sm:shrink-0" src={erinLindford} alt="" />
+        <img className="mx-auto block h-24 w-24 rounded-full sm:mx-0 sm:shrink-0" src="https://tailwindcss.com/_next/static/media/erin-lindford.90b9d461.jpg" alt="" />
         <div className="space-y-2 text-center sm:text-left">
           <div className="space-y-0.5">
             <p className="text-lg font-semibold text-black">Erin Lindford</p>
@@ -36,7 +35,7 @@ export default function Home() {
         <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
       </div>
 
-      <div className="mx-auto w-6/12 flex flex-col">
+      <div className="flex flex-col">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
           <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
@@ -47,7 +46,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mx-auto w-6/12 flex flex-row rounded-xl border border-gray-700 hover:ring-2">
+      <div className="flex flex-row rounded-xl border border-gray-700 hover:ring-2">
         <div className="bg-gray-800 px-6 py-8 w-6/12 flex flex-col rounded-tl-xl rounded-bl-xl">
           <div className="bg-white rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5 mx-auto w-11/12">
             <div>
@@ -96,13 +95,32 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mx-auto w-6/12 flex border rounded-xl p-5">
+      <div className="flex border rounded-xl p-5">
         <p className="p-2 blur-sm">Phasellus sodales eget orci sit amet <span className='text-blue-400'><strong>consequat</strong></span>. Aenean et mauris risus. Nulla iaculis nulla velit, ac tempor velit efficitur ut. Nam eu risus lobortis, auctor purus ut, consectetur ex. <span className="text-red-400">Nulla</span> nec vestibulum orci. Sed tincidunt, tortor sed ornare congue, sapien ex rutrum risus, sed vulputate augue metus a dui. Vivamus porta rutrum sem at interdum.</p>
         <p className="p-2 -mr-20">Cras est turpis, cursus et condimentum et, aliquet sit amet felis. Praesent congue, ex sit amet dignissim facilisis, felis augue fringilla metus, eget tempor enim enim vel lorem. Cras vitae felis id velit semper porta sed a mauris. Ut purus urna, dictum porta tincidunt sit amet, varius nec nisl. Nam posuere lorem aliquet elit commodo dictum.</p>
         <div className="border border-gray-500 relative -left-20 rounded-full backdrop-blur-sm">
           <div className='w-20'></div>
         </div>
-      </div>      
+      </div>
+
+      <div className="flex flex-col items-center rounded-xl bg-white p-4">
+        <div className="flex flex-col mx-auto w-4/12">
+          <div className="flex items-center space-x-2 text-base">
+            <h4 className="font-semibold text-slate-900">Contributors</h4>
+            <span className="bg-slate-200 px-2 py-1 text-xs font-semibold text-slate-700 rounded-full">204</span>
+          </div>
+          <div className="mt-3 flex -space-x-2 overflow-hidden">
+            <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+            <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+            <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="" />
+            <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+            <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+          </div>
+          <div className="mt-3 text-sm font-medium">
+            <a href="#" className="text-blue-500">+ 198 others</a>
+          </div>
+        </div>
+      </div>
 
     </div>
   )
