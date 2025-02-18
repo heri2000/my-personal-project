@@ -47,6 +47,55 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="mx-auto w-6/12 flex flex-row rounded-xl border border-gray-700">
+        <div className="bg-gray-800 px-6 py-8 w-6/12 flex flex-col rounded-tl-xl rounded-bl-xl">
+          <div className="bg-white rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5 mx-auto w-11/12">
+            <div>
+              <span className="inline-flex items-center justify-center rounded-md bg-indigo-500 p-2 shadow-lg">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"
+                >
+                  <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z">
+                  </path>
+                </svg>
+              </span>
+            </div>
+            <h3 className="text-gray-900 mt-5 text-base font-medium tracking-tight ">Writes upside-down</h3>
+            <p className="text-gray-500 mt-2 text-sm ">
+              The Zero Gravity Pen can be used to write in any orientation, including upside-down. It even works in outer space.
+            </p>
+          </div>
+        </div>
+        <div className="bg-gray-900 px-6 py-8 w-6/12 flex flex-col rounded-tr-xl rounded-br-xl">
+          <div className="bg-white dark:bg-gray-800 rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5 mx-auto w-11/12">
+            <div>
+              <span className="inline-flex items-center justify-center rounded-md bg-indigo-500 p-2 shadow-lg">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"
+                >
+                  <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z">
+                  </path>
+                </svg>
+              </span>
+            </div>
+            <h3 className="text-gray-900 dark:text-white mt-5 text-base font-medium tracking-tight ">Writes upside-down</h3>
+            <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm ">
+              The Zero Gravity Pen can be used to write in any orientation, including upside-down. It even works in outer space.
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }
