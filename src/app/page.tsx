@@ -122,6 +122,45 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="flex flex-col items-center rounded-xl bg-white p-4">
+        {
+          VacationCard({
+            img: 'https://images.unsplash.com/photo-1452784444945-3f422708fe5e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=512&q=80',
+            imgAlt: 'Beach',
+            eyebrow: 'Private Villa',
+            title: 'Relaxing All-Inclusive Resort in Cancun',
+            pricing: '$299 USD per night',
+            url: 'https://www.google.com/search?q=Relaxing+All-Inclusive+Resort+in+Cancun&oq=Relaxing+All-Inclusive+Resort+in+Cancun&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzI5NWowajGoAgCwAgA&sourceid=chrome&ie=UTF-8'
+          })
+        }
+      </div>
+
     </div>
   )
+}
+
+type VacationCardProps = {
+  img: string;
+  imgAlt: string;
+  eyebrow: string;
+  title: string;
+  pricing: string;
+  url: string;
+};
+
+export function VacationCard({ img, imgAlt, eyebrow, title, pricing, url }: VacationCardProps) {
+  return (
+    <div>
+      <img className="rounded-lg" src={img} alt={imgAlt} />
+      <div className="mt-4">
+        <div className="text-xs font-bold text-sky-500">{eyebrow}</div>
+        <div className="mt-1 font-bold text-gray-700">
+          <a href={url} className="hover:underline" target='blank'>
+            {title}
+          </a>
+        </div>
+        <div className="mt-2 text-sm text-gray-600">{pricing}</div>
+      </div>
+    </div>
+  );
 }
