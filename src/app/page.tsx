@@ -5,7 +5,7 @@ import erinLindford from './img/erin-lindford.90b9d461.jpg'
 export default function Home() {
   // Comment 1
   return (
-    <div className="mx-auto flex flex-col gap-10">
+    <div className="mx-auto flex flex-col gap-10 pb-20">
 
       <div className="mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10 mt-10">
         <Image
@@ -33,21 +33,21 @@ export default function Home() {
       </div>
 
       <div className="mx-auto flex flex-col gap-10">
-        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
+        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
       </div>
 
       <div className="mx-auto w-6/12 flex flex-col">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
-          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
-          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
-          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
-          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
-          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
+          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
+          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
+          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
+          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
+          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
+          <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-950 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-10 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-300 dark:focus:ring-blue-800">Default</button>
         </div>
       </div>
 
-      <div className="mx-auto w-6/12 flex flex-row rounded-xl border border-gray-700">
+      <div className="mx-auto w-6/12 flex flex-row rounded-xl border border-gray-700 hover:ring-2">
         <div className="bg-gray-800 px-6 py-8 w-6/12 flex flex-col rounded-tl-xl rounded-bl-xl">
           <div className="bg-white rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5 mx-auto w-11/12">
             <div>
@@ -95,6 +95,14 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <div className="mx-auto w-6/12 flex border rounded-xl p-5">
+        <p className="p-2 blur-sm">Phasellus sodales eget orci sit amet <span className='text-blue-400'><strong>consequat</strong></span>. Aenean et mauris risus. Nulla iaculis nulla velit, ac tempor velit efficitur ut. Nam eu risus lobortis, auctor purus ut, consectetur ex. <span className="text-red-400">Nulla</span> nec vestibulum orci. Sed tincidunt, tortor sed ornare congue, sapien ex rutrum risus, sed vulputate augue metus a dui. Vivamus porta rutrum sem at interdum.</p>
+        <p className="p-2 -mr-20">Cras est turpis, cursus et condimentum et, aliquet sit amet felis. Praesent congue, ex sit amet dignissim facilisis, felis augue fringilla metus, eget tempor enim enim vel lorem. Cras vitae felis id velit semper porta sed a mauris. Ut purus urna, dictum porta tincidunt sit amet, varius nec nisl. Nam posuere lorem aliquet elit commodo dictum.</p>
+        <div className="border border-gray-500 relative -left-20 rounded-full backdrop-blur-sm">
+          <div className='w-20'></div>
+        </div>
+      </div>      
 
     </div>
   )
