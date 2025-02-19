@@ -1,0 +1,27 @@
+@tailwind components;
+@tailwind theme;
+
+:root {
+  --color-violet-500: #8253fa;
+  --color-violet-700: #7007e7;
+  --color-violet-900: #4d179a;
+  --font-weight-semibold: 600;
+  --color-white: #ffffff;
+  --shadow-md: 0.5;
+}
+
+.btn-primary {
+  border-radius: 20;
+  background-color: var(--color-violet-500);
+  padding-inline: 20;
+  padding-block: 8;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
+  &:hover {
+    background-color: var(--color-violet-700);
+  }
+  &:active {
+    background-color: var(--color-violet-900);
+  }
+}

@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import chitChat from './img/chit-chat.svg'
+import './page.css'
 
 export default function Home() {
   // Comment 1
@@ -133,6 +134,10 @@ export default function Home() {
             url: 'https://www.google.com/search?q=Relaxing+All-Inclusive+Resort+in+Cancun&oq=Relaxing+All-Inclusive+Resort+in+Cancun&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzI5NWowajGoAgCwAgA&sourceid=chrome&ie=UTF-8'
           })
         }
+      </div>
+
+      <div className="flex flex-col items-center rounded-xl border border-gray-500 p-4">
+        <button className="btn-primary">Save changes</button>
       </div>
 
     </div>
