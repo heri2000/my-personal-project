@@ -1,8 +1,25 @@
+'use client'
+
+import { useState } from 'react';
 import Image from 'next/image'
 import chitChat from './img/chit-chat.svg'
 import './page.css'
 
+const defaultState = {
+  username1: 'tbone',
+  email1: 'test@email.',
+};
+
 export default function Home() {
+  const [state, setState] = useState(defaultState);
+
+  const handleChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState({...state, [e.target.name]: e.target.value });
+  }
+
+  const handleClick1 = () => {
+    alert(JSON.stringify(state));
+  }
   // Comment 1
   return (
     <div className="mx-auto flex flex-col w-6/12 gap-10 pb-20">
@@ -145,13 +162,16 @@ export default function Home() {
           Username
         </div>
         <div>
-          <input type="text" value="tbone" disabled className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500" />
+          <input type="text" value={state.username1} disabled name="username1" onChange={handleChange1} className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500" />
         </div>
         <div>
           Email
         </div>
         <div>
-          <input type="email" value="test@email." required aria-invalid className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500 invalid:border-red-500 invalid:text-red-500" />
+          <input type="email" value={state.email1} required aria-invalid name="email1" onChange={handleChange1} className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500 invalid:border-red-500 invalid:text-red-500" />
+        </div>
+        <div className="mt-4">
+          <button className="btn-primary" onClick={handleClick1}>Save</button>
         </div>
       </div>
 
