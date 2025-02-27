@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image'
+import Link from 'next/link';
 import chitChat from './img/chit-chat.svg'
 import './page.css'
 
@@ -24,7 +25,11 @@ export default function Home() {
   return (
     <div className="mx-auto flex flex-col w-6/12 gap-10 pb-20">
 
-      <div className="mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10 mt-10">
+      <div className="mx-auto mt-10">
+        Page 1 <Link key="page2" href="/page2"><span className="bg-blue-900 p-2 rounded-full">2</span></Link>
+      </div>
+
+      <div className="mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10 mt-4">
         <Image
           src={chitChat}
           className="size-12 shrink-0"
