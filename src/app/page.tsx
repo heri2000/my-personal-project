@@ -1,10 +1,8 @@
-'use client'
-
-import { useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
 import chitChat from './img/chit-chat.svg'
 import './page.css'
+import UserEmailForm from './components/userEmailForm';
 
 const defaultState = {
   username1: 'tbone',
@@ -39,7 +37,7 @@ export default function Home() {
       </div>
 
       {SaveChangesButton()}
-      {UserEmailForm()}
+      <UserEmailForm />
       {PageLinks()}
 
     </div>
@@ -213,35 +211,3 @@ const SaveChangesButton = () => (
     <button className="btn-primary">Save changes</button>
   </div>
 )
-
-const UserEmailForm = () => {
-  const [state, setState] = useState(defaultState);
-
-  const handleChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState({...state, [e.target.name]: e.target.value });
-  }
-
-  const handleClick1 = () => {
-    alert(JSON.stringify(state));
-  }
-
-  return (
-    <div className="flex flex-col w-6/12 mx-auto rounded-xl border border-gray-500 p-4">
-      <div>
-        Username
-      </div>
-      <div>
-        <input type="text" value={state.username1} disabled name="username1" onChange={handleChange1} className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500" />
-      </div>
-      <div>
-        Email
-      </div>
-      <div>
-        <input type="email" value={state.email1} required aria-invalid name="email1" onChange={handleChange1} className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500 invalid:border-red-500 invalid:text-red-500" />
-      </div>
-      <div className="mt-4">
-        <button className="btn-primary" onClick={handleClick1}>Save</button>
-      </div>
-    </div>
-  )
-}
