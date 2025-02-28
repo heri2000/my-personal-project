@@ -12,7 +12,7 @@ const defaultState = {
 export default function Home() {
   // Comment 1
   return (
-    <div className="mx-auto flex flex-col w-6/12 gap-10 pb-20">
+    <div className="mx-auto flex flex-col w-11/12 max-w-3xl gap-10 border border-neutral-700 bg-neutral-900 mt-5 mb-10 p-5 rounded-xl">
 
       {PageLinks()}
       {ChitChat()}
@@ -45,7 +45,7 @@ export default function Home() {
 }
 
 const PageLinks = () => (
-  <div className="mx-auto mt-10">
+  <div className="mx-auto mt-5">
     Page 1 <Link key="page2" href="/page2"><u>2</u></Link>
   </div>
 )
@@ -150,11 +150,15 @@ const LightAndDark = () => (
 )
 
 const BlurText = () => (
-  <div className="flex border rounded-xl p-5">
-    <p className="p-2 blur-sm">Phasellus sodales eget orci sit amet <span className='text-blue-400'><strong>consequat</strong></span>. Aenean et mauris risus. Nulla iaculis nulla velit, ac tempor velit efficitur ut. Nam eu risus lobortis, auctor purus ut, consectetur ex. <span className="text-red-400">Nulla</span> nec vestibulum orci. Sed tincidunt, tortor sed ornare congue, sapien ex rutrum risus, sed vulputate augue metus a dui. Vivamus porta rutrum sem at interdum.</p>
-    <p className="p-2 -mr-20">Cras est turpis, cursus et condimentum et, aliquet sit amet felis. Praesent congue, ex sit amet dignissim facilisis, felis augue fringilla metus, eget tempor enim enim vel lorem. Cras vitae felis id velit semper porta sed a mauris. Ut purus urna, dictum porta tincidunt sit amet, varius nec nisl. Nam posuere lorem aliquet elit commodo dictum.</p>
-    <div className="border border-gray-500 relative -left-20 rounded-full backdrop-blur-sm">
-      <div className='w-20'></div>
+  <div className="flex flex-col sm:flex-row border rounded-xl p-5">
+    <div>
+      <p className="p-2 blur-sm">Phasellus sodales eget orci sit amet <span className='text-blue-400'><strong>consequat</strong></span>. Aenean et mauris risus. Nulla iaculis nulla velit, ac tempor velit efficitur ut. Nam eu risus lobortis, auctor purus ut, consectetur ex. <span className="text-red-400">Nulla</span> nec vestibulum orci. Sed tincidunt, tortor sed ornare congue, sapien ex rutrum risus, sed vulputate augue metus a dui. Vivamus porta rutrum sem at interdum.</p>
+    </div>
+    <div className='flex flex-row'>
+      <p className="p-2 -mr-20">Cras est turpis, cursus et condimentum et, aliquet sit amet felis. Praesent congue, ex sit amet dignissim facilisis, felis augue fringilla metus, eget tempor enim enim vel lorem. Cras vitae felis id velit semper porta sed a mauris. Ut purus urna, dictum porta tincidunt sit amet, varius nec nisl. Nam posuere lorem aliquet elit commodo dictum.</p>
+      <div className="flex border border-gray-500 relative -left-20 rounded-full backdrop-blur-sm">
+        <div className='w-20'></div>
+      </div>
     </div>
   </div>
 )
