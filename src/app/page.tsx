@@ -14,14 +14,14 @@ export default function Home() {
   return (
     <div className="mx-auto flex flex-col w-11/12 max-w-3xl gap-10 border border-neutral-700 bg-neutral-900 mt-5 mb-10 p-5 rounded-xl">
 
-      {PageLinks()}
-      {ChitChat()}
-      {ProfileCard()}
-      {DefaultButton()}
-      {ArrayOfButtons()}
-      {LightAndDark()}
-      {BlurText()}
-      {Contributors()}
+      <PageLinks />
+      <ChitChat />
+      <ProfileCard />
+      <DefaultButton />
+      <ArrayOfButtons />
+      <LightAndDark />
+      <BlurText />
+      <Contributors />
 
       <div className="flex flex-col items-center rounded-xl bg-white p-4">
         {
@@ -36,9 +36,9 @@ export default function Home() {
         }
       </div>
 
-      {SaveChangesButton()}
+      <SaveChangesButton />
       <UserEmailForm />
-      {PageLinks()}
+      <PageLinks />
 
     </div>
   )
