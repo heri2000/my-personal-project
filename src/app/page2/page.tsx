@@ -1,12 +1,17 @@
 import Link from 'next/link';
+import ThemeSwitcher from '../components/themeSwitcher';
+import './page.css';
 
 export default function Page2() {
   return(
-    <div className="mx-auto flex flex-col w-11/12 max-w-3xl gap-10 border border-neutral-700 bg-neutral-900 mt-5 mb-10 p-5 rounded-xl">
+    <div className="mx-auto flex flex-col w-11/12 max-w-3xl gap-10 border border-neutral-700 mt-5 mb-10 p-5 rounded-xl">
+
+      <ThemeSwitcher />
 
       {PageLinks()}
 
       <CompanyRetreats />
+      <AdjustOpacity />
 
       {PageLinks()}
 
@@ -15,13 +20,13 @@ export default function Page2() {
 }
 
 const PageLinks = () => (
-  <div className="mx-auto mt-5">
+  <div className="mx-auto mt-5 text-black dark:text-white">
       Page <Link key="page2" href="/"><u>1</u></Link> 2
   </div>
 )
 
 const CompanyRetreats = () => (
-  <div className="mx-auto max-w-md overflow-hidden rounded-xl bg-white shadow-md md:max-w-2xl">
+  <div className="mx-auto max-w-md overflow-hidden rounded-xl bg-white shadow-md md:max-w-2xl outline outline-black/5 dark:outline-white/10">
     <div className="md:flex">
       <div className="md:shrink-0">
         <img
@@ -41,5 +46,20 @@ const CompanyRetreats = () => (
         </p>
       </div>
     </div>
+  </div>
+)
+
+const AdjustOpacity = () => (
+  <div className="adjustOpacity flex justify-center items-center gap-4 p-5 rounded-lg">
+    <div className="bg-sky-500/10 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/20 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/30 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/40 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/50 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/60 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/70 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/80 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/90 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/100 w-10 h-10 rounded-md"></div>
   </div>
 )

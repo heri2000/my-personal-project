@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 import chitChat from './img/chit-chat.svg'
 import './page.css'
+import ThemeSwitcher from './components/themeSwitcher';
 import UserEmailForm from './components/userEmailForm';
 
 const defaultState = {
@@ -12,8 +13,9 @@ const defaultState = {
 export default function Home() {
   // Comment 1
   return (
-    <div className="mx-auto flex flex-col w-11/12 max-w-3xl gap-10 border border-neutral-700 bg-neutral-900 mt-5 mb-10 p-5 rounded-xl">
+    <div className="mx-auto flex flex-col w-11/12 max-w-3xl gap-10 p-5 border border-neutral-400 dark:border-neutral-700 rounded-xl mt-5 mb-10">
 
+      <ThemeSwitcher />
       <PageLinks />
       <ChitChat />
       <ProfileCard />
@@ -23,7 +25,7 @@ export default function Home() {
       <BlurText />
       <Contributors />
 
-      <div className="flex flex-col items-center rounded-xl bg-white p-4">
+      <div className="flex flex-col items-center rounded-xl bg-white outline outline-black/5 p-4">
         {
           VacationCard({
             img: 'https://images.unsplash.com/photo-1452784444945-3f422708fe5e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=512&q=80',
@@ -45,7 +47,7 @@ export default function Home() {
 }
 
 const PageLinks = () => (
-  <div className="mx-auto mt-5">
+  <div className="mx-auto mt-5 text-black dark:text-white">
     Page 1 <Link key="page2" href="/page2"><u>2</u></Link>
   </div>
 )
@@ -65,14 +67,14 @@ const ChitChat = () => (
 )
 
 const ProfileCard = () => (
-  <div className="mx-auto flex max-w-sm flex-col gap-2 rounded-xl p-8 sm:flex-row sm:items-center sm:gap-6 sm:py-4 bg-white">
+  <div className="mx-auto flex max-w-sm flex-col gap-2 rounded-xl p-8 sm:flex-row sm:items-center sm:gap-6 sm:py-4 bg-white dark:bg-gray-800 outline outline-black/5 dark:outline-white/10">
     <img className="mx-auto block h-24 w-24 rounded-full sm:mx-0 sm:shrink-0" src="https://tailwindcss.com/_next/static/media/erin-lindford.90b9d461.jpg" alt="" />
     <div className="space-y-2 text-center sm:text-left">
       <div className="space-y-0.5">
-        <p className="text-lg font-semibold text-black">Erin Lindford</p>
+        <p className="text-lg font-semibold text-black dark:text-white">Erin Lindford</p>
         <p className="font-medium text-gray-500">Product Engineer</p>
       </div>
-      <button type="button" className="border-purple-400 border text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700 rounded-full px-3 py">
+      <button type="button" className="border-purple-400 border text-purple-600 dark:text-purple-300 hover:border-transparent hover:bg-purple-600 dark:hover:bg-purple-800 hover:text-white active:bg-purple-700 dark:active:bg-purple-900 rounded-full px-3 py">
         Message
       </button>
     </div>
@@ -150,7 +152,7 @@ const LightAndDark = () => (
 )
 
 const BlurText = () => (
-  <div className="flex flex-col sm:flex-row border rounded-xl p-5">
+  <div className="flex flex-col sm:flex-row outline outline-black/5 rounded-xl p-5 bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200">
     <div>
       <p className="p-2 blur-sm">Phasellus sodales eget orci sit amet <span className='text-blue-400'><strong>consequat</strong></span>. Aenean et mauris risus. Nulla iaculis nulla velit, ac tempor velit efficitur ut. Nam eu risus lobortis, auctor purus ut, consectetur ex. <span className="text-red-400">Nulla</span> nec vestibulum orci. Sed tincidunt, tortor sed ornare congue, sapien ex rutrum risus, sed vulputate augue metus a dui. Vivamus porta rutrum sem at interdum.</p>
     </div>
@@ -164,7 +166,7 @@ const BlurText = () => (
 )
 
 const Contributors = () => (
-  <div className="flex flex-col items-center rounded-xl bg-white p-4">
+  <div className="flex flex-col items-center rounded-xl bg-white outline outline-black/5 p-4">
     <div className="flex flex-col mx-auto w-4/12">
       <div className="flex items-center space-x-2 text-base">
         <h4 className="font-semibold text-slate-900">Contributors</h4>
@@ -211,7 +213,7 @@ function VacationCard({ img, imgAlt, eyebrow, title, pricing, url }: VacationCar
 }
 
 const SaveChangesButton = () => (
-  <div className="flex flex-col items-center rounded-xl border border-gray-500 p-4">
+  <div className="flex flex-col items-center rounded-xl outline outline-black/5 p-4">
     <button className="btn-primary">Save changes</button>
   </div>
 )

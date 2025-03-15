@@ -24,7 +24,7 @@ const UserEmailForm = () => {
   };
 
   return (
-    <div className="flex flex-col w-6/12 mx-auto rounded-xl border border-gray-500 p-4">
+    <div className="flex flex-col w-6/12 mx-auto rounded-xl outline outline-black/5 dark:outline-white/10 p-4">
       <div>
         Username
       </div>
@@ -35,7 +35,7 @@ const UserEmailForm = () => {
           disabled={state.disabled}
           name="username1"
           onChange={handleChange1}
-          className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500"
+          className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 text-black dark:text-white disabled:text-gray-500"
         />
       </div>
       <div>
@@ -50,7 +50,7 @@ const UserEmailForm = () => {
           aria-invalid
           name="email1"
           onChange={handleChange1}
-          className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 disabled:text-gray-500 invalid:border-red-500 invalid:text-red-500"
+          className="w-full p-1 rounded border border-gray-500 bg-gray-800/20 text-black dark:text-white disabled:text-gray-500 invalid:border-red-500 invalid:text-red-500"
         />
       </div>
       <div className="mt-4">
