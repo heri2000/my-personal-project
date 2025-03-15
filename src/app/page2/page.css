@@ -1,0 +1,9 @@
+.adjustOpacity {
+  background-color: white;
+
+  @variant dark {
+    @variant hover {
+      background-color: black;
+    }
+  }
+}

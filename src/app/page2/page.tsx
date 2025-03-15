@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ThemeSwitcher from '../components/themeSwitcher';
+import './page.css';
 
 export default function Page2() {
   return(
@@ -10,6 +11,7 @@ export default function Page2() {
       {PageLinks()}
 
       <CompanyRetreats />
+      <AdjustOpacity />
 
       {PageLinks()}
 
@@ -44,5 +46,20 @@ const CompanyRetreats = () => (
         </p>
       </div>
     </div>
+  </div>
+)
+
+const AdjustOpacity = () => (
+  <div className="adjustOpacity flex justify-center items-center gap-4 p-5 rounded-lg">
+    <div className="bg-sky-500/10 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/20 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/30 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/40 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/50 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/60 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/70 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/80 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/90 w-10 h-10 rounded-md"></div>
+    <div className="bg-sky-500/100 w-10 h-10 rounded-md"></div>
   </div>
 )
