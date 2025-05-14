@@ -1,0 +1,15 @@
+services:
+  postgresql:
+    image: postgres:11-alpine
+    restart: no
+    # environment:
+    #   POSTGRES_USER: "heri_tny_demo"
+    #   POSTGRES_DB: "heri_tny_demo"
+    #   POSTGRES_PASSWORD: "heri_tny_demo"
+    #   PGDATA: /var/lib/postgresql/data/pgdata
+    env_file:
+      - ../.env
+    volumes:
+      - ./init-postgres:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432

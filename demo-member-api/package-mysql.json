@@ -1,0 +1,35 @@
+{
+  "name": "heri_tny_demo_api",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "nodemon src/app.ts -p 3000",
+    "start": "ts-node src/app.ts -p 3000",
+    "build": "tsc",
+    "migrate": "node node_modules/db-migrate/bin/db-migrate --config database.json -e mysql"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@valkey/valkey-glide": "^1.3.2",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "formidable": "^3.5.2",
+    "mysql2": "^3.14.0",
+    "nanoid": "^3.3.4",
+    "sha3": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/exceljs": "^1.3.2",
+    "@types/express": "^5.0.1",
+    "@types/formidable": "^3.4.5",
+    "@types/node": "^22.13.14",
+    "db-migrate": "^0.11.14",
+    "db-migrate-mysql": "^3.0.0",
+    "db-migrate-pg": "^1.5.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}

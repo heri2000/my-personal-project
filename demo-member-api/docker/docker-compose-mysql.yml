@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.0.42-oracle
+    restart: no
+    command: --default-authentication-plugin=mysql_native_password
+    # environment:
+    #   MYSQL_ROOT_PASSWORD: root
+    #   MYSQL_DATABASE: heri_tny_demo
+    #   MYSQL_USER: heri_tny_demo
+    #   MYSQL_PASSWORD: heri_tny_demo
+    env_file:
+      - ../.env
+    volumes:
+      - ../../../.data-heri-tny/mysql:/var/lib/mysql
+      - ./init-mysql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306

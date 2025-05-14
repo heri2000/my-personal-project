@@ -1,0 +1,3 @@
+#!/bin/bash -e
+
+nvm use $(cat .nvmrc)
