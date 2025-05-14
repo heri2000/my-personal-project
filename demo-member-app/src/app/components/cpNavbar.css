@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "tailwindcss/preflight.css" layer(base);
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+div.navbar {
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+nav.navbar {
+  width: calc(100% + 15px);
+}
+
+nav.navbar ul li a.navbar_menu_item {
+  @apply block py-3 pl-3 pr-4 text-center md:text-start hover:bg-indigo-100 dark:hover:bg-gray-900 text-indigo-900 dark:text-gray-100 no-underline;
+}
+
+div.nav_toggle {
+  @media screen and (max-width: 640px) {
+    position: fixed;
+    top: 10px;
+    left: 15px;
+    width: 35px;
+    height: 35px;
+    z-index: 100;
+  }
+
+  @media screen and (min-width: 641px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: 100;
+  }
+}
+
+div.nav_toggle button {
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+}

@@ -1,0 +1,12 @@
+div.cp_spinner {
+  position: fixed;
+  top: calc(50vh - 15px);
+  left: calc(50vw - 15px);
+  z-index: 101;
+}
+
+div.cp_spinner.cp_spinner_navbar {
+  @media screen and (min-width: 641px) {
+    left: 85px;
+  }
+}
