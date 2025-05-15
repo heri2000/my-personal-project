@@ -168,6 +168,10 @@ table.data_table thead th div.ordering_icon {
   @apply w-6 h-6 px-0 ms-1 bg-indigo-200 dark:bg-gray-800 rounded-full;
 }
 
+table.data_table thead th div.ordering_icon svg {
+  @apply fill-gray-900 dark:fill-gray-100;
+}
+
 table.statistics_table td {
   @apply px-2;
 }
