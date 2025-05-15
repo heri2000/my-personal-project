@@ -165,50 +165,50 @@ export function MemberEdit({
                 <input
                   type="radio"
                   name="category"
-                  id="Simpatisan"
-                  value="Simpatisan"
+                  id="Associate"
+                  value="Associate"
                   className="me-2"
-                  checked={member.category === "Simpatisan"}
+                  checked={member.category === "Associate"}
                   onChange={handleChange}
                   disabled={loading}
                 />
                 <label
                   className="flex flex-col me-8 justify-center"
-                  htmlFor="Simpatisan"
+                  htmlFor="Associate"
                 >
-                  Simpatisan
+                  Associate
                 </label>
                 <input
                   type="radio"
                   name="category"
-                  id="Umum"
-                  value="Umum"
+                  id="General"
+                  value="General"
                   className="me-2"
-                  checked={member.category === "Umum"}
+                  checked={member.category === "General"}
                   onChange={handleChange}
                   disabled={loading}
                 />
                 <label
                   className="flex flex-col me-8 justify-center"
-                  htmlFor="Umum"
+                  htmlFor="General"
                 >
-                  Umum
+                  General
                 </label>
                 <input
                   type="radio"
                   name="category"
-                  id="Jemaat Anak"
-                  value="Jemaat Anak"
+                  id="Child"
+                  value="Child"
                   className="me-2"
-                  checked={member.category === "Jemaat Anak"}
+                  checked={member.category === "Child"}
                   onChange={handleChange}
                   disabled={loading}
                 />
                 <label
                   className="flex flex-col me-8 justify-center"
-                  htmlFor="Jemaat Anak"
+                  htmlFor="Child"
                 >
-                  Jemaat Anak
+                  Child
                 </label>
               </div>
 

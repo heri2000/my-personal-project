@@ -6,19 +6,19 @@ import { TDashboardStatistics } from '../api/dashboard';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DashboardMemberCategoriesChart({ statistics } : { statistics: TDashboardStatistics }) {
-  const simpatisanPercent = 100 * statistics.categories.simpatisan / statistics.totalMembers;
-  const umumPercent = 100 * statistics.categories.umum / statistics.totalMembers;
-  const jemaatAnakPercent = 100 * statistics.categories.jemaatAnak / statistics.totalMembers;
+  const associatePercent = 100 * statistics.categories.associate / statistics.totalMembers;
+  const generalPercent = 100 * statistics.categories.general / statistics.totalMembers;
+  const childPercent = 100 * statistics.categories.child / statistics.totalMembers;
 
   const data = {
-    labels: ['Jemaat Anak', 'Simpatisan', 'Umum'],
+    labels: ['Child', 'Associate', 'General'],
     datasets: [
       {
         label: 'Jumlah',
         data: [
-          statistics.categories.jemaatAnak,
-          statistics.categories.simpatisan,
-          statistics.categories.umum,
+          statistics.categories.child,
+          statistics.categories.associate,
+          statistics.categories.general,
         ],
         backgroundColor: [
           'rgba(255, 99, 132, 0.75)',
@@ -49,22 +49,22 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
        <table className="statistics_table w-full mb-2">
          <tbody>
            <tr>
-             <td>Simpatisan</td>
+             <td>Associate</td>
              <td>:</td>
-             <td className="text-end">{statistics.categories.simpatisan}</td>
-             <td className="text-end">{`(${simpatisanPercent.toFixed(1)}%)`}</td>
+             <td className="text-end">{statistics.categories.associate}</td>
+             <td className="text-end">{`(${associatePercent.toFixed(1)}%)`}</td>
            </tr>
            <tr>
-             <td>Umum</td>
+             <td>General</td>
              <td>:</td>
-             <td className="text-end">{statistics.categories.umum}</td>
-             <td className="text-end">{`(${umumPercent.toFixed(1)}%)`}</td>
+             <td className="text-end">{statistics.categories.general}</td>
+             <td className="text-end">{`(${generalPercent.toFixed(1)}%)`}</td>
            </tr>
            <tr>
-             <td>Jemaat Anak</td>
+             <td>Child</td>
              <td>:</td>
-             <td className="text-end">{statistics.categories.jemaatAnak}</td>
-             <td className="text-end">{`(${jemaatAnakPercent.toFixed(1)}%)`}</td>
+             <td className="text-end">{statistics.categories.child}</td>
+             <td className="text-end">{`(${childPercent.toFixed(1)}%)`}</td>
            </tr>
          </tbody>
        </table>

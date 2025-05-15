@@ -511,9 +511,9 @@ export function Member() {
             <tbody>
               {memberList.map((element: TMember) => {
                 let badgeClass = "text-xs bg-gray-600 dark:bg-slate-400 text-white dark:text-slate-800 px-1 h-4 rounded-2xl mt-1 whitespace-nowrap";
-                if (element.category?.toLowerCase() === "jemaat anak") {
+                if (element.category?.toLowerCase() === "child") {
                   badgeClass = "text-xs bg-red-700 text-white px-1 h-4 rounded-2xl mt-1 whitespace-nowrap";
-                } else if (element.category?.toLowerCase() === "simpatisan") {
+                } else if (element.category?.toLowerCase() === "associate") {
                   badgeClass = "text-xs bg-blue-700 text-white px-1 h-4 rounded-2xl mt-1 whitespace-nowrap";
                 }
                 return (

@@ -131,7 +131,7 @@ async function importMember(uploadId: string, file: any) {
       const name = row.getCell('C').value;
       const gender = row.getCell('D').value;
       if (
-        regNumber?.toString().startsWith('HTNY') &&
+        regNumber?.toString().startsWith('REG-') &&
         name !== null && gender !== null
       ) {
         let address = row.getCell('E').value;
@@ -430,16 +430,16 @@ export async function exportMember(req: Request, res: Response) {
       worksheet.getColumn("J").width = 12;
 
       let row = worksheet.getRow(1);
-      row.getCell("A").value = "No.";
-      row.getCell("B").value = "No. Induk";
-      row.getCell("C").value = "Nama";
-      row.getCell("D").value = "L/P";
-      row.getCell("E").value = "Alamat";
-      row.getCell("F").value = "Tgl. Lahir";
-      row.getCell("G").value = "HP 1";
-      row.getCell("H").value = "HP 2";
-      row.getCell("I").value = "Tgl. Pernikahan";
-      row.getCell("J").value = "Golongan";
+      row.getCell("A").value = "#";
+      row.getCell("B").value = "Reg. Number";
+      row.getCell("C").value = "Name";
+      row.getCell("D").value = "Gender";
+      row.getCell("E").value = "Address";
+      row.getCell("F").value = "Birth Date";
+      row.getCell("G").value = "Phone 1";
+      row.getCell("H").value = "Phone 2";
+      row.getCell("I").value = "Marriage Date";
+      row.getCell("J").value = "Category";
 
       const borders: Partial<Borders> = {
         top: {style:'hair'},

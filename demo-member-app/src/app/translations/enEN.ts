@@ -23,7 +23,7 @@ export const enEN = {
   "editMember": "Edit Member",
   "email": "Email",
   "export": "Export",
-  "female": "Demale",
+  "female": "Female",
   "femaleAbbreviated": "F",
   "gender": "Gender",
   "goBack": "Go Back",

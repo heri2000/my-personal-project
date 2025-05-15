@@ -59,25 +59,25 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
        <table className="statistics_table w-full mb-2">
          <tbody>
            <tr>
-             <td>&lt;= 18 th</td>
+             <td>&lt;= 18 y.o.</td>
              <td>:</td>
              <td className="text-end">{statistics.ageGroups.under18}</td>
              <td className="text-end">{`(${under18Percent.toFixed(1)}%)`}</td>
            </tr>
            <tr>
-             <td>19 - 25 th</td>
+             <td>19 - 25 y.o.</td>
              <td>:</td>
              <td className="text-end">{statistics.ageGroups.from19to25}</td>
              <td className="text-end">{`(${from19to25Percent.toFixed(1)}%)`}</td>
            </tr>
            <tr>
-             <td>26 - 59 th</td>
+             <td>26 - 59 y.o.</td>
              <td>:</td>
              <td className="text-end">{statistics.ageGroups.from26to59}</td>
              <td className="text-end">{`(${from26to59Percent.toFixed(1)}%)`}</td>
            </tr>
            <tr>
-             <td>&gt;= 60 th</td>
+             <td>&gt;= 60 y.o.</td>
              <td>:</td>
              <td className="text-end">{statistics.ageGroups.over60}</td>
              <td className="text-end">{`(${over60Percent.toFixed(1)}%)`}</td>
