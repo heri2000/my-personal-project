@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CpSpinner } from "../components/cpSpinner";
 import { addNewMember, updateMember, type TMember } from "../api/member";
-import { parseErrorMessage } from "@/app/utils/utils";
+import { dateToSqlString, parseErrorMessage, sqlDateTimeToSqlDate } from "@/app/utils/utils";
 import { enEN } from "@/app/translations/enEN";
 
 export const VISIBLE_LAYER_MEMBER_NEW = "visible_layer_member_new";
@@ -43,7 +43,11 @@ export function MemberEdit({
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setErrorMessage(null);
-    setMember({...member, [event.target.name]: event.target.value });
+    if (event.target.type === 'date') {
+      setMember({...member, [event.target.name]: dateToSqlString(event.target.value) });
+    } else {
+      setMember({...member, [event.target.name]: event.target.value });
+    }
   }
 
   async function handleAddNewMember() {
@@ -236,7 +240,7 @@ export function MemberEdit({
                   type="date"
                   name="birthDate"
                   id="birthDate"
-                  value={member.birthDate!}
+                  value={sqlDateTimeToSqlDate(member.birthDate)}
                   className="text-center"
                   onChange={handleChange}
                   disabled={loading}
@@ -280,7 +284,7 @@ export function MemberEdit({
                   type="date"
                   name="marriageDate"
                   id="marriageDate"
-                  value={member.marriageDate!}
+                  value={sqlDateTimeToSqlDate(member.marriageDate)}
                   className="text-center"
                   onChange={handleChange}
                   disabled={loading}

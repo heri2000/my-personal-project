@@ -180,12 +180,13 @@ export async function getUpcomingBirthdays(req: Request, res: Response) {
       `select * from (
         select id, reg_number, name, gender,
         concat(
-          lpad(cast(extract(month from birth_date) as varchar), 2, '0'),
-          lpad(cast(extract(day from birth_date) as varchar), 2, '0')
+          lpad(cast(extract(month from birth_date+interval '7 hour') as varchar), 2, '0'),
+          lpad(cast(extract(day from birth_date+interval '7 hour') as varchar), 2, '0')
         ) as birthday,
-        date_part('day', birth_date) as day,
-        birth_date,
-        marriage_date, category
+        date_part('day', birth_date+interval '7 hour') as day,
+        birth_date+interval '7 hour' as birth_date,
+        marriage_date+interval '7 hour' as marriage_date,
+        category
         from members where deleted_at is null
       ) as t
       where (t.birthday >= $1 and t.birthday <= $2)

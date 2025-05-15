@@ -10,10 +10,10 @@ export default function DashboardMemberGenderChart({ statistics } : { statistics
   const femalePercent = 100 * statistics.female / statistics.totalMembers;
 
   const data = {
-    labels: ['Perempuan', 'Laki-laki'],
+    labels: ['Female', 'Male'],
     datasets: [
       {
-        label: 'Jumlah',
+        label: 'Count',
         data: [statistics.female, statistics.male],
         backgroundColor: [
           'rgba(255, 99, 132, 0.75)',
@@ -42,13 +42,13 @@ export default function DashboardMemberGenderChart({ statistics } : { statistics
        <table className="statistics_table w-full mb-2">
          <tbody>
            <tr>
-             <td>Laki-laki</td>
+             <td>Male</td>
              <td>:</td>
              <td className="text-end">{statistics.male}</td>
              <td className="text-end">{`(${malePercent.toFixed(1)}%)`}</td>
            </tr>
            <tr>
-             <td>Perempuan</td>
+             <td>Female</td>
              <td>:</td>
              <td className="text-end">{statistics.female}</td>
              <td className="text-end">{`(${femalePercent.toFixed(1)}%)`}</td>
