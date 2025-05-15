@@ -14,7 +14,7 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
     labels: ['Child', 'Associate', 'General'],
     datasets: [
       {
-        label: 'Jumlah',
+        label: 'Count',
         data: [
           statistics.categories.child,
           statistics.categories.associate,

@@ -363,7 +363,7 @@ export async function exportMember(req: Request, res: Response) {
       exportId,
     });
 
-    qs = `select id, reg_number, name, gender, birth_date, marriage_date, category, created_at,
+    qs = `select id, reg_number, name, gender, birth_date+interval '7 hour as birth_date, marriage_date+interval '7 hour as marriage_date, category, created_at,
       updated_at, deleted_at
       from members
       where deleted_at is null
@@ -371,7 +371,7 @@ export async function exportMember(req: Request, res: Response) {
     params = [];
     if (search) {
       const searchStr = `%${search.toString()}%`;
-      qs = `select id, reg_number, name, gender, birth_date, marriage_date, category, created_at,
+      qs = `select id, reg_number, name, gender, birth_date+interval '7 hour as birth_date, marriage_date+interval '7 hour as marriage_date, category, created_at,
         updated_at, deleted_at
         from members
         where deleted_at is null
@@ -584,7 +584,7 @@ export async function memberList(req: Request, res: Response) {
       totalMemberCount = rows[0].total;
     }
 
-    qs = `select id, reg_number, name, gender, birth_date, marriage_date, category, created_at,
+    qs = `select id, reg_number, name, gender, birth_date+interval '7 hour' as birth_date, marriage_date+interval '7 hour' as marriage_date, category, created_at,
       updated_at, deleted_at
       from members
       where deleted_at is null
@@ -593,7 +593,7 @@ export async function memberList(req: Request, res: Response) {
     params = [limit!.toString(), offset!.toString()];
     if (search) {
       const searchStr = `%${search.toString()}%`;
-      qs = `select id, reg_number, name, gender, birth_date, marriage_date, category, created_at,
+      qs = `select id, reg_number, name, gender, birth_date+interval '7 hour' as birth_date, marriage_date+interval '7 hour' as marriage_date, category, created_at,
         updated_at, deleted_at
         from members
         where deleted_at is null

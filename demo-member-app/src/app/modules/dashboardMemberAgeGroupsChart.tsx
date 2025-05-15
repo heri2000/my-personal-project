@@ -22,7 +22,7 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
     ],
     datasets: [
       {
-        label: 'Jumlah',
+        label: 'Count',
         data: [
           statistics.ageGroups.under18,
           statistics.ageGroups.from19to25,
