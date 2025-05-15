@@ -12,9 +12,9 @@ export async function getDashboardStatistics(req: Request, res: Response) {
         male: await getMale(),
         female: await getFemale(),
         categories: {
-          simpatisan: await getSimpatisan(),
-          umum: await getUmum(),
-          jemaatAnak: await getJemaatAnak(),
+          associate: await getAssociate(),
+          general: await getGeneral(),
+          child: await getChild(),
         },
         ageGroups: {
           under18: await getAgeGroupUnder18(),
@@ -47,7 +47,7 @@ async function getTotalMembers() {
 async function getMale() {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and gender='L'`
+    `select count(*) as rc from members where deleted_at is null and gender='M'`
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -58,7 +58,7 @@ async function getMale() {
 async function getFemale() {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and gender='P'`
+    `select count(*) as rc from members where deleted_at is null and gender='F'`
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -66,10 +66,10 @@ async function getFemale() {
   return count;
 }
 
-async function getUmum() {
+async function getGeneral() {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and category='Umum'`
+    `select count(*) as rc from members where deleted_at is null and category='General'`
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -77,10 +77,10 @@ async function getUmum() {
   return count;
 }
 
-async function getSimpatisan() {
+async function getAssociate() {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and category='Simpatisan'`
+    `select count(*) as rc from members where deleted_at is null and category='Associate'`
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -88,10 +88,10 @@ async function getSimpatisan() {
   return count;
 }
 
-async function getJemaatAnak() {
+async function getChild() {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and category='Jemaat Anak'`
+    `select count(*) as rc from members where deleted_at is null and category='Child'`
   );
   if (rowCount) {
     count = rows[0].rc;

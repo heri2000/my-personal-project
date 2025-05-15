@@ -110,7 +110,7 @@ export function MemberImport({handleGoBack}: {handleGoBack: () => void}) {
               <li>{translationStrings.no1}</li>
               <li>
                 {translationStrings.regNumber}&nbsp;
-                <em>({translationStrings.mustBePrefixedWith} &quot;HTNY&quot;)</em>
+                <em>({translationStrings.mustBePrefixedWith} &quot;REG-&quot;)</em>
               </li>
               <li>{translationStrings.name}</li>
               <li>{translationStrings.gender}</li>

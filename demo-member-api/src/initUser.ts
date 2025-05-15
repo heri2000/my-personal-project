@@ -15,7 +15,7 @@ export async function initUser () {
 
   // const conn = await mysql.createConnection(access);
 
-  // const [rows, fields]: [RowDataPacket[], FieldPacket[]] = await conn.execute('select * from users where email=?', ['admin@heri-tny.my.id']);
+  // const [rows, fields]: [RowDataPacket[], FieldPacket[]] = await conn.execute('select * from users where email=?', ['admin@example.com']);
   // if (rows.length > 0) {
   //   console.log("User already exists.");
   // } else {
@@ -26,7 +26,7 @@ export async function initUser () {
     const hashedPwd = hash.digest('hex');
 
     const adminUser = {
-      email: 'admin@heri-tny.my.id',
+      email: 'admin@example.com',
       displayName: 'Admin',
       role: 'admin'
     } as const;
@@ -46,7 +46,7 @@ export async function initUser () {
     connectionString: `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`
   });
 
-  const { rowCount } = await pool.query('select * from users where email=$1', ['admin@heri-tny.my.id']);
+  const { rowCount } = await pool.query('select * from users where email=$1', ['admin@example.com']);
   if (rowCount === 0) {
     await pool.query(
       `insert into users (id, email, pwd, display_name, role, should_change_pwd, onetime_token, created_at, updated_at)
