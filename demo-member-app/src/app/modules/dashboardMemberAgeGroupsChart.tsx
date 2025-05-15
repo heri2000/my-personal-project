@@ -54,42 +54,42 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
   };
 
   return (
-     <div className="flex flex-col justify-start items-center mb-8 w-full md:w-1/4">
-       <Pie data={data} options={{ plugins: { legend: { position: 'bottom' } } }} />
-       <table className="statistics_table w-full mb-2">
-         <tbody>
-           <tr>
-             <td>&lt;= 18 y.o.</td>
-             <td>:</td>
-             <td className="text-end">{statistics.ageGroups.under18}</td>
-             <td className="text-end">{`(${under18Percent.toFixed(1)}%)`}</td>
-           </tr>
-           <tr>
-             <td>19 - 25 y.o.</td>
-             <td>:</td>
-             <td className="text-end">{statistics.ageGroups.from19to25}</td>
-             <td className="text-end">{`(${from19to25Percent.toFixed(1)}%)`}</td>
-           </tr>
-           <tr>
-             <td>26 - 59 y.o.</td>
-             <td>:</td>
-             <td className="text-end">{statistics.ageGroups.from26to59}</td>
-             <td className="text-end">{`(${from26to59Percent.toFixed(1)}%)`}</td>
-           </tr>
-           <tr>
-             <td>&gt;= 60 y.o.</td>
-             <td>:</td>
-             <td className="text-end">{statistics.ageGroups.over60}</td>
-             <td className="text-end">{`(${over60Percent.toFixed(1)}%)`}</td>
-           </tr>
-           <tr>
-             <td>Tak diketahui</td>
-             <td>:</td>
-             <td className="text-end">{statistics.ageGroups.unknown}</td>
-             <td className="text-end">{`(${unknownPercent.toFixed(1)}%)`}</td>
-           </tr>
-         </tbody>
-       </table>
-     </div>
+    <div className="flex flex-col justify-start items-center mb-8 w-full md:w-1/4">
+      <Pie data={data} options={{ plugins: { legend: { position: 'bottom' } } }} />
+      <table className="statistics_table w-full mb-2">
+        <tbody>
+          <tr>
+            <td>&lt;= 18 y.o.</td>
+            <td>:</td>
+            <td className="text-end">{statistics.ageGroups.under18}</td>
+            <td className="text-end">{`(${under18Percent.toFixed(1)}%)`}</td>
+          </tr>
+          <tr>
+            <td>19 - 25 y.o.</td>
+            <td>:</td>
+            <td className="text-end">{statistics.ageGroups.from19to25}</td>
+            <td className="text-end">{`(${from19to25Percent.toFixed(1)}%)`}</td>
+          </tr>
+          <tr>
+            <td>26 - 59 y.o.</td>
+            <td>:</td>
+            <td className="text-end">{statistics.ageGroups.from26to59}</td>
+            <td className="text-end">{`(${from26to59Percent.toFixed(1)}%)`}</td>
+          </tr>
+          <tr>
+            <td>&gt;= 60 y.o.</td>
+            <td>:</td>
+            <td className="text-end">{statistics.ageGroups.over60}</td>
+            <td className="text-end">{`(${over60Percent.toFixed(1)}%)`}</td>
+          </tr>
+          <tr>
+            <td>Tak diketahui</td>
+            <td>:</td>
+            <td className="text-end">{statistics.ageGroups.unknown}</td>
+            <td className="text-end">{`(${unknownPercent.toFixed(1)}%)`}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }

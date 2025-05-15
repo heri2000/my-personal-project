@@ -37,24 +37,24 @@ export default function DashboardMemberGenderChart({ statistics } : { statistics
   };
 
   return (
-     <div className="flex flex-col justify-start items-center mb-8 w-full md:w-1/4">
-       <Pie data={data} options={{ plugins: { legend: { position: 'bottom' } } }} />
-       <table className="statistics_table w-full mb-2">
-         <tbody>
-           <tr>
-             <td>Male</td>
-             <td>:</td>
-             <td className="text-end">{statistics.male}</td>
-             <td className="text-end">{`(${malePercent.toFixed(1)}%)`}</td>
-           </tr>
-           <tr>
-             <td>Female</td>
-             <td>:</td>
-             <td className="text-end">{statistics.female}</td>
-             <td className="text-end">{`(${femalePercent.toFixed(1)}%)`}</td>
-           </tr>
-         </tbody>
-       </table>
-     </div>
+    <div className="flex flex-col justify-start items-center mb-8 w-full md:w-1/4">
+      <Pie data={data} options={{ plugins: { legend: { position: 'bottom' } } }} />
+      <table className="statistics_table w-full mb-2">
+        <tbody>
+          <tr>
+            <td>Male</td>
+            <td>:</td>
+            <td className="text-end">{statistics.male}</td>
+            <td className="text-end">{`(${malePercent.toFixed(1)}%)`}</td>
+          </tr>
+          <tr>
+            <td>Female</td>
+            <td>:</td>
+            <td className="text-end">{statistics.female}</td>
+            <td className="text-end">{`(${femalePercent.toFixed(1)}%)`}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -44,30 +44,30 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
   };
 
   return (
-     <div className="flex flex-col justify-start items-center mb-8 w-full md:w-1/4">
-       <Pie data={data} options={{ plugins: { legend: { position: 'bottom' } } }} />
-       <table className="statistics_table w-full mb-2">
-         <tbody>
-           <tr>
-             <td>Associate</td>
-             <td>:</td>
-             <td className="text-end">{statistics.categories.associate}</td>
-             <td className="text-end">{`(${associatePercent.toFixed(1)}%)`}</td>
-           </tr>
-           <tr>
-             <td>General</td>
-             <td>:</td>
-             <td className="text-end">{statistics.categories.general}</td>
-             <td className="text-end">{`(${generalPercent.toFixed(1)}%)`}</td>
-           </tr>
-           <tr>
-             <td>Child</td>
-             <td>:</td>
-             <td className="text-end">{statistics.categories.child}</td>
-             <td className="text-end">{`(${childPercent.toFixed(1)}%)`}</td>
-           </tr>
-         </tbody>
-       </table>
-     </div>
+    <div className="flex flex-col justify-start items-center mb-8 w-full md:w-1/4">
+      <Pie data={data} options={{ plugins: { legend: { position: 'bottom' } } }} />
+      <table className="statistics_table w-full mb-2">
+        <tbody>
+          <tr>
+            <td>Associate</td>
+            <td>:</td>
+            <td className="text-end">{statistics.categories.associate}</td>
+            <td className="text-end">{`(${associatePercent.toFixed(1)}%)`}</td>
+          </tr>
+          <tr>
+            <td>General</td>
+            <td>:</td>
+            <td className="text-end">{statistics.categories.general}</td>
+            <td className="text-end">{`(${generalPercent.toFixed(1)}%)`}</td>
+          </tr>
+          <tr>
+            <td>Child</td>
+            <td>:</td>
+            <td className="text-end">{statistics.categories.child}</td>
+            <td className="text-end">{`(${childPercent.toFixed(1)}%)`}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }
