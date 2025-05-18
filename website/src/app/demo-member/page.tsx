@@ -3,8 +3,8 @@
 import React, { useEffect } from 'react';
 import { LoginPage, CURRENT_PAGE_LOGIN } from './modules/login';
 import { CpThemeToggle } from './components/cpThemeToggle';
-import { removeSessionId } from './utils/session';
-import { getStoredTheme, setStoredTheme, sleep } from './utils/utils';
+import { removeSessionId } from '@/app/utils/session';
+import { getStoredTheme, setStoredTheme, sleep } from '@/app/utils/utils';
 import { userLogout, getSessionData, type TSessionData } from './api/user';
 import { Blank } from './modules/blank';
 import { Dashboard, CURRENT_PAGE_DASHBOARD } from './modules/dashboard';
