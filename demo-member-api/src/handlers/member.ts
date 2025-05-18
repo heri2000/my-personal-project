@@ -364,8 +364,8 @@ export async function exportMember(req: Request, res: Response) {
     });
 
     qs = `select id, reg_number, name, gender,
-      birth_date+interval '7 hour as birth_date,
-      marriage_date+interval '7 hour as marriage_date, category, created_at,
+      birth_date+interval '7 hour' as birth_date,
+      marriage_date+interval '7 hour' as marriage_date, category, created_at,
       updated_at, deleted_at
       from members
       where deleted_at is null
@@ -374,8 +374,8 @@ export async function exportMember(req: Request, res: Response) {
     if (search) {
       const searchStr = `%${search.toString()}%`;
       qs = `select id, reg_number, name, gender,
-        birth_date+interval '7 hour as birth_date,
-        marriage_date+interval '7 hour as marriage_date, category, created_at,
+        birth_date+interval '7 hour' as birth_date,
+        marriage_date+interval '7 hour' as marriage_date, category, created_at,
         updated_at, deleted_at
         from members
         where deleted_at is null
@@ -497,10 +497,12 @@ export async function exportMember(req: Request, res: Response) {
       vals.progressPercent = 100;
       await setVals(`${memberExportPrefix}${exportId}`, JSON.stringify(vals));
     } catch (error) {
+      console.error(error);
       vals.status = 'error';
       await setVals(`${memberExportPrefix}${exportId}`, JSON.stringify(vals));
     }
   } catch (error) {
+    console.error(error);
     res.status(400).json({ status: 'Error', message: 'Bad request' });
   }
 }
