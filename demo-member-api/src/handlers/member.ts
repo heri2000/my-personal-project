@@ -15,6 +15,7 @@ import {
   sleep,
   SESSION_VALIDY_MINUTES,
 } from '../utils';
+import { getSessionDataFromVals } from './user';
 import { db, type TMember } from '../db';
 
 const memberImportPrefix = 'member-import-';
@@ -565,6 +566,21 @@ export async function downloadExportedFile(req: Request, res: Response) {
 }
 
 export async function memberList(req: Request, res: Response) {
+  if (!req.headers.authorization) {
+    return res.status(401).json({ error: 'unauthorized' });
+  }
+
+  const sessionId = req.headers.authorization.split(' ')[1];
+  const sessionData = await getSessionDataFromVals(sessionId);
+
+  if (!sessionData) {
+    return res.status(401).json({ error: 'unauthorized' });
+  }
+
+  if (sessionData.role !== 'admin' && sessionData.role!== 'staff') {
+    return res.status(403).json({ error: 'forbidden' });
+  }
+
   try {
     const { search, order, limit, offset } = req.query;
 

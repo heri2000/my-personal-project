@@ -95,21 +95,41 @@ export async function getSessionData(req: Request, res: Response) {
   try {
     const { sessionId } = req.params;
 
-    const getResult = await getVals(`${sessionPrefix}${sessionId}`);
+    // const getResult = await getVals(`${sessionPrefix}${sessionId}`);
 
-    if (!getResult) {
+    // if (!getResult) {
+    //   res.status(401).json({ status: 'Error', message: 'sessionExpired' });
+    // } else {
+    //   const { valid_until } = JSON.parse(getResult);
+    //   if (new Date(valid_until) < new Date()) {
+    //     res.status(401).json({ status: 'Error', message: 'sessionExpired' });
+    //     return;
+    //   }
+    //   res.json({ status: 'OK', data: JSON.parse(getResult) })
+    // }
+
+    const result = await getSessionDataFromVals(sessionId);
+    if (!result) {
       res.status(401).json({ status: 'Error', message: 'sessionExpired' });
+      return;
     } else {
-      const { valid_until } = JSON.parse(getResult);
-      if (new Date(valid_until) < new Date()) {
-        res.status(401).json({ status: 'Error', message: 'sessionExpired' });
-        return;
-      }
-      res.json({ status: 'OK', data: JSON.parse(getResult) })
+      res.json({ status: 'OK', data: result });
     }
   } catch (error) {
     res.status(400).json({ status: 'Error', message: 'Bad request' });
   }
+}
+
+export async function getSessionDataFromVals(sessionId: string) {
+  const getResult = await getVals(`${sessionPrefix}${sessionId}`);
+  if (!getResult) {
+    return null;
+  }
+  const jsonData = JSON.parse(getResult);
+  if (new Date(jsonData.valid_until) < new Date()) {
+    return null;
+  }
+  return jsonData;
 }
 
 export async function getChallenge(req: Request, res: Response) {

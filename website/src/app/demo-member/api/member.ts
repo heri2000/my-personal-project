@@ -159,6 +159,7 @@ export async function getExportProgressPercent(
 }
 
 export async function fetchMemberList(
+  sessionId: string,
   limit: number,
   offset: number,
   search: string,
@@ -185,7 +186,10 @@ export async function fetchMemberList(
   };
 
   try {
-    const response = await fetch(url, { method: 'GET'});
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${sessionId}` },
+    });
     const responseJson = await response.json();
 
     if (response.status === 400) {
@@ -194,7 +198,7 @@ export async function fetchMemberList(
       return result;
     }
 
-    else if (response.status !== 200) {
+    if (response.status !== 200) {
       result.status = 'error';
       result.errorMessage = translationStrings.unknownError;
       return result;

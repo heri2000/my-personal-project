@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', (req, res) => {
-  res.send('API Documentation');
+  res.send('API');
 });
 
 app.get('/status', (req, res) => {

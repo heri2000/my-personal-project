@@ -17,13 +17,17 @@ import {
   IcRefreshIcon,
   IcSearchIcon,
 } from "../components/IcIcons";
+import { TSessionData } from "../api/user";
 
 export const CURRENT_PAGE_MEMBER = "current_page_member";
 const VISIBLE_LAYER_MEMBER = "visible_layer_member";
 const localStorageLimitKey = "member_list_limit";
 const dialogDelete = "dialog_delete";
 
-export function Member() {
+export function Member(
+  { activeSessionData }:
+  { activeSessionData: TSessionData }
+) {
   const translationStrings = enEN;
   // const [showImportDropdown, setShowImportDropdown] = useState(false);
   const [visibleLayer, setVisibleLayer] = useState(VISIBLE_LAYER_MEMBER);
@@ -71,13 +75,14 @@ export function Member() {
     order: string,
   ) {
     setLoading(true);
-    const result = await fetchMemberList(limit, offset, search, order);
+    const result = await fetchMemberList(activeSessionData.sessionId, limit, offset, search, order);
 
     if (result.status === 'error') {
       setMemberList([]);
       setTotalMemberCount(0);
       setPageCount(0);
       setPageRangeDisplayed(1);
+      setLoading(false);
       return;
     }
 
