@@ -116,17 +116,33 @@ export default function AdminApp() {
 
   if (activePage === "") {
     return (<LayoutNoNav><Blank/></LayoutNoNav>);
-  } else if (activePage === CURRENT_PAGE_LOGIN) {
+  }
+
+  if (activePage === CURRENT_PAGE_LOGIN) {
     return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
-  } else if (activePage === CURRENT_PAGE_DASHBOARD) {
-    return (<LayoutWithNav><Dashboard/></LayoutWithNav>);
-  } else if (activePage === CURRENT_PAGE_MEMBER && activeSessionData) {
-    return (
-      <LayoutWithNav>
-        <Member activeSessionData={activeSessionData}/>
-      </LayoutWithNav>
-    );
-  } else if (activePage === CURRENT_PAGE_SETTING) {
+  }
+
+  if (activePage === CURRENT_PAGE_DASHBOARD) {
+    if (activeSessionData) {
+      return (
+        <LayoutWithNav><Dashboard activeSessionData={activeSessionData}/></LayoutWithNav>
+      );
+    } else {
+      return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
+    }
+  }
+
+  if (activePage === CURRENT_PAGE_MEMBER) {
+    if (activeSessionData) {
+      return (
+        <LayoutWithNav><Member activeSessionData={activeSessionData}/></LayoutWithNav>
+      );
+    } else {
+      return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
+    }
+  }
+
+  if (activePage === CURRENT_PAGE_SETTING) {
     return (<LayoutWithNav><Setting/></LayoutWithNav>);
   }
 

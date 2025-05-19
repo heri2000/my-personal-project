@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { TMember } from "../api/member";
 import { getDashboardUpcomingBirthdays } from "../api/dashboard";
 import { dateToString } from "@/app/utils/utils";
+import { TSessionData } from "../api/user";
 
 const UPCOMING_DAYS = 7;
 
-export function DashboardUpcomingBirthdays() {
+export function DashboardUpcomingBirthdays(
+  { activeSessionData }:
+  { activeSessionData: TSessionData }
+) {
   const translationStrings = enEN;
   const [upcomingBirthdayMembers, setUpcomingBirthdayMembers] = useState<TMember[]>([]);
 
@@ -15,7 +19,7 @@ export function DashboardUpcomingBirthdays() {
   }, []);
 
   async function fetchUpcomingBirthdayMembers() {
-    const result = await getDashboardUpcomingBirthdays(UPCOMING_DAYS);
+    const result = await getDashboardUpcomingBirthdays(activeSessionData.sessionId, UPCOMING_DAYS);
     if (result) {
       setUpcomingBirthdayMembers(result);
     }

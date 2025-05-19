@@ -1,10 +1,9 @@
+const host = (process.env.NODE_ENV === 'production' ? 'https://api.heri-tny.my.id' : 'http://localhost:3000');
+
 export const config = {
   api: {
-    // user: 'http://localhost:3000/v1/user',
-    // member: 'http://localhost:3000/v1/member',
-    // dashboard: 'http://localhost:3000/v1/dashboard',
-    user: 'https://api.heri-tny.my.id/v1/user',
-    member: 'https://api.heri-tny.my.id/v1/member',
-    dashboard: 'https://api.heri-tny.my.id/v1/dashboard',
+    user: `${host}/v1/user`,
+    member: `${host}/v1/member`,
+    dashboard: `${host}/v1/dashboard`,
   }
 };

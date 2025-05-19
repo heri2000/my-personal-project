@@ -1,10 +1,16 @@
 import { Request, Response } from "express";
 import { db } from '../db';
 import { TMember } from "../types";
-import { mapMemberDbToObject } from "../utils";
-import { start } from "repl";
+import { checkSessionRole, mapMemberDbToObject } from "../utils";
 
 export async function getDashboardStatistics(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff', 'user']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
   try {
     const result = {
       status: 'OK',
@@ -158,6 +164,13 @@ async function getAgeUnknown() {
 }
 
 export async function getUpcomingBirthdays(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff', 'user']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
   try {
     const { days } = req.params;
     if (!days) {
@@ -166,6 +179,7 @@ export async function getUpcomingBirthdays(req: Request, res: Response) {
     }
 
     const startDate = new Date();
+    startDate.setDate(startDate.getDate() + 1);
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + parseInt(days));
 
@@ -184,7 +198,6 @@ export async function getUpcomingBirthdays(req: Request, res: Response) {
           lpad(cast(extract(month from birth_date+interval '7 hour') as varchar), 2, '0'),
           lpad(cast(extract(day from birth_date+interval '7 hour') as varchar), 2, '0')
         ) as birthday,
-        date_part('day', birth_date+interval '7 hour') as day,
         birth_date+interval '7 hour' as birth_date,
         marriage_date+interval '7 hour' as marriage_date,
         category
