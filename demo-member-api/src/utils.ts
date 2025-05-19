@@ -1,12 +1,53 @@
 import { GlideClient, TimeUnit } from '@valkey/valkey-glide';
 import { valkeyConfig } from './valkey';
-import { type TMember } from './db';
+import { Request } from 'express';
+import { type TMember, type TAuthorization } from './types';
+import { getSessionDataFromVals } from './handlers/user';
 
 export function getCommandLineArgs () {
   return process.argv.slice(2);
 };
 
 export const SESSION_VALIDY_MINUTES = 720;
+
+export async function checkAuthorization(
+  req: Request, allowedRoles: string[]
+): Promise<TAuthorization> {
+  if (!req.headers.authorization) {
+    return {
+      sessionId: null,
+      errorCode: 401,
+      message: 'unauthorized',
+    };
+  }
+
+  const sessionId = req.headers.authorization.split(' ')[1];
+  const sessionData = await getSessionDataFromVals(sessionId);
+
+  if (!sessionData) {
+    return {
+      sessionId: null,
+      errorCode: 401,
+      message: 'unauthorized',
+    };
+  }
+
+  for (let i = 0; i < allowedRoles.length; i++) {
+    if (sessionData.role === allowedRoles[i]) {
+      return {
+        sessionId,
+        errorCode: null,
+        message: null,
+      };
+    }
+  }
+
+  return {
+    sessionId: null,
+    errorCode: 403,
+    message: 'forbidden',
+  };
+}
 
 export function getCurrentDateTimeSql(): string {
   const now = new Date();
