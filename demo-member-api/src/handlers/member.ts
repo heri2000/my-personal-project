@@ -14,7 +14,7 @@ import {
   mapMemberDbToObject,
   sleep,
   SESSION_VALIDY_MINUTES,
-  checkAuthorization,
+  checkSessionRole,
 } from '../utils';
 import { db } from '../db';
 import { TMember } from '../types';
@@ -38,6 +38,13 @@ export async function template(req: Request, res: Response) {
 }
 
 export async function upload(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
   const form = formidable({});
   let fields;
   let files;
@@ -320,6 +327,13 @@ async function importMember(uploadId: string, file: any) {
 }
 
 export async function exportMember(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
   try {
     const { search, order } = req.query;
 
@@ -567,12 +581,12 @@ export async function downloadExportedFile(req: Request, res: Response) {
 }
 
 export async function memberList(req: Request, res: Response) {
-  const authorization = await checkAuthorization(req, ['admin', 'staff']);
-  if (authorization.errorCode) {
-    return res.status(authorization.errorCode).json({
-      status: 'Error', message: authorization.message,
-    });
-  }
+  // const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  // if (authorization.errorCode) {
+  //   return res.status(authorization.errorCode).json({
+  //     status: 'Error', message: authorization.message,
+  //   });
+  // }
 
   try {
     const { search, order, limit, offset } = req.query;
@@ -673,6 +687,13 @@ export async function memberList(req: Request, res: Response) {
 }
 
 export async function addNewMember(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
   try {
     const member: TMember = req.body;
     member.regNumber = member.regNumber.toString().trim();
@@ -833,6 +854,13 @@ export async function addNewMember(req: Request, res: Response) {
 }
 
 export async function updateMember(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
   try {
     const member: TMember = req.body;
     member.regNumber = member.regNumber.toString().trim();
@@ -969,6 +997,13 @@ export async function updateMember(req: Request, res: Response) {
 }
 
 export async function deleteMember(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
   try {
     const { id } = req.params;
 

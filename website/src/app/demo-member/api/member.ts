@@ -96,7 +96,7 @@ export async function getImportProgressPercent(
 }
 
 export async function requestMemberExport(
-  search: string, order: string
+  sessionId: string, search: string, order: string
 ): Promise<TMemberExportResult> {
   const result: TMemberExportResult = {
     status: 'OK',
@@ -107,7 +107,8 @@ export async function requestMemberExport(
 
   try {
     const response = await fetch(
-      `${config.api.member}/export?search=${search}&order=${order}`, {method: 'GET'}
+      `${config.api.member}/export?search=${search}&order=${order}`,
+      {method: 'GET', headers: { 'Authorization': `Bearer ${sessionId}` }}
     );
     const responseJson = await response.json();
 
@@ -218,7 +219,10 @@ export async function fetchMemberList(
   return result;
 }
 
-export async function addNewMember(member: TMember): Promise<TAddNewMemberResult> {
+export async function addNewMember(
+  sessionId: string,
+  member: TMember
+): Promise<TAddNewMemberResult> {
   const result: TAddNewMemberResult = {
     status: 'OK',
     errorMessage: null,
@@ -230,7 +234,7 @@ export async function addNewMember(member: TMember): Promise<TAddNewMemberResult
       config.api.member,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionId}` },
         body: JSON.stringify(member),
       }
     );
@@ -252,7 +256,10 @@ export async function addNewMember(member: TMember): Promise<TAddNewMemberResult
   return result;
 }
 
-export async function updateMember(member: TMember): Promise<TUpdateMemberResult> {
+export async function updateMember(
+  sessionId: string,
+  member: TMember
+): Promise<TUpdateMemberResult> {
   const result: TUpdateMemberResult = {
     status: 'OK',
     errorMessage: null,
@@ -263,7 +270,7 @@ export async function updateMember(member: TMember): Promise<TUpdateMemberResult
       config.api.member,
       {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionId}` },
         body: JSON.stringify(member),
       }
     );
@@ -284,7 +291,9 @@ export async function updateMember(member: TMember): Promise<TUpdateMemberResult
   return result;
 }
 
-export async function deleteMember(member: TMember): Promise<TDeleteMemberResult> {
+export async function deleteMember(
+  sessionId: string, member: TMember
+): Promise<TDeleteMemberResult> {
   const result: TDeleteMemberResult = {
     status: 'OK',
     errorMessage: null,
@@ -292,7 +301,8 @@ export async function deleteMember(member: TMember): Promise<TDeleteMemberResult
 
   try {
     const response = await fetch(
-      `${config.api.member}/${member.id}`, {method: 'DELETE'}
+      `${config.api.member}/${member.id}`,
+      {method: 'DELETE', headers: { 'Authorization': `Bearer ${sessionId}` }},
     );
 
     const responseJson = await response.json();

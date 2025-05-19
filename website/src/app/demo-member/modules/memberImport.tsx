@@ -5,10 +5,14 @@ import { CpSpinner } from "../components/cpSpinner";
 import { config } from "@/app/utils/config";
 import { enEN } from "@/app/translations/enEN";
 import { getImportProgressPercent } from "../api/member";
+import { TSessionData } from "../api/user";
 
 export const VISIBLE_LAYER_MEMBER_IMPORT = "visible_layer_member_import";
 
-export function MemberImport({handleGoBack}: {handleGoBack: () => void}) {
+export function MemberImport(
+  {activeSessionData, handleGoBack}:
+  {activeSessionData: TSessionData, handleGoBack: () => void}
+) {
   const [loading, setLoading] = useState(false);
   const [inputFile, setInputFile] = useState<File>();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -38,6 +42,7 @@ export function MemberImport({handleGoBack}: {handleGoBack: () => void}) {
     try {
       const xhr = new XMLHttpRequest();
       xhr.open("POST", `${config.api.member}/upload`, true);
+      xhr.setRequestHeader("Authorization", `Bearer ${activeSessionData.sessionId}`);
 
       xhr.upload.onprogress = (event) => {
         if (event.lengthComputable) {

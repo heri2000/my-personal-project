@@ -3,6 +3,7 @@ import { CpSpinner } from "../components/cpSpinner";
 import { addNewMember, updateMember, type TMember } from "../api/member";
 import { dateToSqlString, parseErrorMessage, sqlDateTimeToSqlDate } from "@/app/utils/utils";
 import { enEN } from "@/app/translations/enEN";
+import { TSessionData } from "../api/user";
 
 export const VISIBLE_LAYER_MEMBER_NEW = "visible_layer_member_new";
 export const VISIBLE_LAYER_MEMBER_EDIT = "visible_layer_member_edit";
@@ -24,12 +25,14 @@ const initialMemberState: TMember = {
 };
 
 export function MemberEdit({
+  activeSessionData,
   visibleLayer,
   memberToEdit,
   handleGoBack,
   handleNewMemberAdded,
   handleMemberUpdated,
 }: {
+  activeSessionData: TSessionData,
   visibleLayer: string,
   memberToEdit: TMember | null,
   handleGoBack: () => void
@@ -53,7 +56,7 @@ export function MemberEdit({
   async function handleAddNewMember() {
     setErrorMessage(null);
     setLoading(true);
-    const result = await addNewMember(member);
+    const result = await addNewMember(activeSessionData.sessionId, member);
     if (result.status === 'OK') {
       if (result.id) {
         member.id = result.id;
@@ -70,7 +73,7 @@ export function MemberEdit({
   async function handleUpdateMember() {
     setErrorMessage(null);
     setLoading(true);
-    const result = await updateMember(member);
+    const result = await updateMember(activeSessionData.sessionId, member);
     if (result.status === 'OK') {
       handleMemberUpdated();
     } else {

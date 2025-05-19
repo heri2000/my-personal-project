@@ -10,7 +10,7 @@ export function getCommandLineArgs () {
 
 export const SESSION_VALIDY_MINUTES = 720;
 
-export async function checkAuthorization(
+export async function checkSessionRole(
   req: Request, allowedRoles: string[]
 ): Promise<TAuthorization> {
   if (!req.headers.authorization) {
