@@ -17,20 +17,24 @@ import {
   IcRefreshIcon,
   IcSearchIcon,
 } from "../components/IcIcons";
+import { TSessionData } from "../api/user";
 
 export const CURRENT_PAGE_MEMBER = "current_page_member";
 const VISIBLE_LAYER_MEMBER = "visible_layer_member";
-const localStorageLimitKey = "member_list_limit";
-const dialogDelete = "dialog_delete";
+const LOCAL_STORAGE_LIMIT_KEY = "member_list_limit";
+const VISIBLE_DIALOG_DELETE = "visible_dialog_delete";
 
-export function Member() {
+export function Member(
+  { activeSessionData }:
+  { activeSessionData: TSessionData }
+) {
   const translationStrings = enEN;
   // const [showImportDropdown, setShowImportDropdown] = useState(false);
   const [visibleLayer, setVisibleLayer] = useState(VISIBLE_LAYER_MEMBER);
   const [visibleDialog, setVisibleDialog] = useState("");
   const [dialogErrorMessage, setDialogErrorMessage] = useState<string | null>(null);
   let pageLimit = PAGE_LIMITS[0];
-  const storedLimit = localStorage.getItem(localStorageLimitKey);
+  const storedLimit = localStorage.getItem(LOCAL_STORAGE_LIMIT_KEY);
   if (storedLimit) {
     pageLimit = Number(storedLimit);
   }
@@ -45,6 +49,23 @@ export function Member() {
   const [orderBy, setOrderBy] = useState("regNumber");
   const [orderDirection, setOrderDirection] = useState("asc");
   const [loading, setLoading] = useState(false);
+
+  const permissions = {
+    allowedToAddNewMeber: false,
+    allowedToEditMember: false,
+    allowedToDeleteMember: false,
+    allowedToImportMembers: false,
+    allowedToExportMembers: false,
+  };
+
+  if (activeSessionData) {
+    permissions.allowedToAddNewMeber =
+      activeSessionData.role === "admin" || activeSessionData.role === "staff";
+    permissions.allowedToEditMember = permissions.allowedToAddNewMeber
+    permissions.allowedToDeleteMember = permissions.allowedToAddNewMeber
+    permissions.allowedToImportMembers = permissions.allowedToAddNewMeber
+    permissions.allowedToExportMembers = permissions.allowedToAddNewMeber
+  }
 
   useEffect(() => {
     doFetchMemberList(
@@ -71,13 +92,16 @@ export function Member() {
     order: string,
   ) {
     setLoading(true);
-    const result = await fetchMemberList(limit, offset, search, order);
+    const result = await fetchMemberList(
+      activeSessionData.sessionId, limit, offset, search, order
+    );
 
     if (result.status === 'error') {
       setMemberList([]);
       setTotalMemberCount(0);
       setPageCount(0);
       setPageRangeDisplayed(1);
+      setLoading(false);
       return;
     }
 
@@ -125,14 +149,14 @@ export function Member() {
   function handleDeleteLinkClick(member: TMember) {
     setMemberToEdit(member);
     setDialogErrorMessage(null);
-    setVisibleDialog(dialogDelete);
+    setVisibleDialog(VISIBLE_DIALOG_DELETE);
   }
 
   async function handleConfirmDeleteMember() {
     setLoading(true);
     setDialogErrorMessage(null);
     if (memberToEdit) {
-      const result = await deleteMember(memberToEdit);
+      const result = await deleteMember(activeSessionData.sessionId, memberToEdit);
       if (result.status === 'OK') {
         setVisibleDialog("");
         setTimeout(() => {
@@ -150,7 +174,7 @@ export function Member() {
   function handleChange(event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) {
     if (event.target.name === "limit") {
       const newLimit = Number(event.target.value);
-      localStorage.setItem(localStorageLimitKey, String(newLimit));
+      localStorage.setItem(LOCAL_STORAGE_LIMIT_KEY, String(newLimit));
       setSelectedLimit(newLimit);
       setPageRangeDisplayed(0);
       doFetchMemberList(
@@ -209,6 +233,7 @@ export function Member() {
 
   if (visibleLayer === VISIBLE_LAYER_MEMBER_IMPORT) {
     return <MemberImport
+    activeSessionData={activeSessionData}
       handleGoBack={() => {
         setVisibleLayer(VISIBLE_LAYER_MEMBER);
         handleButtonRefreshClick();
@@ -218,6 +243,7 @@ export function Member() {
 
   if (visibleLayer === VISIBLE_LAYER_MEMBER_EXPORT) {
     return <MemberExport
+      activeSessionData={activeSessionData}
       handleGoBack={() => {
         setVisibleLayer(VISIBLE_LAYER_MEMBER);
         handleButtonRefreshClick();
@@ -229,6 +255,7 @@ export function Member() {
 
   if (visibleLayer === VISIBLE_LAYER_MEMBER_NEW) {
     return <MemberEdit
+      activeSessionData={activeSessionData}
       visibleLayer={VISIBLE_LAYER_MEMBER_NEW}
       memberToEdit={null}
       handleGoBack={() => {setVisibleLayer(VISIBLE_LAYER_MEMBER);}}
@@ -244,6 +271,7 @@ export function Member() {
 
   if (visibleLayer === VISIBLE_LAYER_MEMBER_EDIT) {
     return <MemberEdit
+      activeSessionData={activeSessionData}
       visibleLayer={VISIBLE_LAYER_MEMBER_EDIT}
       memberToEdit={memberToEdit}
       handleGoBack={() => {setVisibleLayer(VISIBLE_LAYER_MEMBER);}}
@@ -323,37 +351,43 @@ export function Member() {
               <IcCloseIcon/>
             )}
           </button>
-          <button
-            type="button"
-            id="button_new"
-            onClick={handleButtonNewClick}
-          >
-            {translationStrings.addNew}
-          </button>
+          {permissions.allowedToAddNewMeber && (
+            <button
+              type="button"
+              id="button_new"
+              onClick={handleButtonNewClick}
+            >
+              {translationStrings.addNew}
+            </button>
+          )}
         </div>
         <div className="flex flex-row">
 
           <div className="relative inline-block text-left">
             <div>
-              <button
-                type="button"
-                className="me-1"
-                // className="dropdown_button"
-                // id="menu-button"
-                // aria-expanded="true"
-                // aria-haspopup="true"
-                // onClick={() => {setShowImportDropdown(!showImportDropdown)}}
-                onClick={handleButtonImportClick}
-              >
-                {translationStrings.import}
-                {/* <span className="material-symbols-outlined text-slate-200 dark:text-slate-800">arrow_drop_down</span> */}
-              </button>
-              <button
-                type="button"
-                onClick={handleButtonExportClick}
-              >
-                {translationStrings.export}
-              </button>
+              {permissions.allowedToImportMembers && (
+                <button
+                  type="button"
+                  className="me-1"
+                  // className="dropdown_button"
+                  // id="menu-button"
+                  // aria-expanded="true"
+                  // aria-haspopup="true"
+                  // onClick={() => {setShowImportDropdown(!showImportDropdown)}}
+                  onClick={handleButtonImportClick}
+                >
+                  {translationStrings.import}
+                  {/* <span className="material-symbols-outlined text-slate-200 dark:text-slate-800">arrow_drop_down</span> */}
+                </button>
+              )}
+              {permissions.allowedToExportMembers && (
+                <button
+                  type="button"
+                  onClick={handleButtonExportClick}
+                >
+                  {translationStrings.export}
+                </button>
+              )}
             </div>
             {/* {showImportDropdown && (
               <div className="dropdown_menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
@@ -523,22 +557,26 @@ export function Member() {
                     <td>{element.name}</td>
                     <td className="flex-row">
                       <div className="flex flex-row h-full">
-                        <a
-                          href="#"
-                          className="link_icon"
-                          title={translationStrings.edit}
-                          onClick={() => handleEditLinkClick(element)}
-                        >
-                          <IcEditIcon/>
-                        </a>
-                        <a
-                          href="#"
-                          className="link_icon"
-                          title={translationStrings.delete}
-                          onClick={() => handleDeleteLinkClick(element)}
-                        >
-                          <IcDeleteIcon/>
-                        </a>
+                        {permissions.allowedToEditMember && (
+                          <a
+                            href="#"
+                            className="link_icon"
+                            title={translationStrings.edit}
+                            onClick={() => handleEditLinkClick(element)}
+                          >
+                            <IcEditIcon/>
+                          </a>
+                        )}
+                        {permissions.allowedToDeleteMember && (
+                          <a
+                            href="#"
+                            className="link_icon"
+                            title={translationStrings.delete}
+                            onClick={() => handleDeleteLinkClick(element)}
+                          >
+                            <IcDeleteIcon/>
+                          </a>
+                        )}
                         <span className={badgeClass}>{element.category}</span>
                       </div>
                     </td>
@@ -587,7 +625,7 @@ export function Member() {
         </div>
 
       </div>
-      {visibleDialog === dialogDelete && <DialogDelete />}
+      {visibleDialog === VISIBLE_DIALOG_DELETE && <DialogDelete />}
       {loading && <CpSpinner/>}
     </div>
   );

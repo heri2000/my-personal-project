@@ -8,6 +8,7 @@ type TLoginResult = {
 };
 
 export type TSessionData = {
+  sessionId: string;
   userId: string;
   email: string;
   displayName: string;
@@ -78,9 +79,10 @@ export function getSessionData(): Promise<TSessionData | null> {
     const response = await fetch(`${config.api.user}/session-data/${sessionId}`, {
       method: 'GET',
     });
-    if (response.status === 200) {
+    if (response.status === 200 && sessionId) {
       const data = await response.json();
       resolve({
+        sessionId,
         userId: data.data.user_id,
         email: data.data.email,
         displayName: data.data.display_name,

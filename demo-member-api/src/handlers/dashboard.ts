@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { db, type TMember } from '../db';
+import { db } from '../db';
+import { TMember } from "../types";
 import { mapMemberDbToObject } from "../utils";
 import { start } from "repl";
 

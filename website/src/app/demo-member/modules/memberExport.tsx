@@ -5,11 +5,14 @@ import { requestMemberExport, getExportProgressPercent } from "../api/member";
 import { CpSpinner } from "../components/cpSpinner";
 import { CpProgressbar } from "../components/cpProgressbar";
 import { enEN } from "@/app/translations/enEN";
+import { TSessionData } from "../api/user";
 
 export const VISIBLE_LAYER_MEMBER_EXPORT = "visible_layer_member_export";
 
 export function MemberExport(
-  {handleGoBack, search, order}: {
+  {activeSessionData, handleGoBack, search, order}:
+  {
+    activeSessionData: TSessionData,
     handleGoBack: () => void,
     search: string,
     order: string,
@@ -26,7 +29,7 @@ export function MemberExport(
     setErrorMessage(null);
     setLoading(true);
 
-    const result = await requestMemberExport(search, order);
+    const result = await requestMemberExport(activeSessionData.sessionId, search, order);
     if (result.exportId) {
       setExportId(result.exportId);
       setExportProgress(0);

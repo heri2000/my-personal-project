@@ -42,6 +42,7 @@ export const enEN = {
   "menu": "Menu",
   "mustBePrefixedWith": "Harus diawali dengan",
   "name": "Nama",
+  "noBirthdays": "Tidak ada ulang tahun",
   "noData": "Tidak ada data",
   "no1": "No.",
   "of": "dari",

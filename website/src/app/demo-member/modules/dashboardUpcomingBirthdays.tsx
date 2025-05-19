@@ -43,6 +43,11 @@ export function DashboardUpcomingBirthdays() {
             </tr>
           </thead>
           <tbody>
+            {upcomingBirthdayMembers.length === 0 && (
+              <tr>
+                <td colSpan={10} className="text-center">{translationStrings.noBirthdays}</td>
+              </tr>
+            )}
             {upcomingBirthdayMembers.map((element: TMember, index: number) => {
               let badgeClass = "text-xs bg-gray-600 dark:bg-slate-400 text-white dark:text-slate-800 px-1 h-4 rounded-2xl mt-1 whitespace-nowrap";
               if (element.category?.toLowerCase() === "jemaat anak") {
