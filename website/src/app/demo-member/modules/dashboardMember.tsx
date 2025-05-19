@@ -4,8 +4,12 @@ import DashboardMemberGenderChart from "./dashboardMemberGenderChart";
 import DashboardMemberCategoriesChart from "./dashboardMemberCategoriesChart";
 import DashboardMemberAgeGroupsChart from "./dashboardMemberAgeGroupsChart";
 import { enEN } from "@/app/translations/enEN";
+import { TSessionData } from "../api/user";
 
-export function DashboardMember() {
+export function DashboardMember(
+  { activeSessionData }:
+  { activeSessionData: TSessionData }
+) {
   const translationStrings = enEN;
   const [statistics, setStatistics] = useState<TDashboardStatistics | null>(null);
 
@@ -14,7 +18,7 @@ export function DashboardMember() {
   }, []);
 
   async function fetchStatistics() {
-    const result = await getDashboardStatistics();
+    const result = await getDashboardStatistics(activeSessionData.sessionId);
     setStatistics(result);
   }
 

@@ -13,7 +13,7 @@ export type TDashboardStatistics = {
   };
 }
 
-export async function getDashboardStatistics(): Promise<TDashboardStatistics> {
+export async function getDashboardStatistics(sessionId: string): Promise<TDashboardStatistics> {
   const statistics: TDashboardStatistics = {
     totalMembers: 0,
     male: 0,
@@ -33,7 +33,10 @@ export async function getDashboardStatistics(): Promise<TDashboardStatistics> {
   };
 
   try {
-    const response = await fetch(`${config.api.dashboard}/statistics`, {method: 'GET'});
+    const response = await fetch(
+      `${config.api.dashboard}/statistics`,
+      {method: 'GET', headers: {'Authorization': `Bearer ${sessionId}`}},
+    );
     const responseJson = await response.json();
     if (response.status !== 200) {
       console.error('Failed to fetch dashboard statistics');
@@ -52,11 +55,12 @@ export async function getDashboardStatistics(): Promise<TDashboardStatistics> {
 }
 
 export async function getDashboardUpcomingBirthdays(
-  days: number
+  sessionId: string, days: number
 ): Promise<TMember[] | null> {
   try {
     const response = await fetch(
-      `${config.api.dashboard}/upcoming-birthdays/${days}`, {method: 'GET'}
+      `${config.api.dashboard}/upcoming-birthdays/${days}`,
+      {method: 'GET', headers: {'Authorization': `Bearer ${sessionId}`}},
     );
     const responseJson = await response.json();
 

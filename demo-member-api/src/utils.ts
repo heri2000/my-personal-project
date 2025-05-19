@@ -4,11 +4,11 @@ import { Request } from 'express';
 import { type TMember, type TAuthorization } from './types';
 import { getSessionDataFromVals } from './handlers/user';
 
+export const SESSION_VALIDY_MINUTES = 720;
+
 export function getCommandLineArgs () {
   return process.argv.slice(2);
 };
-
-export const SESSION_VALIDY_MINUTES = 720;
 
 export async function checkSessionRole(
   req: Request, allowedRoles: string[]

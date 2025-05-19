@@ -18,8 +18,13 @@ for (let i=0; i<args.length; i++) {
 app.use(express.json());
 app.disable('x-powered-by');
 
+let accessControlAllowOrigin = process.env.DEV === '1' ? '*' : process.env.ACCESS_CONTROL_ALLOW_ORIGIN;
+if (!accessControlAllowOrigin) {
+  accessControlAllowOrigin = '*';
+}
+
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', accessControlAllowOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
