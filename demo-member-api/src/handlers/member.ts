@@ -77,7 +77,7 @@ export async function upload(req: Request, res: Response) {
     return;
   }
 
-  importMember(uploadId, files.file?.at(0));
+  importMember(uploadId, files.file?.at(0), authorization.sessionId);
 
   res.writeHead(200, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ status:'OK', uploadId }, null, 2));
@@ -108,7 +108,7 @@ export async function importProgress(req: Request, res: Response) {
   }
 }
 
-async function importMember(uploadId: string, file: any) {
+async function importMember(uploadId: string, file: any, sessionId: string | null = null) {
   const sourceFilePath: string = file.filepath;
   const destinationFilePath: string = path.join(__dirname, `../../temp/${file.newFilename}.xlsx`);
 
@@ -210,10 +210,10 @@ async function importMember(uploadId: string, file: any) {
 
       await db.query(
         `insert into members (id, reg_number, name, gender, birth_date, marriage_date, category,
-        created_at, updated_at)
-        values ($1,$2,$3,$4,$5,$6,$7,$8,$8)
+        created_at, updated_at, session_id)
+        values ($1,$2,$3,$4,$5,$6,$7,$8,$8,$9)
         on conflict (id) do update set name=$3, gender=$4, birth_date=$5, marriage_date=$6, category=$7,
-        updated_at=$8`,
+        updated_at=$8, session_id=$9`,
         [
           id,
           regNumber,
@@ -223,6 +223,7 @@ async function importMember(uploadId: string, file: any) {
           marriageDate,
           category,
           timeStamp,
+          sessionId,
         ],
       );
 
@@ -345,8 +346,9 @@ export async function exportMember(req: Request, res: Response) {
       orderBy = orderBy.replace('marriageDate', 'marriage_date');
     }
 
-    let qs = 'select count(*) as total from members where deleted_at is null';
-    let params: Array<String> = [];
+    let qs = `select count(*) as total from members where deleted_at is null
+      and session_id=$1`;
+    let params: Array<String> = [authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
       qs = `${qs} and (reg_number ilike $1 or name ilike $1)`;
@@ -385,8 +387,9 @@ export async function exportMember(req: Request, res: Response) {
       updated_at, deleted_at
       from members
       where deleted_at is null
+      and session_id=$1
       order by ${orderBy}`;
-    params = [];
+    params = [authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
       qs = `select id, reg_number, name, gender,
@@ -395,9 +398,10 @@ export async function exportMember(req: Request, res: Response) {
         updated_at, deleted_at
         from members
         where deleted_at is null
+        and session_id=$2
         and (reg_number ilike $1 or name ilike $1)
         order by ${orderBy}`;
-      params = [searchStr];
+      params = [searchStr, authorization.sessionId!];
     }
 
     try {
@@ -581,12 +585,12 @@ export async function downloadExportedFile(req: Request, res: Response) {
 }
 
 export async function memberList(req: Request, res: Response) {
-  // const authorization = await checkSessionRole(req, ['admin', 'staff']);
-  // if (authorization.errorCode) {
-  //   return res.status(authorization.errorCode).json({
-  //     status: 'Error', message: authorization.message,
-  //   });
-  // }
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
 
   try {
     const { search, order, limit, offset } = req.query;
@@ -619,9 +623,10 @@ export async function memberList(req: Request, res: Response) {
       updated_at, deleted_at
       from members
       where deleted_at is null
+      and session_id = $3
       order by ${orderBy}
       limit $1 offset $2`;
-    params = [limit!.toString(), offset!.toString()];
+    params = [limit!.toString(), offset!.toString(), authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
       qs = `select id, reg_number, name, gender,
@@ -630,10 +635,11 @@ export async function memberList(req: Request, res: Response) {
         updated_at, deleted_at
         from members
         where deleted_at is null
+        and session_id = $4
         and (reg_number ilike $1 or name ilike $1)
         order by ${orderBy}
         limit $2 offset $3`;
-      params = [searchStr, limit!.toString(), offset!.toString()];
+      params = [searchStr, limit!.toString(), offset!.toString(), authorization.sessionId!];
     }
 
     try {
@@ -735,8 +741,9 @@ export async function addNewMember(req: Request, res: Response) {
 
         await db.query(
           `insert into members
-          (id, reg_number, name, gender, birth_date, marriage_date, category, created_at, updated_at)
-          values ($1,$2,$3,$4,$5,$6,$7,$8,$8)`,
+          (id, reg_number, name, gender, birth_date, marriage_date, category,
+          created_at, updated_at, session_id)
+          values ($1,$2,$3,$4,$5,$6,$7,$8,$8,$9)`,
           [
             member.id,
             member.regNumber,
@@ -746,6 +753,7 @@ export async function addNewMember(req: Request, res: Response) {
             member.marriageDate,
             member.category,
             timeStamp,
+            authorization.sessionId,
           ],
         );
       } else {

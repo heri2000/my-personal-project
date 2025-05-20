@@ -69,6 +69,10 @@ exports.up = function(db) {
       type: "timestamp",
       notNull: false,
     },
+    session_id: {
+      type: "string",
+      length: 30,
+    },
   });
 };
 
