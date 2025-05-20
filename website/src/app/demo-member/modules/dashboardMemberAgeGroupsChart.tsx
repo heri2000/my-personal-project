@@ -61,32 +61,52 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
           <tr>
             <td>&lt;= 18 y.o.</td>
             <td>:</td>
-            <td className="text-end">{statistics.ageGroups.under18}</td>
-            <td className="text-end">{`(${under18Percent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.ageGroups.under18}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(under18Percent) ? null : `(${under18Percent.toFixed(1)}%)`}
+            </td>
           </tr>
           <tr>
             <td>19 - 25 y.o.</td>
             <td>:</td>
-            <td className="text-end">{statistics.ageGroups.from19to25}</td>
-            <td className="text-end">{`(${from19to25Percent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.ageGroups.from19to25}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(from19to25Percent) ? null : `(${from19to25Percent.toFixed(1)}%)`}
+            </td>
           </tr>
           <tr>
             <td>26 - 59 y.o.</td>
             <td>:</td>
-            <td className="text-end">{statistics.ageGroups.from26to59}</td>
-            <td className="text-end">{`(${from26to59Percent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.ageGroups.from26to59}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(from26to59Percent) ? null : `(${from26to59Percent.toFixed(1)}%)`}
+            </td>
           </tr>
           <tr>
             <td>&gt;= 60 y.o.</td>
             <td>:</td>
-            <td className="text-end">{statistics.ageGroups.over60}</td>
-            <td className="text-end">{`(${over60Percent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.ageGroups.over60}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(over60Percent) ? null : `(${over60Percent.toFixed(1)}%)`}
+            </td>
           </tr>
           <tr>
             <td>Tak diketahui</td>
             <td>:</td>
-            <td className="text-end">{statistics.ageGroups.unknown}</td>
-            <td className="text-end">{`(${unknownPercent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.ageGroups.unknown}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(unknownPercent) ? null : `(${unknownPercent.toFixed(1)}%)`}
+            </td>
           </tr>
         </tbody>
       </table>
