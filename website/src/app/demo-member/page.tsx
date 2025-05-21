@@ -10,6 +10,7 @@ import { Blank } from './modules/blank';
 import { Dashboard, CURRENT_PAGE_DASHBOARD } from './modules/dashboard';
 import { Member, CURRENT_PAGE_MEMBER } from './modules/member';
 import { Setting, CURRENT_PAGE_SETTING } from './modules/setting';
+import { PrepareSampleData, CURRENT_PAGE_PREPARE_SAMPLE_DATA } from './modules/prepareSampleData';
 import { NotFound } from './modules/notFound';
 import './page.css';
 import { CpNavbar } from './components/cpNavbar';
@@ -38,7 +39,7 @@ export default function AdminApp() {
     await sleep(500);
     if (sessionData) {
       if (activePage === "" || activePage === CURRENT_PAGE_LOGIN) {
-        setActivePage(CURRENT_PAGE_DASHBOARD);
+        setActivePage(CURRENT_PAGE_PREPARE_SAMPLE_DATA);
       }
     } else {
       if (activePage !== CURRENT_PAGE_LOGIN) {
@@ -136,6 +137,21 @@ export default function AdminApp() {
     if (activeSessionData) {
       return (
         <LayoutWithNav><Member activeSessionData={activeSessionData}/></LayoutWithNav>
+      );
+    } else {
+      return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
+    }
+  }
+
+  if (activePage === CURRENT_PAGE_PREPARE_SAMPLE_DATA) {
+    if (activeSessionData) {
+      return (
+        <LayoutNoNav>
+          <PrepareSampleData
+            activeSessionData={activeSessionData}
+            continueToDashboard={() => {setActivePage(CURRENT_PAGE_DASHBOARD)}}
+          />
+        </LayoutNoNav>
       );
     } else {
       return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);

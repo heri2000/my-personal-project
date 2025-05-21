@@ -320,3 +320,41 @@ export async function deleteMember(
 
   return result;
 }
+
+export async function getMemberCount(sessionId: string): Promise<number> {
+  let count = 0;
+
+  try {
+    const response = await fetch(
+      `${config.api.member}/count`,
+      {method: 'GET', headers: { 'Authorization': `Bearer ${sessionId}` }},
+    );
+
+    const responseJson = await response.json();
+
+    if (response.status === 200) {
+      count = Number.parseInt(responseJson.count, 10);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  return count;
+}
+
+export async function prepareSampleData(sessionId: string): Promise<boolean> {
+  try {
+    const response = await fetch(
+      `${config.api.member}/prepare-sample`,
+      {method: 'GET', headers: { 'Authorization': `Bearer ${sessionId}` }},
+    );
+
+    if (response.status !== 200) {
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+  return true;
+}

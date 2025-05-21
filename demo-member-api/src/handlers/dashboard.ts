@@ -15,20 +15,20 @@ export async function getDashboardStatistics(req: Request, res: Response) {
     const result = {
       status: 'OK',
       statistics: {
-        totalMembers: await getTotalMembers(),
-        male: await getMale(),
-        female: await getFemale(),
+        totalMembers: await getTotalMembers(authorization.sessionId!),
+        male: await getMale(authorization.sessionId!),
+        female: await getFemale(authorization.sessionId!),
         categories: {
-          associate: await getAssociate(),
-          general: await getGeneral(),
-          child: await getChild(),
+          associate: await getAssociate(authorization.sessionId!),
+          general: await getGeneral(authorization.sessionId!),
+          child: await getChild(authorization.sessionId!),
         },
         ageGroups: {
-          under18: await getAgeGroupUnder18(),
-          from19to25: await getAgeGroupFrom19to25(),
-          from26to59: await getAgeGroupFrom26to59(),
-          over60: await getAgeGroupOver60(),
-          unknown: await getAgeUnknown(),
+          under18: await getAgeGroupUnder18(authorization.sessionId!),
+          from19to25: await getAgeGroupFrom19to25(authorization.sessionId!),
+          from26to59: await getAgeGroupFrom26to59(authorization.sessionId!),
+          over60: await getAgeGroupOver60(authorization.sessionId!),
+          unknown: await getAgeUnknown(authorization.sessionId!),
         },
       },
     };
@@ -40,10 +40,11 @@ export async function getDashboardStatistics(req: Request, res: Response) {
   }
 }
 
-async function getTotalMembers() {
+async function getTotalMembers(sessionId: string) {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null`
+    `select count(*) as rc from members where deleted_at is null and session_id=$1`,
+    [sessionId]
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -51,77 +52,12 @@ async function getTotalMembers() {
   return count;
 }
 
-async function getMale() {
-  let count = 0;
-  const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and gender='M'`
-  );
-  if (rowCount) {
-    count = rows[0].rc;
-  }
-  return count;
-}
-
-async function getFemale() {
-  let count = 0;
-  const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and gender='F'`
-  );
-  if (rowCount) {
-    count = rows[0].rc;
-  }
-  return count;
-}
-
-async function getGeneral() {
-  let count = 0;
-  const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and category='General'`
-  );
-  if (rowCount) {
-    count = rows[0].rc;
-  }
-  return count;
-}
-
-async function getAssociate() {
-  let count = 0;
-  const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and category='Associate'`
-  );
-  if (rowCount) {
-    count = rows[0].rc;
-  }
-  return count;
-}
-
-async function getChild() {
-  let count = 0;
-  const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and category='Child'`
-  );
-  if (rowCount) {
-    count = rows[0].rc;
-  }
-  return count;
-}
-
-async function getAgeGroupUnder18() {
-  let count = 0;
-  const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and birth_date >= (now() - INTERVAL '18 years')`
-  );
-  if (rowCount) {
-    count = rows[0].rc;
-  }
-  return count;
-}
-
-async function getAgeGroupFrom19to25() {
+async function getMale(sessionId: string) {
   let count = 0;
   const { rowCount, rows } = await db.query(
     `select count(*) as rc from members where deleted_at is null and
-    (birth_date >= (now() - INTERVAL '25 years') and  birth_date < (now() - INTERVAL '18 years'))`
+    gender='M' and session_id=$1`,
+    [sessionId]
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -129,11 +65,12 @@ async function getAgeGroupFrom19to25() {
   return count;
 }
 
-async function getAgeGroupFrom26to59() {
+async function getFemale(sessionId: string) {
   let count = 0;
   const { rowCount, rows } = await db.query(
     `select count(*) as rc from members where deleted_at is null and
-    (birth_date > (now() - INTERVAL '60 years') and  birth_date < (now() - INTERVAL '25 years'))`
+    gender='F' and session_id=$1`,
+    [sessionId]
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -141,10 +78,12 @@ async function getAgeGroupFrom26to59() {
   return count;
 }
 
-async function getAgeGroupOver60() {
+async function getGeneral(sessionId: string) {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and birth_date <= (now() - INTERVAL '60 years')`
+    `select count(*) as rc from members where deleted_at is null and
+    category='General' and session_id=$1`,
+    [sessionId]
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -152,10 +91,92 @@ async function getAgeGroupOver60() {
   return count;
 }
 
-async function getAgeUnknown() {
+async function getAssociate(sessionId: string) {
   let count = 0;
   const { rowCount, rows } = await db.query(
-    `select count(*) as rc from members where deleted_at is null and birth_date is null`
+    `select count(*) as rc from members where deleted_at is null and
+    category='Associate' and session_id=$1`,
+    [sessionId]
+  );
+  if (rowCount) {
+    count = rows[0].rc;
+  }
+  return count;
+}
+
+async function getChild(sessionId: string) {
+  let count = 0;
+  const { rowCount, rows } = await db.query(
+    `select count(*) as rc from members where deleted_at is null and
+    category='Child' and session_id=$1`,
+    [sessionId]
+  );
+  if (rowCount) {
+    count = rows[0].rc;
+  }
+  return count;
+}
+
+async function getAgeGroupUnder18(sessionId: string) {
+  let count = 0;
+  const { rowCount, rows } = await db.query(
+    `select count(*) as rc from members where deleted_at is null
+    and birth_date >= (now() - INTERVAL '18 years') and session_id=$1`,
+    [sessionId]
+  );
+  if (rowCount) {
+    count = rows[0].rc;
+  }
+  return count;
+}
+
+async function getAgeGroupFrom19to25(sessionId: string) {
+  let count = 0;
+  const { rowCount, rows } = await db.query(
+    `select count(*) as rc from members where deleted_at is null and
+    (birth_date >= (now() - INTERVAL '25 years') and
+    birth_date < (now() - INTERVAL '18 years')) and session_id=$1`,
+    [sessionId]
+  );
+  if (rowCount) {
+    count = rows[0].rc;
+  }
+  return count;
+}
+
+async function getAgeGroupFrom26to59(sessionId: string) {
+  let count = 0;
+  const { rowCount, rows } = await db.query(
+    `select count(*) as rc from members where deleted_at is null and
+    (birth_date > (now() - INTERVAL '60 years') and
+    birth_date < (now() - INTERVAL '25 years')) and session_id=$1`,
+    [sessionId]
+  );
+  if (rowCount) {
+    count = rows[0].rc;
+  }
+  return count;
+}
+
+async function getAgeGroupOver60(sessionId: string) {
+  let count = 0;
+  const { rowCount, rows } = await db.query(
+    `select count(*) as rc from members where deleted_at is null and
+    birth_date <= (now() - INTERVAL '60 years') and session_id=$1`,
+    [sessionId]
+  );
+  if (rowCount) {
+    count = rows[0].rc;
+  }
+  return count;
+}
+
+async function getAgeUnknown(sessionId: string) {
+  let count = 0;
+  const { rowCount, rows } = await db.query(
+    `select count(*) as rc from members where deleted_at is null and
+    birth_date is null and session_id=$1`,
+    [sessionId]
   );
   if (rowCount) {
     count = rows[0].rc;
@@ -201,11 +222,11 @@ export async function getUpcomingBirthdays(req: Request, res: Response) {
         birth_date+interval '7 hour' as birth_date,
         marriage_date+interval '7 hour' as marriage_date,
         category
-        from members where deleted_at is null
+        from members where deleted_at is null and session_id=$3
       ) as t
       where (t.birthday >= $1 and t.birthday <= $2)
       order by t.birthday`,
-      [startDateStr, endDateStr],
+      [startDateStr, endDateStr, authorization.sessionId!],
     );
 
     const ids: Array<string> = rows.map(row => row.id.toString());

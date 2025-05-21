@@ -4,6 +4,7 @@ import { enEN } from '@/app/translations/enEN';
 import { CpSpinner } from '../components/cpSpinner';
 // import CpAltcha from '../components/cpAltcha';
 import { TCredentials, userLogin } from '../api/user';
+import { sleep } from '@/app/utils/utils';
 
 const initialCredentials: TCredentials = { email: "", password: "", acPayload: "" };
 
@@ -36,6 +37,7 @@ export function LoginForm(
     const result = await userLogin({...credentials, acPayload: acPayload});
     if (result.sessionId) {
       setSessionId(result.sessionId);
+      await sleep(250);
       loginSuccessful();
       return;
     } else if (result.errorMessage) {

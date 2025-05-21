@@ -77,7 +77,7 @@ export async function upload(req: Request, res: Response) {
     return;
   }
 
-  importMember(uploadId, files.file?.at(0));
+  importMember(uploadId, files.file?.at(0), authorization.sessionId);
 
   res.writeHead(200, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ status:'OK', uploadId }, null, 2));
@@ -108,12 +108,20 @@ export async function importProgress(req: Request, res: Response) {
   }
 }
 
-async function importMember(uploadId: string, file: any) {
+async function importMember(uploadId: string, file: any, sessionId: string | null = null) {
   const sourceFilePath: string = file.filepath;
   const destinationFilePath: string = path.join(__dirname, `../../temp/${file.newFilename}.xlsx`);
 
+  let progressData = {
+    uploadId: uploadId,
+    status: 'inProgress',
+    progressPercent: 0,
+    timeStamp: getCurrentDateTimeSql(),
+  };
   const vals = await getVals(`${memberImportPrefix}${uploadId}`);
-  const progressData = JSON.parse(vals!);
+  if (vals) {
+    progressData = JSON.parse(vals);
+  }
 
   try {
     fs.rename(
@@ -128,191 +136,7 @@ async function importMember(uploadId: string, file: any) {
       }
     );
     await sleep(500);
-
-    const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.readFile(destinationFilePath);
-    const worksheet = workbook.getWorksheet(1);
-
-    const memberList: Array<TMember> = [];
-
-    worksheet!.eachRow({ includeEmpty: false }, function (row, rowNumber) {
-      const regNumber = row.getCell('B').value;
-      const name = row.getCell('C').value;
-      const gender = row.getCell('D').value;
-      if (
-        regNumber?.toString().startsWith('REG-') &&
-        name !== null && gender !== null
-      ) {
-        let address = row.getCell('E').value;
-        let birthDate = row.getCell('F').value;
-        let phone1 = row.getCell('G').value;
-        let phone2 = row.getCell('H').value;
-        let marriageDate = row.getCell('I').value;
-        const category = row.getCell('J').value;
-
-        if (address) {
-          address = address.toString().trim();
-        }
-        if (phone1) {
-          phone1 = phone1.toString().trim();
-        }
-        if (phone2) {
-          phone2 = phone2.toString().trim();
-        }
-        if (birthDate) {
-          birthDate = dateStringToSqlDate(birthDate.toString().trim());
-        }
-        if (marriageDate) {
-          marriageDate = dateStringToSqlDate(marriageDate.toString().trim());
-        }
-
-        memberList.push({
-          id: "",
-          regNumber: regNumber.toString(),
-          name: name!.toString(),
-          gender: gender!.toString(),
-          address: address ? address.toString() : null,
-          birthDate: birthDate ? birthDate.toString() : null,
-          phone1: phone1 ? phone1.toString() : null,
-          phone2: phone2 ? phone2.toString() : null,
-          marriageDate: marriageDate ? marriageDate.toString() : null,
-          category: category ? category.toString() : null,
-          createdAt: null,
-          updatedAt: null,
-          deletedAt: null,
-        });
-      }
-    });
-
-    const timeStamp = getCurrentDateTimeSql();
-
-    for (let i = 0; i < memberList.length; i++) {
-      const {
-        regNumber,
-        name,
-        gender,
-        address,
-        birthDate,
-        phone1,
-        phone2,
-        marriageDate,
-        category
-      } = memberList[i];
-
-      let id = nanoid();
-      const {rowCount, rows} = await db.query(
-        'select id from members where reg_number=$1',
-        [regNumber],
-      );
-      if (rowCount) {
-        id = rows[0].id.toString();
-      }
-
-      await db.query(
-        `insert into members (id, reg_number, name, gender, birth_date, marriage_date, category,
-        created_at, updated_at)
-        values ($1,$2,$3,$4,$5,$6,$7,$8,$8)
-        on conflict (id) do update set name=$3, gender=$4, birth_date=$5, marriage_date=$6, category=$7,
-        updated_at=$8`,
-        [
-          id,
-          regNumber,
-          name,
-          gender,
-          birthDate,
-          marriageDate,
-          category,
-          timeStamp,
-        ],
-      );
-
-      await db.query(
-        'update member_addresses set deleted_at=$1 where member_id=$2 and deleted_at is null',
-        [timeStamp, id]
-      );
-
-      if (address) {
-        const {rowCount, rows} = await db.query(
-          'select id, address from member_addresses where member_id=$1',
-          [id],
-        );
-        if (!rowCount) {
-          await db.query(
-            `insert into member_addresses (id, member_id, address, created_at, updated_at)
-            values ($1,$2,$3,$4,$5)`,
-            [nanoid(), id, address, timeStamp, timeStamp],
-          );
-        } else {
-          if (rows[0].address === address) {
-            await db.query(
-              'update member_addresses set deleted_at=null where id=$1',
-              [rows[0].id],
-            );
-          } else {
-            await db.query(
-              'update member_addresses set address=$1, updated_at=$2, deleted_at=null where id=$3',
-              [address, timeStamp, rows[0].id],
-            );
-          }
-        }
-      }
-
-      await db.query(
-        'update member_phones set deleted_at=$1 where member_id=$2 and deleted_at is null',
-        [timeStamp, id],
-      );
-
-      if (phone1) {
-        const {rowCount, rows} = await db.query(
-          'select id from member_phones where member_id=$1 and phone=$2 and sequence=1',
-          [id, phone1],
-        );
-        if (!rowCount) {
-          await db.query(
-            `insert into member_phones (id, member_id, phone, sequence, created_at, updated_at)
-            values ($1,$2,$3,$4,$5,$5)`,
-            [nanoid(), id, phone1, 1, timeStamp],
-          );
-        } else {
-          await db.query(
-            'update member_phones set deleted_at=null where id=$1',
-            [rows[0].id],
-          );
-        }
-      }
-
-      if (phone2) {
-        const {rowCount, rows} = await db.query(
-          'select id from member_phones where member_id=$1 and phone=$2 and sequence=2',
-          [id, phone2],
-        );
-        if (!rowCount) {
-          await db.query(
-            `insert into member_phones (id, member_id, phone, sequence, created_at, updated_at)
-            values ($1,$2,$3,$4,$5,$5)`,
-            [nanoid(), id, phone2, 2, timeStamp],
-          );
-        } else {
-          await db.query(
-            'update member_phones set deleted_at=null where id=$1',
-            [rows[0].id],
-          );
-        }
-      }
-
-      await db.query(
-        'delete from member_phones where member_id=$1 and deleted_at=$2',
-        [id, timeStamp],
-      );
-
-      progressData.progressPercent = Math.floor((i + 1) / memberList.length * 100);
-      setVals(`${memberImportPrefix}${uploadId}`, JSON.stringify(progressData));
-    }
-
-    progressData.status = 'done';
-    progressData.progressPercent = 100;
-    await setVals(`${memberImportPrefix}${uploadId}`, JSON.stringify(progressData));
-
+    await doImportMember(destinationFilePath, uploadId, sessionId);
   } catch (error) {
     console.error(error);
     progressData.status = 'error';
@@ -324,6 +148,241 @@ async function importMember(uploadId: string, file: any) {
       if (err) console.error(err);
     });
   }, 2000);
+}
+
+export async function prepareSampleData(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
+  try {
+    const sourceFilePath: string = path.join(__dirname, `../../template/sample___data.xlsx`);
+    const destinationFilePath: string = path.join(__dirname, `../../temp/sample___data.xlsx`);
+
+    fs.copyFile(
+      sourceFilePath,
+      destinationFilePath,
+      async (error) => {
+        if (error) {
+          console.error(error)
+          return res.status(500).json({ status: 'Error', message: 'internalServerError' });
+        };
+      }
+    );
+    await sleep(500);
+    await doImportMember(destinationFilePath, '0', authorization.sessionId);
+    return res.json({status: 'OK'});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: 'Error', message: 'internalServerError' });
+  }
+}
+
+async function doImportMember(
+  filePath: string, uploadId: string, sessionId: string | null = null
+) {
+  let progressData = {
+    uploadId: uploadId,
+    status: 'inProgress',
+    progressPercent: 0,
+    timeStamp: getCurrentDateTimeSql(),
+  };
+  const vals = await getVals(`${memberImportPrefix}${uploadId}`);
+  if (vals) {
+    progressData = JSON.parse(vals);
+  }
+
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(filePath);
+  const worksheet = workbook.getWorksheet(1);
+
+  const memberList: Array<TMember> = [];
+
+  worksheet!.eachRow({ includeEmpty: false }, function (row, rowNumber) {
+    const regNumber = row.getCell('B').value;
+    const name = row.getCell('C').value;
+    const gender = row.getCell('D').value;
+    if (
+      regNumber?.toString().startsWith('REG-') &&
+      name !== null && gender !== null
+    ) {
+      let address = row.getCell('E').value;
+      let birthDate = row.getCell('F').value;
+      let phone1 = row.getCell('G').value;
+      let phone2 = row.getCell('H').value;
+      let marriageDate = row.getCell('I').value;
+      const category = row.getCell('J').value;
+
+      if (address) {
+        address = address.toString().trim();
+      }
+      if (phone1) {
+        phone1 = phone1.toString().trim();
+      }
+      if (phone2) {
+        phone2 = phone2.toString().trim();
+      }
+      if (birthDate) {
+        birthDate = dateStringToSqlDate(birthDate.toString().trim());
+      }
+      if (marriageDate) {
+        marriageDate = dateStringToSqlDate(marriageDate.toString().trim());
+      }
+
+      memberList.push({
+        id: "",
+        regNumber: regNumber.toString(),
+        name: name!.toString(),
+        gender: gender!.toString(),
+        address: address ? address.toString() : null,
+        birthDate: birthDate ? birthDate.toString() : null,
+        phone1: phone1 ? phone1.toString() : null,
+        phone2: phone2 ? phone2.toString() : null,
+        marriageDate: marriageDate ? marriageDate.toString() : null,
+        category: category ? category.toString() : null,
+        createdAt: null,
+        updatedAt: null,
+        deletedAt: null,
+      });
+    }
+  });
+
+  const timeStamp = getCurrentDateTimeSql();
+
+  for (let i = 0; i < memberList.length; i++) {
+    const {
+      regNumber,
+      name,
+      gender,
+      address,
+      birthDate,
+      phone1,
+      phone2,
+      marriageDate,
+      category
+    } = memberList[i];
+
+    let id = nanoid();
+    const {rowCount, rows} = await db.query(
+      'select id from members where reg_number=$1 and session_id=$2',
+      [regNumber, sessionId],
+    );
+    if (rowCount) {
+      id = rows[0].id.toString();
+    }
+
+    await db.query(
+      `insert into members (id, reg_number, name, gender, birth_date, marriage_date, category,
+      created_at, updated_at, session_id)
+      values ($1,$2,$3,$4,$5,$6,$7,$8,$8,$9)
+      on conflict (id) do update set name=$3, gender=$4, birth_date=$5, marriage_date=$6, category=$7,
+      updated_at=$8, session_id=$9`,
+      [
+        id,
+        regNumber,
+        name,
+        gender,
+        birthDate,
+        marriageDate,
+        category,
+        timeStamp,
+        sessionId,
+      ],
+    );
+
+    await db.query(
+      'update member_addresses set deleted_at=$1 where member_id=$2 and deleted_at is null',
+      [timeStamp, id]
+    );
+
+    if (address) {
+      const {rowCount, rows} = await db.query(
+        'select id, address from member_addresses where member_id=$1',
+        [id],
+      );
+      if (!rowCount) {
+        await db.query(
+          `insert into member_addresses (id, member_id, address, created_at, updated_at)
+          values ($1,$2,$3,$4,$5)`,
+          [nanoid(), id, address, timeStamp, timeStamp],
+        );
+      } else {
+        if (rows[0].address === address) {
+          await db.query(
+            'update member_addresses set deleted_at=null where id=$1',
+            [rows[0].id],
+          );
+        } else {
+          await db.query(
+            'update member_addresses set address=$1, updated_at=$2, deleted_at=null where id=$3',
+            [address, timeStamp, rows[0].id],
+          );
+        }
+      }
+    }
+
+    await db.query(
+      'update member_phones set deleted_at=$1 where member_id=$2 and deleted_at is null',
+      [timeStamp, id],
+    );
+
+    if (phone1) {
+      const {rowCount, rows} = await db.query(
+        'select id from member_phones where member_id=$1 and phone=$2 and sequence=1',
+        [id, phone1],
+      );
+      if (!rowCount) {
+        await db.query(
+          `insert into member_phones (id, member_id, phone, sequence, created_at, updated_at)
+          values ($1,$2,$3,$4,$5,$5)`,
+          [nanoid(), id, phone1, 1, timeStamp],
+        );
+      } else {
+        await db.query(
+          'update member_phones set deleted_at=null where id=$1',
+          [rows[0].id],
+        );
+      }
+    }
+
+    if (phone2) {
+      const {rowCount, rows} = await db.query(
+        'select id from member_phones where member_id=$1 and phone=$2 and sequence=2',
+        [id, phone2],
+      );
+      if (!rowCount) {
+        await db.query(
+          `insert into member_phones (id, member_id, phone, sequence, created_at, updated_at)
+          values ($1,$2,$3,$4,$5,$5)`,
+          [nanoid(), id, phone2, 2, timeStamp],
+        );
+      } else {
+        await db.query(
+          'update member_phones set deleted_at=null where id=$1',
+          [rows[0].id],
+        );
+      }
+    }
+
+    await db.query(
+      'delete from member_phones where member_id=$1 and deleted_at=$2',
+      [id, timeStamp],
+    );
+
+    if (vals) {
+      progressData.progressPercent = Math.floor((i + 1) / memberList.length * 100);
+      setVals(`${memberImportPrefix}${uploadId}`, JSON.stringify(progressData));
+    }
+  }
+
+  if (vals) {
+    progressData.status = 'done';
+    progressData.progressPercent = 100;
+    await setVals(`${memberImportPrefix}${uploadId}`, JSON.stringify(progressData));
+  }
 }
 
 export async function exportMember(req: Request, res: Response) {
@@ -345,8 +404,9 @@ export async function exportMember(req: Request, res: Response) {
       orderBy = orderBy.replace('marriageDate', 'marriage_date');
     }
 
-    let qs = 'select count(*) as total from members where deleted_at is null';
-    let params: Array<String> = [];
+    let qs = `select count(*) as total from members where deleted_at is null
+      and session_id=$1`;
+    let params: Array<String> = [authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
       qs = `${qs} and (reg_number ilike $1 or name ilike $1)`;
@@ -385,8 +445,9 @@ export async function exportMember(req: Request, res: Response) {
       updated_at, deleted_at
       from members
       where deleted_at is null
+      and session_id=$1
       order by ${orderBy}`;
-    params = [];
+    params = [authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
       qs = `select id, reg_number, name, gender,
@@ -395,9 +456,10 @@ export async function exportMember(req: Request, res: Response) {
         updated_at, deleted_at
         from members
         where deleted_at is null
+        and session_id=$2
         and (reg_number ilike $1 or name ilike $1)
         order by ${orderBy}`;
-      params = [searchStr];
+      params = [searchStr, authorization.sessionId!];
     }
 
     try {
@@ -581,12 +643,12 @@ export async function downloadExportedFile(req: Request, res: Response) {
 }
 
 export async function memberList(req: Request, res: Response) {
-  // const authorization = await checkSessionRole(req, ['admin', 'staff']);
-  // if (authorization.errorCode) {
-  //   return res.status(authorization.errorCode).json({
-  //     status: 'Error', message: authorization.message,
-  //   });
-  // }
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
 
   try {
     const { search, order, limit, offset } = req.query;
@@ -599,12 +661,12 @@ export async function memberList(req: Request, res: Response) {
       orderBy = orderBy.replace('marriageDate', 'marriage_date');
     }
 
-    let qs = 'select count(*) as total from members where deleted_at is null';
-    let params: Array<String> = [];
+    let qs = 'select count(*) as total from members where deleted_at is null and session_id = $1';
+    let params: Array<String> = [authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
-      qs = `${qs} and (reg_number ilike $1 or name ilike $1)`;
-      params = [searchStr];
+      qs = `${qs} and (reg_number ilike $2 or name ilike $2)`;
+      params = [authorization.sessionId!, searchStr];
     }
 
     const {rowCount, rows} = await db.query(qs, params);
@@ -619,9 +681,10 @@ export async function memberList(req: Request, res: Response) {
       updated_at, deleted_at
       from members
       where deleted_at is null
+      and session_id = $3
       order by ${orderBy}
       limit $1 offset $2`;
-    params = [limit!.toString(), offset!.toString()];
+    params = [limit!.toString(), offset!.toString(), authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
       qs = `select id, reg_number, name, gender,
@@ -630,10 +693,11 @@ export async function memberList(req: Request, res: Response) {
         updated_at, deleted_at
         from members
         where deleted_at is null
+        and session_id = $4
         and (reg_number ilike $1 or name ilike $1)
         order by ${orderBy}
         limit $2 offset $3`;
-      params = [searchStr, limit!.toString(), offset!.toString()];
+      params = [searchStr, limit!.toString(), offset!.toString(), authorization.sessionId!];
     }
 
     try {
@@ -686,6 +750,32 @@ export async function memberList(req: Request, res: Response) {
   }
 }
 
+export async function memberCount(req: Request, res: Response) {
+  const authorization = await checkSessionRole(req, ['admin', 'staff']);
+  if (authorization.errorCode) {
+    return res.status(authorization.errorCode).json({
+      status: 'Error', message: authorization.message,
+    });
+  }
+
+  let count = 0;
+  try {
+    const { rowCount, rows } = await db.query(
+      `select count(*) from members where deleted_at is null and session_id=$1`,
+      [authorization.sessionId!],
+    );
+
+    if (rowCount) {
+      count = rows[0].count;
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: 'Error', message: 'internalServerError' });
+  }
+
+  res.json({ status: 'OK', count });
+}
+
 export async function addNewMember(req: Request, res: Response) {
   const authorization = await checkSessionRole(req, ['admin', 'staff']);
   if (authorization.errorCode) {
@@ -726,8 +816,8 @@ export async function addNewMember(req: Request, res: Response) {
       const timeStamp = getCurrentDateTimeSql();
 
       const {rowCount, rows} = await db.query(
-        'select id, deleted_at from members where reg_number=$1',
-        [member.regNumber],
+        'select id, deleted_at from members where reg_number=$1 and session_id=$2',
+        [member.regNumber, authorization.sessionId!],
       );
 
       if (!rowCount) {
@@ -735,8 +825,9 @@ export async function addNewMember(req: Request, res: Response) {
 
         await db.query(
           `insert into members
-          (id, reg_number, name, gender, birth_date, marriage_date, category, created_at, updated_at)
-          values ($1,$2,$3,$4,$5,$6,$7,$8,$8)`,
+          (id, reg_number, name, gender, birth_date, marriage_date, category,
+          created_at, updated_at, session_id)
+          values ($1,$2,$3,$4,$5,$6,$7,$8,$8,$9)`,
           [
             member.id,
             member.regNumber,
@@ -746,6 +837,7 @@ export async function addNewMember(req: Request, res: Response) {
             member.marriageDate,
             member.category,
             timeStamp,
+            authorization.sessionId,
           ],
         );
       } else {
@@ -891,8 +983,9 @@ export async function updateMember(req: Request, res: Response) {
 
     try {
       const {rowCount, rows} = await db.query(
-        'select id from members where reg_number=$1 and id<>$2 and deleted_at is null',
-        [member.regNumber, member.id],
+        `select id from members where reg_number=$1 and id<>$2 and deleted_at is null and
+        session_id=$3`,
+        [member.regNumber, member.id, authorization.sessionId!],
       );
       if (rowCount) {
         res.status(400).json({ status: 'Error', message: 'regNumberAlreadyExists' });

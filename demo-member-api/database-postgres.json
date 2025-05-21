@@ -1,10 +1,10 @@
 {
   "pg": {
     "driver": "pg",
-    "user": "heri_tny_demo",
-    "password": "heri_tny_demo",
+    "user": "ht_demo",
+    "password": "ht_demo",
     "host": "localhost",
-    "database": "heri_tny_demo",
+    "database": "ht_demo",
     "port": "5432",
     "ssl": false,
     "schema": "public"

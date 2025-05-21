@@ -1,8 +1,8 @@
 // import mysql, { ConnectionOptions, RowDataPacket, FieldPacket } from 'mysql2/promise';
-import { Pool } from 'postgres-pool';
 import { SHA3 } from 'sha3';
 import { nanoid } from 'nanoid';
-import { getCurrentDateTimeSql } from './utils';
+import { db } from '../db';
+import { getCurrentDateTimeSql } from '../utils';
 import 'dotenv/config';
 
 export async function initUser () {
@@ -42,13 +42,9 @@ export async function initUser () {
 
   // await conn.end();
 
-  const pool = new Pool({
-    connectionString: `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`
-  });
-
-  const { rowCount } = await pool.query('select * from users where email=$1', ['admin@example.com']);
-  if (rowCount === 0) {
-    await pool.query(
+  const { rowCount } = await db.query('select * from users where email=$1', ['admin@example.com']);
+  if (!rowCount) {
+    await db.query(
       `insert into users (id, email, pwd, display_name, role, should_change_pwd, onetime_token, created_at, updated_at)
       values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
       [nanoid(), adminUser.email, hashedPwd, adminUser.displayName, adminUser.role, true, nanoid(25), now, now]
@@ -58,6 +54,6 @@ export async function initUser () {
     console.log("Admin user already exists.");
   }
 
-  pool.end();
+  db.end();
   process.exit(0);
 };

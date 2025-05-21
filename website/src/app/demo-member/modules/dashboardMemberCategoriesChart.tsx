@@ -51,20 +51,32 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
           <tr>
             <td>Associate</td>
             <td>:</td>
-            <td className="text-end">{statistics.categories.associate}</td>
-            <td className="text-end">{`(${associatePercent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.categories.associate}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(associatePercent) ? null : `(${associatePercent.toFixed(1)}%)`}
+            </td>
           </tr>
           <tr>
             <td>General</td>
             <td>:</td>
-            <td className="text-end">{statistics.categories.general}</td>
-            <td className="text-end">{`(${generalPercent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.categories.general}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(generalPercent) ? null : `(${generalPercent.toFixed(1)}%)`}
+            </td>
           </tr>
           <tr>
             <td>Child</td>
             <td>:</td>
-            <td className="text-end">{statistics.categories.child}</td>
-            <td className="text-end">{`(${childPercent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.categories.child}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(childPercent) ? null : `(${childPercent.toFixed(1)}%)`}
+            </td>
           </tr>
         </tbody>
       </table>

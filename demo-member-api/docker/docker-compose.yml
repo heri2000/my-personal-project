@@ -3,9 +3,9 @@ services:
     image: postgres:11-alpine
     restart: no
     environment:
-      POSTGRES_USER: "heri_tny_demo"
-      POSTGRES_DB: "heri_tny_demo"
-      POSTGRES_PASSWORD: "heri_tny_demo"
+      POSTGRES_USER: "ht_demo"
+      POSTGRES_DB: "ht_demo"
+      POSTGRES_PASSWORD: "ht_demo"
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ../../../.data-heri-tny-demo/postgres:/var/lib/postgresql/data/pgdata
@@ -18,9 +18,9 @@ services:
   #   command: --default-authentication-plugin=mysql_native_password
   #   environment:
   #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: heri_tny_demo
-  #     MYSQL_USER: heri_tny_demo
-  #     MYSQL_PASSWORD: heri_tny_demo
+  #     MYSQL_DATABASE: ht_demo
+  #     MYSQL_USER: ht_demo
+  #     MYSQL_PASSWORD: ht_demo
   #   volumes:
   #     - ../../../.data-heri-tny-demo/mysql:/var/lib/mysql
   #     - ./init:/docker-entrypoint-initdb.d

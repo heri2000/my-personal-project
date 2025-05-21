@@ -44,14 +44,22 @@ export default function DashboardMemberGenderChart({ statistics } : { statistics
           <tr>
             <td>Male</td>
             <td>:</td>
-            <td className="text-end">{statistics.male}</td>
-            <td className="text-end">{`(${malePercent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.male}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(malePercent) ? null : `(${malePercent.toFixed(1)}%)`}
+            </td>
           </tr>
           <tr>
             <td>Female</td>
             <td>:</td>
-            <td className="text-end">{statistics.female}</td>
-            <td className="text-end">{`(${femalePercent.toFixed(1)}%)`}</td>
+            <td className="text-end">
+              {statistics.female}
+            </td>
+            <td className="text-end">
+              {Number.isNaN(femalePercent) ? null : `(${femalePercent.toFixed(1)}%)`}
+            </td>
           </tr>
         </tbody>
       </table>

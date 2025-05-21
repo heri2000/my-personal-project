@@ -74,6 +74,7 @@ export function getSessionData(): Promise<TSessionData | null> {
     const sessionId = getSessionId();
     if (!sessionId) {
       resolve(null);
+      return;
     }
 
     const response = await fetch(`${config.api.user}/session-data/${sessionId}`, {

@@ -5,5 +5,5 @@ export const valkeyConfig = {
       port: 6379,
     },
   ],
-  clientName: "heri_tny_demo",
+  clientName: "ht_demo",
 };

@@ -3,9 +3,9 @@ services:
     image: postgres:11-alpine
     restart: no
     # environment:
-    #   POSTGRES_USER: "heri_tny_demo"
-    #   POSTGRES_DB: "heri_tny_demo"
-    #   POSTGRES_PASSWORD: "heri_tny_demo"
+    #   POSTGRES_USER: "ht_demo"
+    #   POSTGRES_DB: "ht_demo"
+    #   POSTGRES_PASSWORD: "ht_demo"
     #   PGDATA: /var/lib/postgresql/data/pgdata
     env_file:
       - ../.env
