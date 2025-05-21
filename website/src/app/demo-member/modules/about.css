@@ -1,0 +1,8 @@
+ul.tech_stack li {
+  list-style-type: disc;
+  margin-left: 2em;
+}
+
+ul.tech_stack li a {
+  text-decoration: underline;
+}

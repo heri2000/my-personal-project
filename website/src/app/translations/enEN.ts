@@ -1,7 +1,8 @@
 export const enEN = {
-  "websiteTitle": "heri-tny",
+  "websiteTitle": "Member App",
   "websiteDescription": "My personal website",
 
+  "about": "About",
   "addNew": "Add New",
   "addNewMember": "Add New Member",
   "address": "Address",

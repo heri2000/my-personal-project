@@ -9,7 +9,7 @@ import { userLogout, getSessionData, type TSessionData } from './api/user';
 import { Blank } from './modules/blank';
 import { Dashboard, CURRENT_PAGE_DASHBOARD } from './modules/dashboard';
 import { Member, CURRENT_PAGE_MEMBER } from './modules/member';
-import { Setting, CURRENT_PAGE_SETTING } from './modules/setting';
+import { About, CURRENT_PAGE_ABOUT } from './modules/about';
 import { PrepareSampleData, CURRENT_PAGE_PREPARE_SAMPLE_DATA } from './modules/prepareSampleData';
 import { NotFound } from './modules/notFound';
 import './page.css';
@@ -158,8 +158,8 @@ export default function AdminApp() {
     }
   }
 
-  if (activePage === CURRENT_PAGE_SETTING) {
-    return (<LayoutWithNav><Setting/></LayoutWithNav>);
+  if (activePage === CURRENT_PAGE_ABOUT) {
+    return (<LayoutWithNav><About/></LayoutWithNav>);
   }
 
   return (

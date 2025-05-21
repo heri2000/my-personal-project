@@ -113,6 +113,21 @@ export function LoginForm(
         </div>
 
       </form>
+      <div className="border border-gray-400 bg-gray-200 text-gray-800 rounded-xl p-4 mt-4 text-sm">
+        <b>This is a demp app. You can use the following credentials to login:</b>
+        <table className="w-full">
+          <tr>
+            <td className="pr-1">Email</td>
+            <td className="pr-1">:</td>
+            <td className="pr-1">admin@example.com</td>
+          </tr>
+          <tr>
+            <td className="pr-1">Password</td>
+            <td className="pr-1">:</td>
+            <td className="pr-1">admin</td>
+          </tr>
+        </table>
+      </div>
       {loading && <CpSpinner/>}
     </div>
   );
