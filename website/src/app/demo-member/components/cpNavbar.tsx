@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from "react";
 import { enEN } from "@/app/translations/enEN";
 import { CURRENT_PAGE_DASHBOARD } from "../modules/dashboard";
 import { CURRENT_PAGE_MEMBER } from "../modules/member";
-import { CURRENT_PAGE_SETTING } from "../modules/setting";
+import { CURRENT_PAGE_ABOUT } from "../modules/about";
 import { TSessionData } from "../api/user";
 import "./cpNavbar.css";
 import { IcMenuIcon, IcPersonIcon } from "./IcIcons";
@@ -71,9 +71,9 @@ export function CpNavbar(
                 <a
                   href="#"
                   className="navbar_menu_item"
-                  onClick={() => {navigate(CURRENT_PAGE_SETTING)}}
+                  onClick={() => {navigate(CURRENT_PAGE_ABOUT)}}
                 >
-                  {translationStrings.setting}
+                  {translationStrings.about} {translationStrings.websiteTitle}
                 </a>
               </li>
             )}

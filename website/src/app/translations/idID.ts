@@ -1,7 +1,8 @@
-export const enEN = {
+export const idID = {
   "websiteTitle": "Member App",
   "websiteDescription": "Manage member data",
 
+  "about": "Tentang",
   "addNew": "Tambah Baru",
   "addNewMember": "Tambah Jemaat Baru",
   "address": "Alamat",
