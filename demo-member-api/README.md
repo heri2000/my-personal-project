@@ -30,13 +30,23 @@ Run: `npm install`
 
 ### Notes
 
-**To generate a random string for secret key, run this code in the Node REPL:**
+**- To generate a random string for secret key, run this code in the Node REPL:**
 
 ```
 require('crypto').randomBytes(64).toString('hex');
 .exit
 ```
 
-**MySQL2 Documentation**
+**- MySQL2 Documentation**
 
 [https://sidorares.github.io/node-mysql2/docs/documentation](https://sidorares.github.io/node-mysql2/docs/documentation)
+
+**- Enter Podman container**
+
+`podman exec -ti heri-tny-demo_postgresql_1 /bin/sh`
+
+**- Postgresql CLI**
+
+`psql -d ht_demo -U ht_demo`
+
+`\l`, `\c ht_demo`, `\d`, `\d members`, `\q`
