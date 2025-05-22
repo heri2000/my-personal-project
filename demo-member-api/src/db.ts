@@ -13,5 +13,9 @@ import 'dotenv/config';
 // export const db = mysql.createPool(poolOptions);
 
 export const db = new Pool({
-  connectionString: `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`
+  connectionString: (
+    process.env.POSTGRES_URL ?
+    process.env.POSTGRES_URL :
+    `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`
+  )
 });

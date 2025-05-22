@@ -3,12 +3,48 @@ import { valkeyConfig } from './valkey';
 import { Request } from 'express';
 import { type TMember, type TAuthorization } from './types';
 import { getSessionDataFromVals } from './handlers/user';
+import { db } from './db';
 
 export const SESSION_VALIDY_MINUTES = 720;
 
-export function getCommandLineArgs () {
+export function getCommandLineArgs() {
   return process.argv.slice(2);
 };
+
+export async function checkServerStatus() {
+  const status = {
+    status: 'OK',
+    postgresql: 'OK',
+    valkey: 'OK',
+  };
+
+  try {
+    const { rowCount, rows } = await db.query('select 1=1 as status');
+    if (!rowCount) {
+      status.postgresql = 'error';
+    } else {
+      if (!rows[0].status) {
+        status.postgresql = 'error';
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    status.postgresql = 'error';
+  }
+
+  try {
+    const valkey = await GlideClient.createClient(valkeyConfig);
+    const pingResponse = await valkey.ping();
+    if (!pingResponse || pingResponse.toString() !== 'PONG') {
+      status.valkey = 'error';
+    }
+  } catch (error) {
+    console.error(error);
+    status.valkey = 'error';
+  }
+
+  return status;
+}
 
 export async function checkSessionRole(
   req: Request, allowedRoles: string[]

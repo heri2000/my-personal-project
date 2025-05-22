@@ -40,7 +40,7 @@ export function CpNavbar(
           </div>
           <div className="inline-flex flex-col w-full px-3">
             <button onClick={logout}>
-              {translationStrings.logout}
+              {translationStrings.log_out}
             </button>
           </div>
         </div>

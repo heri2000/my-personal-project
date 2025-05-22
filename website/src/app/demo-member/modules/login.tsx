@@ -16,9 +16,8 @@ export function LoginPage(
             />
           </div>
           <div
-            className="w-0 md:w-1/2 bg-[url('/illustration.jpg')] bg-cover bg-center rounded-e-lg"
-          >
-          </div>
+            className="flex flex-col w-0 md:w-1/2 bg-[url('/illustration.jpg')] bg-cover bg-center rounded-e-lg"
+          ></div>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { SHA3 } from 'sha3';
 import { nanoid } from 'nanoid';
-import { createChallenge } from 'altcha-lib';
+import { createChallenge, verifySolution } from 'altcha-lib';
 import {
   getSessionValidityDateTimeSql,
   setVals,
@@ -16,25 +16,25 @@ const sessionPrefix = 'session-';
 
 export async function login(req: Request, res: Response) {
   try {
-    const { email, password } = req.body;
+    const { email, password, acPayload } = req.body;
 
     if (!email || !password) {
       res.status(400).json({ status: 'Error', message: 'Email or password is missing' });
       return;
     }
 
-    // const hmacKey = process.env.HMAC_KEY;
-    // let ok = false;
-    // if (hmacKey) {
-    //   ok = await verifySolution(acPayload, hmacKey);
-    //   if (!ok) {
-    //     res.status(417).json({ status: 'Error', message: 'Invalid captcha' });
-    //     return;
-    //   }
-    // } else {
-    //   res.status(500).json({ status: 'Error', message: 'internalSeverError' });
-    //   return;
-    // }
+    const hmacKey = process.env.HMAC_KEY;
+    let ok = false;
+    if (hmacKey) {
+      ok = await verifySolution(acPayload, hmacKey);
+      if (!ok) {
+        res.status(417).json({ status: 'Error', message: 'Invalid captcha' });
+        return;
+      }
+    } else {
+      res.status(500).json({ status: 'Error', message: 'internalSeverError' });
+      return;
+    }
 
     const hash = new SHA3(512);
     hash.update(password);
