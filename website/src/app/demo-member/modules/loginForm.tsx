@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { setSessionId } from '@/app/utils/session';
 import { enEN } from '@/app/translations/enEN';
 import { CpSpinner } from '../components/cpSpinner';
 // import CpAltcha from '../components/cpAltcha';
 import { TCredentials, userLogin } from '../api/user';
 import { sleep } from '@/app/utils/utils';
+
+import dynamic from 'next/dynamic';
+const CpAltcha = dynamic(
+  () => import('../components/cpAltcha'),
+  { ssr: false }
+);
 
 const initialCredentials: TCredentials = { email: "", password: "", acPayload: "" };
 
@@ -16,7 +22,7 @@ export function LoginForm(
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
   const passwordInput = React.useRef<HTMLInputElement>(null);
-  // const altchaRef = useRef<HTMLInputElement>(null)
+  const altchaRef = useRef<HTMLInputElement>(null)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (errorMessage) {
@@ -31,7 +37,7 @@ export function LoginForm(
       setErrorMessage(null);
     }
 
-    const acPayload = "";  // altchaRef.current?.value || "";
+    const acPayload = altchaRef.current?.value || "";
 
     setLoading(true);
     const result = await userLogin({...credentials, acPayload: acPayload});
@@ -60,7 +66,7 @@ export function LoginForm(
 
   return (
     <div>
-      <h1 className="text-center mt-2 !mb-10">
+      <h1 className="text-center mt-2 !mb-0">
         {translationStrings.login}
       </h1>
       <form>
@@ -95,26 +101,25 @@ export function LoginForm(
           />
         </fieldset>
 
-        {errorMessage && (
-          <div className="error_message flex flex-row mb-4">{errorMessage}</div>
-        )}
+        <CpAltcha ref={altchaRef}/>
 
-        {/* <CpAltcha ref={altchaRef}/> */}
-
-        <div className="mt-4">
+        <div className="flex flex-row items-center mt-4">
           <button
             type="button"
-            className="primary"
+            className="primary me-2"
             onClick={handleLoginButtonClick}
             disabled={loading}
           >
-            {translationStrings.login}
+            {translationStrings.log_in}
           </button>
+          {errorMessage && (
+            <div className="error_message flex flex-row">{errorMessage}</div>
+          )}
         </div>
 
       </form>
-      <div className="border border-gray-400 bg-gray-200 text-gray-800 rounded-xl p-4 mt-4 text-sm">
-        <b>This is a demp app. You can use the following credentials to login:</b>
+      <div className="bg-gray-200 dark:bg-slate-800/80 text-gray-800 dark:text-gray-100 border border-gray-400 rounded-xl p-4 mt-2 text-sm">
+        <b>This is a demo application. Use the following credentials to log in:</b>
         <table className="w-full">
           <tr>
             <td className="pr-1">Email</td>

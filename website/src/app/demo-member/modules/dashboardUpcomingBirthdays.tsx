@@ -49,7 +49,7 @@ export function DashboardUpcomingBirthdays(
           <tbody>
             {upcomingBirthdayMembers.length === 0 && (
               <tr>
-                <td colSpan={10} className="text-center">{translationStrings.noBirthdays}</td>
+                <td colSpan={10} className="text-center">{translationStrings.noUpcomingBirthdays}</td>
               </tr>
             )}
             {upcomingBirthdayMembers.map((element: TMember, index: number) => {

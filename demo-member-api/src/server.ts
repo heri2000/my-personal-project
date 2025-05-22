@@ -4,7 +4,7 @@ import 'dotenv/config';
 import { userRoute } from './routes/user';
 import { memberRoute } from './routes/member';
 import { dashboardRoute } from './routes/dashboard';
-import { getCommandLineArgs } from './utils';
+import { checkServerStatus, getCommandLineArgs } from './utils';
 
 const app = express();
 let PORT: Number = 3000;
@@ -35,8 +35,9 @@ app.get('/', (req, res) => {
   res.send('API');
 });
 
-app.get('/status', (req, res) => {
-  res.json({ status: 'OK' });
+app.get('/status', async (req, res) => {
+  const status = await checkServerStatus();
+  res.json({ status });
 });
 
 app.use('/v1/user', userRoute);

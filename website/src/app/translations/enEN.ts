@@ -32,7 +32,9 @@ export const enEN = {
   "here": "here",
   "import": "Import",
   "login": "Login",
+  "log_in": "Log In",
   "logout": "Logout",
+  "log_out": "Log Out",
   "male": "Male",
   "maleAbbreviated": "M",
   "marriageDate": "Marriage Date",
@@ -44,7 +46,7 @@ export const enEN = {
   "menu": "Menu",
   "mustBePrefixedWith": "Must be prefixed with",
   "name": "Name",
-  "noBirthdays": "No birthdays",
+  "noUpcomingBirthdays": "No upcoming birthdays",
   "noData": "No data",
   "no1": "#",
   "of": "of",
@@ -64,7 +66,7 @@ export const enEN = {
   "uploadFile": "Upload File",
   "view": "View",
 
-  "incorrectEmailOrPassword": "Incorrect email or paswird",
+  "incorrectEmailOrPassword": "Incorrect email or pasword",
   "incorrectCaptcha": "Incorrect captcha",
 
   "importMembersExplanation1": "You can import member data from an Excel file (.xlsx) uploaded here",

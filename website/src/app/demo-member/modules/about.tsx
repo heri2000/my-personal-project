@@ -17,7 +17,7 @@ export function About() {
           <li><b>Backend</b>: <a href="https://expressjs.com/" target="_blank">Express.js</a> for handling API routes and server logic.</li>
           <li><b>Database</b>: <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> for reliable and powerful relational data storage.</li>
           <li><b>Caching & Data Store</b>: <a href="https://valkey.io/" target="_blank">Valkey</a> for high-performance in-memory caching.</li>
-          <li><b>Deployment</b>: Containerized and deployed using <a href="https://podman.io/" target="_blank">Podman</a> for consistent and portable environments.</li>
+          <li><b>Deployment</b>: Frontend is deployed on <a href="https://vercel.com/" target="_blank">Vercel</a>. Backend, PostgreSQL and Valkey are deployed on a VPS, containerized and deployed using <a href="https://podman.io/" target="_blank">Podman</a>.</li>
         </ul>
       </div>
     </div>
