@@ -4,13 +4,29 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 div.login_page {
-  @apply flex flex-col justify-center min-h-screen bg-[url('/bg.jpg')] dark:bg-[url('/bg-dark.jpg')] bg-cover bg-center;
+  @apply flex flex-col min-h-screen bg-[url('/bg.jpg')] dark:bg-[url('/bg-dark.jpg')] bg-cover bg-center;
 }
 
 div.login_wrapper_1 {
-  @apply flex flex-row w-full justify-center h-120 mb-20 bg-auto;
+  @apply flex flex-row w-full justify-center h-120 mb-15 bg-auto;
+
+  margin-top: 15vh;
 }
 
 div.login_wrapper_2 {
   @apply flex flex-row w-11/12 md:w-2xl h-full justify-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-xl shadow-black/30;
+}
+
+div.login_tech_stack_1 {
+  @apply flex flex-row w-full justify-center mb-25 bg-auto;
+
+  margin-top: 15vh;
+}
+
+div.login_tech_stack_2 {
+  @apply flex flex-row w-11/12 md:w-2xl h-full px-8 pb-8 justify-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-xl shadow-black/30;
+}
+
+a.scroll_down_link {
+  @apply block bg-white dark:bg-gray-900 p-1 rounded-full shadow-lg shadow-black/30;
 }

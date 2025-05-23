@@ -1,11 +1,12 @@
 #!/bin/bash
 
-OUTPUT_ZIP="demo-member-api.zip"
 OUTPUT_DIR="demo-member-api"
+INPUT_ZIP="demo-member-api.zip"
 
-rm -rf "$OUTPUT_DIR"
-unzip "$OUTPUT_ZIP" -d "$OUTPUT_DIR"
-cd "$OUTPUT_DIR"
+rm -rf ~/$OUTPUT_DIR
+mkdir ~/$OUTPUT_DIR
+unzip /tmp/$INPUT_ZIP -d ~/$OUTPUT_DIR
+cd ~/$OUTPUT_DIR
 source deploy
 cd ..
-rm extract
+rm -f /tmp/extract "/tmp/$INPUT_ZIP"
