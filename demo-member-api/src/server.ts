@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 
 app.get('/status', async (req, res) => {
   const status = await checkServerStatus();
-  res.json({ status });
+  res.json({ ...status });
 });
 
 app.use('/v1/user', userRoute);
