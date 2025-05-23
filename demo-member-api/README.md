@@ -50,3 +50,10 @@ require('crypto').randomBytes(64).toString('hex');
 `psql -d ht_demo -U ht_demo`
 
 `\l`, `\c ht_demo`, `\d`, `\d members`, `\q`
+
+**- Crontab entries -**
+
+```
+0 22 * * * user podman exec heri-tny-demo_demo-member-api_1 npm run start -- --clear-unused-members
+10 22 * * * user cd /home/user/demo-member-api && nvm use && npm run start -- --clear-unused-members
+```

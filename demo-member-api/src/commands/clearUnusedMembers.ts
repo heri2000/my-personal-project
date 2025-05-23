@@ -1,7 +1,7 @@
 import { db } from "../db";
 import { getSessionDataFromVals } from "../handlers/user";
 
-export async function cleanUnusedMembers () {
+export async function clearUnusedMembers () {
   const { rowCount, rows } = await db.query('select distinct(session_id) from members');
 
   if (rowCount) {
@@ -21,7 +21,7 @@ export async function cleanUnusedMembers () {
         deleted++;
       }
     }
-    console.log(`--- Done deleting ${deleted} unused session IDs.`);
+    console.log(`--- Done deleting members for ${deleted} expired session IDs.`);
   } else {
     console.log('No session IDs found.')
   }
