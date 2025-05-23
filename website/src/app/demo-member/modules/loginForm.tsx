@@ -118,7 +118,7 @@ export function LoginForm(
         </div>
 
       </form>
-      <div className="bg-gray-200 dark:bg-slate-800/80 text-gray-800 dark:text-gray-100 border border-gray-400 rounded-xl p-4 mt-2 text-sm">
+      <div className="bg-gray-200 dark:bg-slate-800/80 text-gray-800 dark:text-gray-100 border border-gray-400 rounded-xl p-4 mt-4 text-sm">
         <b>This is a demo application. Use the following credentials to log in:</b>
         <table className="w-full">
           <tr>
