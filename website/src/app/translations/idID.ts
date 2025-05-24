@@ -23,7 +23,6 @@ export const idID = {
   "edit": "Ubah",
   "editMember": "Ubah Data Jemaat",
   "email": "Email",
-  "errorWhenPreparingSampleData": "Terjadi kesalahan ketika mempersiapkan data contoh",
   "export": "Eksport",
   "female": "Perempuan",
   "femaleAbbreviated": "P",

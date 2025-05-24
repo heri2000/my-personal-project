@@ -10,6 +10,7 @@ export function PrepareSampleData(
   { activeSessionData: TSessionData, continueToDashboard: () => void }
 ) {
   const [preparingSampleData, setPreparingSampleData] = useState(false);
+  const [finished, setFinished] = useState(false);
   const [error, setError] = useState(false);
   const translationStrings = enEN;
 
@@ -23,7 +24,7 @@ export function PrepareSampleData(
       setPreparingSampleData(true);
       const result = await prepareSampleData(activeSessionData.sessionId);
       if (result) {
-        continueToDashboard();
+        setFinished(true);
       } else {
         setError(true);
       }
@@ -36,13 +37,24 @@ export function PrepareSampleData(
     <div className="standard_content">
       {preparingSampleData && (
         <div className="flex flex-col mt-50 w-full text-center">
-          <h2>{translationStrings.preparingSampleData}...</h2>
+          <h2>{translationStrings.preparingSampleData}</h2>
+        </div>
+      )}
+
+      {finished && (
+        <div className="flex flex-col">
+          <div className="flex flex-row justify-center mb-4">
+            Sample data has been added successfully.
+          </div>
+          <div className="flex flex-row justify-center">
+            <button onClick={() => {continueToDashboard()}}>{translationStrings.ok}</button>
+          </div>
         </div>
       )}
 
       {error && (
         <div className="flex flex-col mt-50 w-full text-center">
-          {translationStrings.errorWhenPreparingSampleData}.
+          Error when preparing sample data.
         </div>
       )}
     </div>

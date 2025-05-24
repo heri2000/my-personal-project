@@ -23,7 +23,6 @@ export const enEN = {
   "edit": "Edit",
   "editMember": "Edit Member",
   "email": "Email",
-  "errorWhenPreparingSampleData": "Error when preparing sample data",
   "export": "Export",
   "female": "Female",
   "femaleAbbreviated": "F",
