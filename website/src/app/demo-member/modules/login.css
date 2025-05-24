@@ -10,7 +10,13 @@ div.login_page {
 div.login_wrapper_1 {
   @apply flex flex-row w-full justify-center h-120 mb-15 bg-auto;
 
-  margin-top: 15vh;
+  @media screen and (max-width: 640px) {
+    margin-top: 8vh;
+  }
+
+  @media screen and (min-width: 641px) {
+    margin-top: 15vh;
+  }
 }
 
 div.login_wrapper_2 {

@@ -146,12 +146,12 @@ export default function AdminApp() {
   if (activePage === CURRENT_PAGE_PREPARE_SAMPLE_DATA) {
     if (activeSessionData) {
       return (
-        <LayoutNoNav>
+        <LayoutWithNav>
           <PrepareSampleData
             activeSessionData={activeSessionData}
             continueToDashboard={() => {setActivePage(CURRENT_PAGE_DASHBOARD)}}
           />
-        </LayoutNoNav>
+        </LayoutWithNav>
       );
     } else {
       return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
