@@ -20,7 +20,7 @@ export function TechStack() {
       <h3 className="mt-8">Technology Stack</h3>
       <p>This demo web application is built using the following technologies:</p>
       <ul className="tech_stack">
-        <li><b>Frontend</b>: <a href="https://nextjs.org/" target="_blank">Next.js</a> for the web applications with the power of <a href="https://react.dev/" target="_blank">React</a> components.</li>
+        <li><b>Frontend</b>: <a href="https://nextjs.org/" target="_blank">Next.js</a> for the web applications with the power of <a href="https://react.dev/" target="_blank">React</a> components, and <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a> for responsive UI components styling.</li>
         <li><b>Backend</b>: <a href="https://expressjs.com/" target="_blank">Express.js</a> for handling API routes and server logic.</li>
         <li><b>Database</b>: <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> for reliable and powerful relational data storage.</li>
         <li><b>Caching & Data Store</b>: <a href="https://valkey.io/" target="_blank">Valkey</a> for high-performance in-memory caching.</li>

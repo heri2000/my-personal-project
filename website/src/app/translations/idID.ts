@@ -52,7 +52,6 @@ export const idID = {
   "ok": "OK",
   "password": "Password",
   "prepareSampleData": "Persiapan Data Contoh",
-  "preparingSampleData": "Mempersiapkan data contoh",
   "refresh": "Perbarui",
   "regNumber": "No. Induk",
   "saveChanges": "Simpan Perubahan",

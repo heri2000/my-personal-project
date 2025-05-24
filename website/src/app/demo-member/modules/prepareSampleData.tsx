@@ -24,6 +24,7 @@ export function PrepareSampleData(
       setPreparingSampleData(true);
       const result = await prepareSampleData(activeSessionData.sessionId);
       if (result) {
+        setPreparingSampleData(false);
         setFinished(true);
       } else {
         setError(true);
@@ -37,14 +38,14 @@ export function PrepareSampleData(
     <div className="standard_content">
       {preparingSampleData && (
         <div className="flex flex-col mt-50 w-full text-center">
-          <h2>{translationStrings.preparingSampleData}</h2>
+          <h2>Praparing sample data...</h2>
         </div>
       )}
 
       {finished && (
         <div className="flex flex-col">
-          <div className="flex flex-row justify-center mb-4">
-            Sample data has been added successfully.
+          <div className="flex flex-row mt-50 justify-center mb-4">
+            <h2 className="text-center">Sample data has been added successfully.</h2>
           </div>
           <div className="flex flex-row justify-center">
             <button onClick={() => {continueToDashboard()}}>{translationStrings.ok}</button>

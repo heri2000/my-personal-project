@@ -52,7 +52,6 @@ export const enEN = {
   "ok": "OK",
   "password": "Password",
   "prepareSampleData": "Prepare Sample Data",
-  "preparingSampleData": "Preparing sample data",
   "refresh": "Refresh",
   "regNumber": "Reg. Numbers",
   "saveChanges": "Save Changes",
