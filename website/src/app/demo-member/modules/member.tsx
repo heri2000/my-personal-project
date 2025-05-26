@@ -329,7 +329,7 @@ export function Member(
 
   return (
     <div className="standard_content">
-      <h2>{translationStrings.members}</h2>
+      <h2 className="page_title">{translationStrings.members}</h2>
       <div className="flex flex-col md:flex-row justify-between mt-4 mb-4">
         <div className="flex flex-row mb-2 md:mb-0">
           <button

@@ -8,7 +8,7 @@ export function About() {
 
   return (
     <div className="standard_content">
-      <h1 className="page_title">{translationStrings.about} {translationStrings.websiteTitle}</h1>
+      <h2 className="page_title">{translationStrings.about} {translationStrings.websiteTitle}</h2>
       <TechStack/>
     </div>
   );

@@ -16,7 +16,7 @@ h3 {
 }
 
 h1.page_title, h2.page_title, h3.page_title {
-  @apply text-center md:text-start;
+  @apply text-center md:text-start bg-indigo-100 dark:bg-gray-800 ps-2 py-1 rounded-lg me-0 md:me-10;
 }
 
 p {
@@ -125,7 +125,7 @@ div.content_wrapper_1 {
 }
 
 div.standard_content {
-  @apply p-4 pt-12 md:pt-6 pb-12;
+  @apply p-4 pt-13 md:pt-2 pb-12;
 }
 
 div.error_message {

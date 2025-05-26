@@ -81,7 +81,7 @@ export function MemberExport(
   }
 
   return (
-    <div className="flex flex-col w-full p-5 pt-15 md:pt-5">
+    <div className="flex flex-col w-full p-5 pt-15 md:pt-5 mb-10">
       <h2 className="text-3xl font-bold">
         {translationStrings.memberExport} &gt; {translationStrings.downloadExcelFile}
       </h2>

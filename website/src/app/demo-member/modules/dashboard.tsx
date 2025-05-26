@@ -13,7 +13,7 @@ export function Dashboard(
 
   return (
     <div className="standard_content">
-      <h1 className="page_title">{translationStrings.dashboard}</h1>
+      <h2 className="page_title">{translationStrings.dashboard}</h2>
       <div className="mt-8">
         <DashboardUpcomingBirthdays activeSessionData={activeSessionData}/>
         <DashboardMember activeSessionData={activeSessionData}/>
