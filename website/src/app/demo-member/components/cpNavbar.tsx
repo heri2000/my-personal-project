@@ -9,12 +9,13 @@ import { IcMenuIcon, IcPersonIcon } from "./IcIcons";
 
 export function CpNavbar(
   {
-    toggleShow, logout, navigate, activeSessionData
+    toggleShow, logout, navigate, activeSessionData, currentPage
   } : {
-    toggleShow: () => void
-    logout: MouseEventHandler<HTMLButtonElement>
-    navigate: (path: string) => void
-    activeSessionData: TSessionData | null
+    toggleShow: () => void,
+    logout: MouseEventHandler<HTMLButtonElement>,
+    navigate: (path: string) => void,
+    activeSessionData: TSessionData | null,
+    currentPage: string,
   }
 ) {
   const translationStrings = enEN;
@@ -49,7 +50,7 @@ export function CpNavbar(
             <li>
               <a
                 href="#"
-                className="navbar_menu_item"
+                className={`navbar_menu_item ${currentPage === CURRENT_PAGE_DASHBOARD ? 'active' : ''}`}
                 onClick={() => {navigate(CURRENT_PAGE_DASHBOARD)}}
               >
                 {translationStrings.dashboard}
@@ -58,7 +59,7 @@ export function CpNavbar(
             <li>
               <a
                 href="#"
-                className="navbar_menu_item"
+                className={`navbar_menu_item ${currentPage === CURRENT_PAGE_MEMBER ? 'active' : ''}`}
                 onClick={() => {navigate(CURRENT_PAGE_MEMBER)}}
               >
                 {translationStrings.members}
@@ -70,7 +71,7 @@ export function CpNavbar(
               <li>
                 <a
                   href="#"
-                  className="navbar_menu_item"
+                  className={`navbar_menu_item ${currentPage === CURRENT_PAGE_ABOUT ? 'active' : ''}`}
                   onClick={() => {navigate(CURRENT_PAGE_ABOUT)}}
                 >
                   {translationStrings.about} {translationStrings.websiteTitle}

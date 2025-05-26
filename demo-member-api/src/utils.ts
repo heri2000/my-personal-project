@@ -152,6 +152,20 @@ export async function getVals(key: string): Promise<string | null> {
   return result;
 }
 
+export async function getKeys(): Promise<string[]> {
+  let result: string[] = [];
+  const valkey = await GlideClient.createClient(valkeyConfig);
+  try {
+    const response = await valkey.customCommand(['keys', '*']);
+    if (response) {
+      result = response.toString().split(',');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return result;
+}
+
 export async function setVals(
   key: string,
   vals: string,

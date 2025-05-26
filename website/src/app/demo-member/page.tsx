@@ -17,7 +17,7 @@ import { CpNavbar } from './components/cpNavbar';
 import { CpSpinner } from './components/cpSpinner';
 
 export default function AdminApp() {
-  const [activePage, setActivePage] = React.useState("");
+  const [currentPage, setCurrentPage] = React.useState("");
   const [showNavbar, setShowNavbar] = React.useState("");
   const [activeTheme, setActiveTheme] = React.useState('light');
   const [loading, setLoading] = React.useState(false);
@@ -38,12 +38,12 @@ export default function AdminApp() {
     setActiveSessionData(sessionData);
     await sleep(500);
     if (sessionData) {
-      if (activePage === "" || activePage === CURRENT_PAGE_LOGIN) {
-        setActivePage(CURRENT_PAGE_PREPARE_SAMPLE_DATA);
+      if (currentPage === "" || currentPage === CURRENT_PAGE_LOGIN) {
+        setCurrentPage(CURRENT_PAGE_PREPARE_SAMPLE_DATA);
       }
     } else {
-      if (activePage !== CURRENT_PAGE_LOGIN) {
-        setActivePage(CURRENT_PAGE_LOGIN);
+      if (currentPage !== CURRENT_PAGE_LOGIN) {
+        setCurrentPage(CURRENT_PAGE_LOGIN);
       }
     }
   }
@@ -65,7 +65,7 @@ export default function AdminApp() {
 
   async function handleLoginSuccessful() {
     await sleep(500);
-    setActivePage(CURRENT_PAGE_DASHBOARD);
+    setCurrentPage(CURRENT_PAGE_DASHBOARD);
     checkSession();
   }
 
@@ -75,14 +75,14 @@ export default function AdminApp() {
     await userLogout();
     removeSessionId();
     setTimeout(() => {
-      setActivePage(CURRENT_PAGE_LOGIN);
+      setCurrentPage(CURRENT_PAGE_LOGIN);
       setLoading(false);
     }, 1000);
   }
 
   function handleNavigate(path: string) {
     setShowNavbar("");
-    setActivePage(path);
+    setCurrentPage(path);
   }
 
   function LayoutNoNav({ children } : { children?: React.ReactNode | undefined }) {
@@ -95,7 +95,14 @@ export default function AdminApp() {
     );
   }
 
-  function LayoutWithNav({ children } : { children?: React.ReactNode | undefined }) {
+  function LayoutWithNav(
+    {
+      children, currentPage
+    } : {
+      children?: React.ReactNode | undefined,
+      currentPage: string,
+    }
+  ) {
     return (
       <div className={`layout_with_nav w-screen h-screen ${activeTheme}`}>
         <div className="content_wrapper_1">
@@ -107,6 +114,7 @@ export default function AdminApp() {
             logout={handleLogout}
             navigate={handleNavigate}
             activeSessionData={activeSessionData}
+            currentPage={currentPage}
           />
         </div>
         <CpThemeToggle currentTheme={activeTheme} onClick={toggleTheme}/>
@@ -115,42 +123,27 @@ export default function AdminApp() {
     );
   }
 
-  if (activePage === "") {
-    return (<LayoutNoNav><Blank/></LayoutNoNav>);
+  if (currentPage === "") {
+    return (
+      <LayoutNoNav>
+        <Blank/>
+      </LayoutNoNav>
+    );
   }
 
-  if (activePage === CURRENT_PAGE_LOGIN) {
-    return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
+  if (currentPage === CURRENT_PAGE_LOGIN) {
+    return (
+      <LayoutNoNav>
+        <LoginPage loginSuccessful={handleLoginSuccessful}/>
+      </LayoutNoNav>
+    );
   }
 
-  if (activePage === CURRENT_PAGE_DASHBOARD) {
+  if (currentPage === CURRENT_PAGE_DASHBOARD) {
     if (activeSessionData) {
       return (
-        <LayoutWithNav><Dashboard activeSessionData={activeSessionData}/></LayoutWithNav>
-      );
-    } else {
-      return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
-    }
-  }
-
-  if (activePage === CURRENT_PAGE_MEMBER) {
-    if (activeSessionData) {
-      return (
-        <LayoutWithNav><Member activeSessionData={activeSessionData}/></LayoutWithNav>
-      );
-    } else {
-      return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
-    }
-  }
-
-  if (activePage === CURRENT_PAGE_PREPARE_SAMPLE_DATA) {
-    if (activeSessionData) {
-      return (
-        <LayoutWithNav>
-          <PrepareSampleData
-            activeSessionData={activeSessionData}
-            continueToDashboard={() => {setActivePage(CURRENT_PAGE_DASHBOARD)}}
-          />
+        <LayoutWithNav currentPage={currentPage}>
+          <Dashboard activeSessionData={activeSessionData}/>
         </LayoutWithNav>
       );
     } else {
@@ -158,11 +151,48 @@ export default function AdminApp() {
     }
   }
 
-  if (activePage === CURRENT_PAGE_ABOUT) {
-    return (<LayoutWithNav><About/></LayoutWithNav>);
+  if (currentPage === CURRENT_PAGE_MEMBER) {
+    if (activeSessionData) {
+      return (
+        <LayoutWithNav currentPage={currentPage}>
+          <Member activeSessionData={activeSessionData}/>
+        </LayoutWithNav>
+      );
+    } else {
+      return (<LayoutNoNav><LoginPage loginSuccessful={handleLoginSuccessful}/></LayoutNoNav>);
+    }
+  }
+
+  if (currentPage === CURRENT_PAGE_PREPARE_SAMPLE_DATA) {
+    if (activeSessionData) {
+      return (
+        <LayoutWithNav currentPage={currentPage}>
+          <PrepareSampleData
+            activeSessionData={activeSessionData}
+            continueToDashboard={() => {setCurrentPage(CURRENT_PAGE_DASHBOARD)}}
+          />
+        </LayoutWithNav>
+      );
+    } else {
+      return (
+        <LayoutNoNav>
+          <LoginPage loginSuccessful={handleLoginSuccessful}/>
+        </LayoutNoNav>
+      );
+    }
+  }
+
+  if (currentPage === CURRENT_PAGE_ABOUT) {
+    return (
+      <LayoutWithNav currentPage={currentPage}>
+        <About/>
+      </LayoutWithNav>
+    );
   }
 
   return (
-    <LayoutNoNav><NotFound navigate={handleNavigate}/></LayoutNoNav>
+    <LayoutNoNav>
+      <NotFound navigate={handleNavigate}/>
+    </LayoutNoNav>
   );
 }
