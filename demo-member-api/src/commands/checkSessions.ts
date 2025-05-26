@@ -5,7 +5,7 @@ import { getKeys } from "../utils";
 export async function checkSessions () {
   const keys = await getKeys();
   for (let i = 0; i < keys.length; i++) {
-    keys[i] = keys[i].replace(SESSION_PREFIX, '');
+    keys[i] = keys[i].slice(SESSION_PREFIX.length);
   }
   console.log(`-- ${keys.length} Active sessions`);
   console.log(keys);
