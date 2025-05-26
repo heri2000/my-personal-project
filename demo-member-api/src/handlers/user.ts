@@ -12,7 +12,7 @@ import { db } from '../db';
 import { SESSION_VALIDY_MINUTES } from '../utils';
 import 'dotenv/config';
 
-const sessionPrefix = 'session-';
+export const SESSION_PREFIX = 'session-';
 
 export async function login(req: Request, res: Response) {
   try {
@@ -62,7 +62,7 @@ export async function login(req: Request, res: Response) {
     };
 
     const setResult = await setVals(
-      `${sessionPrefix}${sessionId}`,
+      `${SESSION_PREFIX}${sessionId}`,
       JSON.stringify(vals),
       SESSION_VALIDY_MINUTES * 60,
     );
@@ -83,7 +83,7 @@ export async function logout(req: Request, res: Response) {
   try {
     const { sessionId } = req.params;
 
-    await deleteVals([`${sessionPrefix}${sessionId}`]);
+    await deleteVals([`${SESSION_PREFIX}${sessionId}`]);
 
     res.json({ status: 'OK' });
   } catch (error) {
@@ -95,7 +95,7 @@ export async function getSessionData(req: Request, res: Response) {
   try {
     const { sessionId } = req.params;
 
-    // const getResult = await getVals(`${sessionPrefix}${sessionId}`);
+    // const getResult = await getVals(`${SESSION_PREFIX}${sessionId}`);
 
     // if (!getResult) {
     //   res.status(401).json({ status: 'Error', message: 'sessionExpired' });
@@ -121,7 +121,7 @@ export async function getSessionData(req: Request, res: Response) {
 }
 
 export async function getSessionDataFromVals(sessionId: string) {
-  const getResult = await getVals(`${sessionPrefix}${sessionId}`);
+  const getResult = await getVals(`${SESSION_PREFIX}${sessionId}`);
   if (!getResult) {
     return null;
   }
