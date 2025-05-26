@@ -1,5 +1,6 @@
 import { db } from "../db";
-import { getSessionDataFromVals } from "../handlers/user";
+import { SESSION_PREFIX } from "../handlers/user";
+import { keyExists } from "../utils";
 
 export async function clearUnusedMembers () {
   const { rowCount, rows } = await db.query('select distinct(session_id) from members');
@@ -10,9 +11,9 @@ export async function clearUnusedMembers () {
 
     for (let i=0; i < rows.length; i++) {
       const sessionId = rows[i].session_id;
-      const sessionData = await getSessionDataFromVals(sessionId);
+      const sessionExists = await keyExists(`${SESSION_PREFIX}${sessionId}`);
 
-      if (!sessionData) {
+      if (!sessionExists) {
         await db.query(
           'delete from members where session_id=$1',
           [sessionId],

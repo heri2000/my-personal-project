@@ -166,6 +166,17 @@ export async function getKeys(): Promise<string[]> {
   return result;
 }
 
+export async function keyExists(key: string): Promise<boolean> {
+  let exists = false;
+  const valkey = await GlideClient.createClient(valkeyConfig);
+  try {
+    exists = await valkey.exists([key]) > 0;
+  } catch (error) {
+    console.error(error);
+  }
+  return exists;
+}
+
 export async function setVals(
   key: string,
   vals: string,
