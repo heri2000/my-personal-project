@@ -72,16 +72,18 @@ export function LoginForm(
       <div className="bg-gray-200 dark:bg-slate-800/80 text-gray-800 dark:text-gray-100 border border-gray-400 rounded-md p-4 my-2 text-sm">
         <b>This is a demo application. Use the following credentials to log in:</b>
         <table className="w-full">
-          <tr>
-            <td className="pr-1">Email</td>
-            <td className="pr-1">:</td>
-            <td className="pr-1">admin@example.com</td>
-          </tr>
-          <tr>
-            <td className="pr-1">Password</td>
-            <td className="pr-1">:</td>
-            <td className="pr-1">admin</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className="pr-1">Email</td>
+              <td className="pr-1">:</td>
+              <td className="pr-1">admin@example.com</td>
+            </tr>
+            <tr>
+              <td className="pr-1">Password</td>
+              <td className="pr-1">:</td>
+              <td className="pr-1">admin</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <form>

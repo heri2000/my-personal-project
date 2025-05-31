@@ -3,9 +3,13 @@
 OUTPUT_DIR="demo-member-api"
 INPUT_ZIP="demo-member-api.zip"
 
+mv ~/$OUTPUT_DIR/node_modules /tmp/
+mv ~/$OUTPUT_DIR/package-lock.json /tmp/
 rm -rf ~/$OUTPUT_DIR
 mkdir ~/$OUTPUT_DIR
 unzip /tmp/$INPUT_ZIP -d ~/$OUTPUT_DIR
+mv /tmp/node_modules ~/$OUTPUT_DIR/
+mv /tmp/package-lock.json ~/$OUTPUT_DIR/
 cd ~/$OUTPUT_DIR
 source deploy
 cd ..
