@@ -409,8 +409,8 @@ export async function exportMember(req: Request, res: Response) {
     let params: Array<String> = [authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
-      qs = `${qs} and (reg_number ilike $1 or name ilike $1)`;
-      params = [searchStr];
+      qs = `${qs} and (reg_number ilike $2 or name ilike $2)`;
+      params = [authorization.sessionId!, searchStr];
     }
 
     const {rowCount, rows} = await db.query(qs, params);
@@ -661,7 +661,8 @@ export async function memberList(req: Request, res: Response) {
       orderBy = orderBy.replace('marriageDate', 'marriage_date');
     }
 
-    let qs = 'select count(*) as total from members where deleted_at is null and session_id = $1';
+    let qs = `select count(*) as total from members where deleted_at is null
+      and session_id = $1`;
     let params: Array<String> = [authorization.sessionId!];
     if (search) {
       const searchStr = `%${search.toString()}%`;
