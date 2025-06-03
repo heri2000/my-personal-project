@@ -5,7 +5,7 @@ import { TDashboardStatistics } from '../api/dashboard';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function DashboardMemberCategoriesChart({ statistics } : { statistics: TDashboardStatistics }) {
+export default function DashboardMemberAgeGroupsChart({ statistics } : { statistics: TDashboardStatistics }) {
   const under18Percent = 100 * statistics.ageGroups.under18 / statistics.totalMembers;
   const from19to25Percent = 100 * statistics.ageGroups.from19to25 / statistics.totalMembers;
   const from26to59Percent = 100 * statistics.ageGroups.from26to59 / statistics.totalMembers;
@@ -18,7 +18,7 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
       '19-25',
       '26-59',
       '>= 60',
-      'Tak diketahui',
+      'Unknown',
     ],
     datasets: [
       {
@@ -99,7 +99,7 @@ export default function DashboardMemberCategoriesChart({ statistics } : { statis
             </td>
           </tr>
           <tr>
-            <td>Tak diketahui</td>
+            <td>Unknown</td>
             <td>:</td>
             <td className="text-end">
               {statistics.ageGroups.unknown}
