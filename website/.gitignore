@@ -41,6 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # addition
+/package-lock.json
 src/app/cli.js
 src/app/utils/db.js
 src/app/utils/utils.js

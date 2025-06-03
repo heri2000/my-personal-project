@@ -8,7 +8,7 @@ div.login_page {
 }
 
 div.login_wrapper_1 {
-  @apply flex flex-row w-full justify-center h-120 mb-15 bg-auto;
+  @apply flex flex-row w-full justify-center min-h-120 mb-15 bg-auto;
 
   @media screen and (max-width: 640px) {
     margin-top: 8vh;

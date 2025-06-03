@@ -4,27 +4,27 @@ OUTPUT_ZIP="demo-member-api.zip"
 USER_HOST="user@ssrfrontendgms.duckdns.org"
 
 if [ -f "$OUTPUT_ZIP" ]; then
-    echo "Removing existing /tmp/$OUTPUT_ZIP..."
-    rm "/tmp/$OUTPUT_ZIP"
+  echo "Removing existing /tmp/$OUTPUT_ZIP..."
+  rm "/tmp/$OUTPUT_ZIP"
 fi
 
 echo "Creating /tmp/$OUTPUT_ZIP with compression level 9..."
 
 zip -r -9 "/tmp/$OUTPUT_ZIP" . \
-    -x "node_modules/*" \
-    -x "node_modules" \
-    -x "package-lock.json"
+  -x "node_modules/*" \
+  -x "node_modules" \
+  -x "package-lock.json"
 
 if [ $? -eq 0 ]; then
-    echo "Successfully created /tmp/$OUTPUT_ZIP"
+  echo "Successfully created /tmp/$OUTPUT_ZIP"
 else
-    echo "Error creating /tmp/$OUTPUT_ZIP"
+  echo "Error creating /tmp/$OUTPUT_ZIP"
 fi
 
 # echo "Verifying zip file contents (first 20 lines):"
 # unzip -l "$OUTPUT_ZIP" | head -n 20
 
-ssh $USER_HOST "rm -f /tmp/$OUTPUT_ZIP /tmp/extract"
+ssh $USER_HOST "rm -f /tmp/$OUTPUT_ZIP /tmp/extract-then-deploy"
 scp /tmp/$OUTPUT_ZIP $USER_HOST:/tmp/
 rm /tmp/$OUTPUT_ZIP
-scp extract $USER_HOST:/tmp/
+scp extract-then-deploy $USER_HOST:/tmp/
