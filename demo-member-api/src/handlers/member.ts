@@ -23,13 +23,13 @@ const memberImportPrefix = 'member-import-';
 const memberExportPrefix = 'member-export-';
 
 export async function template(req: Request, res: Response) {
-  const filePath = path.join(__dirname, '../../template/data_jemaat.xlsx');
+  const filePath = path.join(__dirname, '../../template/member_template.xlsx');
 
   if (!fs.existsSync(filePath)) {
     return res.status(404).send('File not found');
   }
 
-  res.download(filePath, 'data_jemaat.xlsx', (err) => {
+  res.download(filePath, 'member_template.xlsx', (err) => {
     if (err) {
       console.error(err);
       return res.status(500).send('Error sending file');
