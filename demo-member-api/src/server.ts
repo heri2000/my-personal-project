@@ -37,14 +37,6 @@ app.disable('x-powered-by');
 app.use(helmet());
 app.use(cors(corsOptions));
 
-// app.use(function (req, res, next) {
-//   res.setHeader('Access-Control-Allow-Origin', accessControlAllowOrigin);
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, HEAD, PUT, PATCH, DELETE');
-//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
-//   res.setHeader('Access-Control-Allow-Credentials', 'true');
-//   next();
-// });
-
 app.get('/', (req, res) => {
   res.send('API');
 });
@@ -58,25 +50,9 @@ app.use('/v1/user', userRoute);
 app.use('/v1/member', memberRoute);
 app.use('/v1/dashboard', dashboardRoute);
 
-// function shutDown(server: any) {
-//   server.close(() => {
-//     console.log('HTTP server closed');
-//   })
-// }
-
 export function startServer() {
   const server =app.listen(PORT, () => {
     console.log('The application is listening '
       + 'on port http://localhost:' + PORT);
   });
-
-  // process.on('SIGTERM', () => {
-  //   console.log('\nSIGTERM signal received');
-  //   shutDown(server);
-  // });
-
-  // process.on('SIGINT', () => {
-  //   console.log('\nSIGINT signal received')
-  //   shutDown(server);
-  // });
 };
