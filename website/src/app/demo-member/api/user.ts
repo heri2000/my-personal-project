@@ -104,6 +104,8 @@ export async function userRegister(
       result.errorMessage = translationStrings.incorrectCaptcha;
     } else if (response.status === 400 || response.status === 401) {
       result.errorMessage = translationStrings.incorrectEmailOrPassword;
+    } else if (response.status === 403) {
+      result.errorMessage = translationStrings.emailWasAlreadyRegistered;
     } else {
       result.errorMessage = translationStrings.internalServerError;
     }

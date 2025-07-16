@@ -7,6 +7,7 @@ import {
   setVals,
   getVals,
   deleteVals,
+  getCurrentDateTimeSql,
 } from '../utils';
 import { db } from '../db';
 import { SESSION_VALIDY_MINUTES } from '../utils';
@@ -93,10 +94,64 @@ export async function logout(req: Request, res: Response) {
 
 export async function register(req: Request, res: Response) {
   try {
+    const { email, password, confirmPassword, acPayload } = req.body;
+
+    if (!email || !password || !confirmPassword) {
+      res.status(400).json({ status: 'Error', message: 'Email or password is missing' });
+      return;
+    }
+
+    const hmacKey = process.env.HMAC_KEY;
+    let ok = false;
+    if (hmacKey) {
+      ok = await verifySolution(acPayload, hmacKey);
+      if (!ok) {
+        res.status(417).json({ status: 'Error', message: 'Invalid captcha' });
+        return;
+      }
+    } else {
+      res.status(500).json({ status: 'Error', message: 'internalSeverError' });
+      return;
+    }
+
+    const hash = new SHA3(512);
+    hash.update(password);
+    const hashedPwd = hash.digest('hex');
+
+    if (await emailExists(email)) {
+      res.status(403).json({ status: 'Error', message: 'duplicateEmail'});
+    }
+
+    try {
+      const now = getCurrentDateTimeSql();
+
+      await db.query(
+        `insert into users (id, email, pwd, display_name, role, onetime_token, created_at, updated_at)
+        values ($1, $2, $3, $4, $5, $6, $7, $7)`,
+        [nanoid(), email, hashedPwd, email, 'admin', nanoid(25), now],
+      );
+    } catch (error) {
+      res.status(500).json({ status: 'Error', message: 'internalServerError' });
+      return;
+    }
+
     res.status(201).json({ status: 'OK' });
   } catch (error) {
     res.status(400).json({ status: 'Error', message: 'Bad request' });
   }
+}
+
+async function emailExists(email: string): Promise<boolean> {
+  const { rowCount } = await db.query(
+    `select id from users where email=$1`,
+    [email],
+  );
+
+  if (rowCount) {
+    return true;
+  }
+
+  return false;
 }
 
 export async function getSessionData(req: Request, res: Response) {
