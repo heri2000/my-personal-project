@@ -14,7 +14,10 @@ const CpAltcha = dynamic(
 const initialCredentials: TCredentials = { email: "", password: "", acPayload: "" };
 
 export function LoginForm(
-  { loginSuccessful } : { loginSuccessful: () => void }
+  { loginSuccessful, showRegister } : {
+    loginSuccessful: () => void,
+    showRegister: () => void
+  }
 ) {
   const translationStrings = enEN;
   const [credentials , setCredentials] = React.useState(initialCredentials);
@@ -31,6 +34,16 @@ export function LoginForm(
     setCredentials({...credentials, [name]: value });
   }
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      if (event.currentTarget.name === 'email') {
+        passwordInput.current?.focus();
+      } else if (event.currentTarget.name === 'password') {
+        handleLoginButtonClick();
+      }
+    }
+  }
+
   async function handleLoginButtonClick() {
     if (errorMessage) {
       setErrorMessage(null);
@@ -38,8 +51,13 @@ export function LoginForm(
 
     const acPayload = altchaRef.current?.value || "";
 
+    if (acPayload === "") {
+      setErrorMessage(translationStrings.proveYoureNotARobot);
+      return;
+    }
+
     setLoading(true);
-    const result = await userLogin({...credentials, acPayload: acPayload});
+    const result = await userLogin({...credentials, acPayload});
     if (result.sessionId) {
       setSessionId(result.sessionId);
       await sleep(250);
@@ -53,40 +71,12 @@ export function LoginForm(
     setLoading(false);
   }
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      if (event.currentTarget.name === 'email') {
-        passwordInput.current?.focus();
-      } else if (event.currentTarget.name === 'password') {
-        handleLoginButtonClick();
-      }
-    }
-  }
-
   return (
     <div>
       <h1 className="text-center mt-2 !mb-0">
         {translationStrings.login}
       </h1>
-      <div className="bg-gray-200 dark:bg-slate-800/80 text-gray-800 dark:text-gray-100 border border-gray-400 rounded-md p-4 my-2 text-sm">
-        <b>This is a demo application. Use the following credentials to log in:</b>
-        <table className="w-full">
-          <tbody>
-            <tr>
-              <td className="pr-1">Email</td>
-              <td className="pr-1">:</td>
-              <td className="pr-1">admin@example.com</td>
-            </tr>
-            <tr>
-              <td className="pr-1">Password</td>
-              <td className="pr-1">:</td>
-              <td className="pr-1">admin</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <form>
-
+      <form className="mt-4">
         <fieldset>
           <label htmlFor="email">{translationStrings.email}</label>
           <input
@@ -134,6 +124,33 @@ export function LoginForm(
         </div>
 
       </form>
+      <div className="mt-4">
+        {translationStrings.dontHaveAnAccountYet}?&nbsp;
+        <a
+          href="#"
+          className="login_link"
+          onClick={showRegister}
+        >
+          {translationStrings.createOne}
+        </a>.
+      </div>
+      <div className="bg-yellow-200 dark:bg-cyan-800 text-gray-800 dark:text-gray-100 border border-orange-800 dark:border-cyan-500 rounded-md p-4 mt-6 my-2 text-sm">
+        <b>Don't want to create an account? Use the following credentials to log in:</b>
+        <table className="w-full">
+          <tbody>
+            <tr>
+              <td className="pr-1">Email</td>
+              <td className="pr-1">:</td>
+              <td className="pr-1">admin@example.com</td>
+            </tr>
+            <tr>
+              <td className="pr-1">Password</td>
+              <td className="pr-1">:</td>
+              <td className="pr-1">admin</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       {loading && <CpSpinner/>}
     </div>
   );

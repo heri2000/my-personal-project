@@ -91,6 +91,14 @@ export async function logout(req: Request, res: Response) {
   }
 }
 
+export async function register(req: Request, res: Response) {
+  try {
+    res.status(201).json({ status: 'OK' });
+  } catch (error) {
+    res.status(400).json({ status: 'Error', message: 'Bad request' });
+  }
+}
+
 export async function getSessionData(req: Request, res: Response) {
   try {
     const { sessionId } = req.params;
