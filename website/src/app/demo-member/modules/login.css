@@ -19,8 +19,13 @@ div.login_wrapper_1 {
   }
 }
 
+a.login_link {
+  text-decoration: underline !important;
+  font-weight: bold;
+}
+
 div.login_wrapper_2 {
-  @apply flex flex-row w-11/12 md:w-2xl h-full justify-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-xl shadow-black/30;
+  @apply flex flex-row w-11/12 md:w-3xl h-140 justify-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-xl shadow-black/30;
 }
 
 div.login_tech_stack_1 {
@@ -30,7 +35,7 @@ div.login_tech_stack_1 {
 }
 
 div.login_tech_stack_2 {
-  @apply flex flex-row w-11/12 md:w-2xl h-full px-8 pb-8 justify-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-xl shadow-black/30;
+  @apply flex flex-row w-11/12 md:w-3xl h-full px-8 pb-8 justify-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-xl shadow-black/30;
 }
 
 a.scroll_down_link {
