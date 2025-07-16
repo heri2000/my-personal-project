@@ -1,38 +1,23 @@
-version: '3.8'
 services:
   postgresql:
     image: postgres:11-alpine
     restart: no
     environment:
-      POSTGRES_USER: "ht_demo"
-      POSTGRES_DB: "ht_demo"
-      POSTGRES_PASSWORD: "ht_demo"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ../../../.data-heri-tny-demo/postgres:/var/lib/postgresql/data/pgdata
       - ./init-postgres:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
-  # mysql:
-  #   image: mysql:8.0
-  #   restart: no
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: ht_demo
-  #     MYSQL_USER: ht_demo
-  #     MYSQL_PASSWORD: ht_demo
-  #   volumes:
-  #     - ../../../.data-heri-tny-demo/mysql:/var/lib/mysql
-  #     - ./init:/docker-entrypoint-initdb.d
-  #   ports:
-  #     - 3306:3306
   valkey:
     image: valkey/valkey:8.0.3-alpine3.21
     restart: no
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
+      - VALKEY_USERNAME=${VALKEY_USERNAME}
+      - VALKEY_PASSWORD=${VALKEY_PASSWORD}
       - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
       - 6379:6379

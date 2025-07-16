@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 export const userRoute = express.Router();
-import { login, logout, getSessionData, getChallenge } from '../handlers/user';
+import { login, logout, register, getSessionData, getChallenge } from '../handlers/user';
 
 userRoute.post('/login', (req: Request, res: Response) => {
   login(req, res);
@@ -8,6 +8,10 @@ userRoute.post('/login', (req: Request, res: Response) => {
 
 userRoute.get('/logout/:sessionId', (req: Request, res: Response) => {
   logout(req, res);
+});
+
+userRoute.post('/register', (req: Request, res: Response) => {
+  register(req, res);
 });
 
 userRoute.get('/session-data/:sessionId', (req: Request, res: Response) => {

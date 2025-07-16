@@ -36,7 +36,8 @@ const CpAltcha = forwardRef<{ value: string | null }, AltchaProps>(({ onStateCha
     }
   }, [onStateChange])
 
-  /* Configure your `challengeurl` and remove the `test` attribute, see docs: https://altcha.org/docs/website-integration/#using-altcha-widget  */
+  /* Configure your `challengeurl` and remove the `test` attribute, see docs:
+  https://altcha.org/docs/website-integration/#using-altcha-widget  */
   return (
     <altcha-widget
       ref={widgetRef}

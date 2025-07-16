@@ -7,6 +7,11 @@ type TLoginResult = {
   errorMessage: string | null;
 };
 
+type TRegistrationResult = {
+  status: string | null;
+  errorMessage: string | null;
+};
+
 export type TSessionData = {
   sessionId: string;
   userId: string;
@@ -20,6 +25,13 @@ export type TSessionData = {
 export type TCredentials = {
   email: string;
   password: string;
+  acPayload: string;
+}
+
+export type TRegisterCredentials = {
+  email: string;
+  password: string;
+  confirmPassword: string;
   acPayload: string;
 }
 
@@ -67,6 +79,41 @@ export async function userLogout() {
       console.error(error);
     }
   }
+}
+
+export async function userRegister(
+  credentials: TRegisterCredentials
+): Promise<TRegistrationResult> {
+  const translationStrings = enEN;
+
+  const result: TRegistrationResult = {
+    status: null,
+    errorMessage: null,
+  }
+
+  try {
+    const response = await fetch(`${config.api.user}/register`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(credentials),
+    });
+    const responseJson = await response.json();
+    if (response.status === 201) {
+      result.status = responseJson.status;
+    } else if (response.status === 417) {
+      result.errorMessage = translationStrings.incorrectCaptcha;
+    } else if (response.status === 400 || response.status === 401) {
+      result.errorMessage = translationStrings.incorrectEmailOrPassword;
+    } else if (response.status === 403) {
+      result.errorMessage = translationStrings.emailWasAlreadyRegistered;
+    } else {
+      result.errorMessage = translationStrings.internalServerError;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  return result;
 }
 
 export function getSessionData(): Promise<TSessionData | null> {

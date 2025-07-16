@@ -1,12 +1,12 @@
 {
   "pg": {
     "driver": "pg",
-    "user": "ht_demo",
-    "password": "ht_demo",
-    "host": "localhost",
-    "database": "ht_demo",
-    "port": "5432",
-    "ssl": false,
-    "schema": "public"
+    "user": {"ENV": "POSTGRES_USER"},
+    "password": {"ENV": "POSTGRES_PASSWORD"},
+    "host": {"ENV": "POSTGRES_HOST"},
+    "database": {"ENV": "POSTGRES_DB"},
+    "port": {"ENV": "POSTGRES_PORT"},
+    "schema": {"ENV": "POSTGRES_SCHEMA"},
+    "ssl": false
   }
 }

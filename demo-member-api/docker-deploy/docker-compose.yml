@@ -1,12 +1,11 @@
-version: '3.8'
 services:
   postgresql:
     image: postgres:11-alpine
     restart: 'unless-stopped'
     environment:
-      POSTGRES_USER: "ht_demo"
-      POSTGRES_DB: "ht_demo"
-      POSTGRES_PASSWORD: "ht_demo"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ../../.data-heri-tny-demo/postgres:/var/lib/postgresql/data/pgdata
@@ -17,8 +16,8 @@ services:
     image: valkey/valkey:8.0.3-alpine3.21
     restart: 'unless-stopped'
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
+      - VALKEY_USERNAME=${VALKEY_USERNAME}
+      - VALKEY_PASSWORD=${VALKEY_PASSWORD}
       - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
       - 6379:6379
@@ -29,7 +28,7 @@ services:
     # build: --format docker -t demo-member-api:latest .
     restart: 'unless-stopped'
     environment:
-      POSTGRES_URL: postgres://ht_demo:ht_demo@postgresql:5432/ht_demo
+      POSTGRES_URL: ${POSTGRES_URL}
       VALKEY_HOST: valkey
       VALKEY_PORT: 6379
     ports:
