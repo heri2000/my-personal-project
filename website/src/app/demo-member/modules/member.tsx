@@ -29,7 +29,6 @@ export function Member(
   { activeSessionData: TSessionData }
 ) {
   const translationStrings = enEN;
-  // const [showImportDropdown, setShowImportDropdown] = useState(false);
   const [visibleLayer, setVisibleLayer] = useState(VISIBLE_LAYER_MEMBER);
   const [visibleDialog, setVisibleDialog] = useState("");
   const [dialogErrorMessage, setDialogErrorMessage] = useState<string | null>(null);
@@ -369,15 +368,9 @@ export function Member(
                 <button
                   type="button"
                   className="me-1"
-                  // className="dropdown_button"
-                  // id="menu-button"
-                  // aria-expanded="true"
-                  // aria-haspopup="true"
-                  // onClick={() => {setShowImportDropdown(!showImportDropdown)}}
                   onClick={handleButtonImportClick}
                 >
                   {translationStrings.import}
-                  {/* <span className="material-symbols-outlined text-slate-200 dark:text-slate-800">arrow_drop_down</span> */}
                 </button>
               )}
               {permissions.allowedToExportMembers && (
@@ -389,31 +382,6 @@ export function Member(
                 </button>
               )}
             </div>
-            {/* {showImportDropdown && (
-              <div className="dropdown_menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                <div className="py-1" role="none">
-                  <a
-                    href="#"
-                    role="menuitem"
-                    id="menu-item-upload"
-                    onClick={() => {
-                      setShowImportDropdown(false);
-                      setVisiblePage(pageMemberImport);
-                    }}
-                    >
-                    Upload Excel File
-                  </a>
-                  <a
-                    href={`${config.api.member}/template`}
-                    role="menuitem"
-                    id="menu-item-download"
-                    onClick={() => {setShowImportDropdown(false)}}
-                  >
-                    Download Sample Excel File
-                  </a>
-                </div>
-              </div>
-            )} */}
           </div>
 
         </div>

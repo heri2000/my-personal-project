@@ -7,12 +7,6 @@ docker compose \
 
 sleep 2
 
-docker compose \
-    --project-name heri_tny_demo \
-    up --detach --remove-orphans
-
-sleep 2
-
 cd ..
 nvm use $(cat .nvmrc)
 npm run migrate up

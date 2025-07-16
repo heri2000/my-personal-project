@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { setSessionId } from '@/app/utils/session';
 import { enEN } from '@/app/translations/enEN';
 import { CpSpinner } from '../components/cpSpinner';
-// import CpAltcha from '../components/cpAltcha';
 import { TCredentials, userLogin } from '../api/user';
 import { sleep } from '@/app/utils/utils';
 

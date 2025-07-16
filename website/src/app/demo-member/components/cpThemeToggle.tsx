@@ -20,9 +20,6 @@ export function CpThemeToggle(
         onClick={onClick}
         title={translationStrings.darkModeLightMode}
       >
-        {/* <span className="material-symbols-outlined">
-          {currentTheme === "dark" ? "light_mode" : "dark_mode"}
-        </span> */}
         {currentTheme === "dark" ? <IcLightModeIcon/> : <IcDarkModeIcon/>}
       </button>
     </div>

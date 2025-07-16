@@ -1,26 +1,3 @@
-// export type JSONValue =
-//     | string
-//     | number
-//     | boolean
-//     | { [x: string]: JSONValue }
-//     | Array<JSONValue>;
-
-// export interface IMember {
-//   id: string,
-//   regNumber: string,
-//   name: string,
-//   gender: string,
-//   address: string | null,
-//   birthDate: string | null,
-//   phone1: string | null,
-//   phone2: string | null,
-//   marriageDate: string | null,
-//   category: string | null,
-//   createdAt: Date | null,
-//   updatedAt: Date | null,
-//   deletedAt: Date | null,
-// }
-
 export const PAGE_LIMITS = [10, 25, 50, 100];
 export const TEXT_COLOR_FOR_LIGHT_THEME = "#3729ac";
 export const TEXT_COLOR_FOR_DARK_THEME = "#d1d5dc";
@@ -53,16 +30,6 @@ export function sqlDateTimeToSqlDate(date: string | null): string {
 
   return "";
 }
-
-// export const pageLimits = [10, 25, 50, 100];
-
-// export function parseErrorMessage(errorKey: string): string {
-//   if (errorKey in enEN) {
-//     return enEN[errorKey];
-//   } else {
-//     return errorKey
-//   }
-// }
 
 export function getStoredTheme(): string {
   const theme = localStorage.getItem('theme');
