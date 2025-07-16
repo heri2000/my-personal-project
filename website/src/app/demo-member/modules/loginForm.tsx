@@ -135,7 +135,7 @@ export function LoginForm(
         </a>.
       </div>
       <div className="bg-yellow-200 dark:bg-cyan-800 text-gray-800 dark:text-gray-100 border border-orange-800 dark:border-cyan-500 rounded-md p-4 mt-6 my-2 text-sm">
-        <b>Don't want to create an account? Use the following credentials to log in:</b>
+        <b>Don&apos;t want to create an account? Use the following credentials to log in:</b>
         <table className="w-full">
           <tbody>
             <tr>

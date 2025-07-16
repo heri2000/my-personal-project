@@ -1,6 +1,5 @@
 import React from 'react';
 import { TechStack } from './about';
-import { enEN } from '@/app/translations/enEN';
 import './login.css';
 import { LoginForm } from './loginForm';
 import { RegisterForm } from './registerForm';
@@ -13,7 +12,6 @@ const DISPLAY_REGISTER = "register";
 export function LoginPage(
   { loginSuccessful } : { loginSuccessful: () => void }
 ) {
-  const translationStrings = enEN;
   const [display, setDisplay] = React.useState(DISPLAY_LOGIN);
 
   return (
