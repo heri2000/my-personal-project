@@ -33,7 +33,7 @@ export function CpNavbar(
               <IcPersonIcon/>
             </a>
           </div>
-          <div className="text-center font-bold text-indigo-700 dark:text-gray-400 mb-2">
+          <div className="text-center font-bold text-indigo-700 dark:text-gray-400 mb-2 p-2 wrap-break-word">
             <a href="#" title={activeSessionData ? activeSessionData.email : "-"} className="!no-underline">
               {activeSessionData ? activeSessionData.displayName : "-"}
             </a>

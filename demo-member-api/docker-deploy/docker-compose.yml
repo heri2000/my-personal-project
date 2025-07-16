@@ -16,8 +16,8 @@ services:
     image: valkey/valkey:8.0.3-alpine3.21
     restart: 'unless-stopped'
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
+      - VALKEY_USERNAME=${VALKEY_USERNAME}
+      - VALKEY_PASSWORD=${VALKEY_PASSWORD}
       - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
       - 6379:6379

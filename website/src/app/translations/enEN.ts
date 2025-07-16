@@ -79,6 +79,7 @@ export const enEN = {
   "incorrectCaptcha": "Incorrect captcha",
   "proveYoureNotARobot": "Prove you're not a robot",
   "accountWasCreatedSuccessfully": "Account was created successfully",
+  "emailWasAlreadyRegistered": "Email was already registered",
 
   "importMembersExplanation1": "You can import member data from an Excel file (.xlsx) uploaded here",
   "importMembersExplanation2": "Excel file should contain member data with the following columns:",
