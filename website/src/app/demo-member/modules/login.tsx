@@ -2,34 +2,37 @@ import React from 'react';
 import { TechStack } from './about';
 import './login.css';
 import { LoginForm } from './loginForm';
-import { RegisterForm } from './registerForm';
+// import { RegisterForm } from './registerForm';
 import { IcKeyboardArrowDownIcon } from '../components/IcIcons';
 
 export const CURRENT_PAGE_LOGIN = "current_page_login";
-const DISPLAY_LOGIN = "login";
-const DISPLAY_REGISTER = "register";
+// const DISPLAY_LOGIN = "login";
+// const DISPLAY_REGISTER = "register";
 
 export function LoginPage(
   { loginSuccessful } : { loginSuccessful: () => void }
 ) {
-  const [display, setDisplay] = React.useState(DISPLAY_LOGIN);
+  // const [display, setDisplay] = React.useState(DISPLAY_LOGIN);
 
   return (
     <div className="login_page">
       <div className="login_wrapper_1">
         <div className="login_wrapper_2">
           <div className="flex flex-col w-sm md:w-1/2 p-4 rounded-lg md:rounded-e-none">
-            {display === DISPLAY_LOGIN &&
+            {/* {display === DISPLAY_LOGIN &&
               <LoginForm
-                loginSuccessful={loginSuccessful}
-                showRegister={() => setDisplay(DISPLAY_REGISTER)}
+              loginSuccessful={loginSuccessful}
+              showRegister={() => setDisplay(DISPLAY_REGISTER)}
               />
-            }
-            {display === DISPLAY_REGISTER &&
+              }
+              {display === DISPLAY_REGISTER &&
               <RegisterForm
-                showLogin={() => setDisplay(DISPLAY_LOGIN)}
+              showLogin={() => setDisplay(DISPLAY_LOGIN)}
               />
-            }
+              } */}
+            <LoginForm
+              loginSuccessful={loginSuccessful}
+            />
           </div>
           <div
             className="flex flex-col w-0 md:w-1/2 bg-[url('/illustration.jpg')] bg-cover bg-center rounded-e-lg"
