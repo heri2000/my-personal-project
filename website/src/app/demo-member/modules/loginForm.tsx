@@ -14,10 +14,11 @@ const CpAltcha = dynamic(
 const initialCredentials: TCredentials = { email: "", password: "", acPayload: "" };
 
 export function LoginForm(
-  { loginSuccessful, showRegister } : {
-    loginSuccessful: () => void,
-    showRegister: () => void
-  }
+  // { loginSuccessful, showRegister } : {
+  //   loginSuccessful: () => void,
+  //   showRegister: () => void
+  // }
+  { loginSuccessful } : { loginSuccessful: () => void }
 ) {
   const translationStrings = enEN;
   const [credentials , setCredentials] = React.useState(initialCredentials);
@@ -124,7 +125,7 @@ export function LoginForm(
         </div>
 
       </form>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         {translationStrings.dontHaveAnAccountYet}?&nbsp;
         <a
           href="#"
@@ -133,9 +134,10 @@ export function LoginForm(
         >
           {translationStrings.createOne}
         </a>.
-      </div>
+      </div> */}
       <div className="bg-yellow-200 dark:bg-cyan-800 text-gray-800 dark:text-gray-100 border border-orange-800 dark:border-cyan-500 rounded-md p-4 mt-6 my-2 text-sm">
-        <b>Don&apos;t want to create an account? Use the following credentials to log in:</b>
+        {/* <b>Don&apos;t want to create an account? Use the following credentials to log in:</b> */}
+        <b>Use the following credentials to log in:</b>
         <table className="w-full">
           <tbody>
             <tr>
