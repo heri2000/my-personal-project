@@ -153,7 +153,7 @@ export function LoginForm(
             <tr>
               <td colSpan={3}>
                 <em>(Note: This is intentionally a simple password to make logging in
-                easier. I understand it's not secure, but it's used here for convenience)</em>
+                easier. I understand it&apos;s not secure, but it&apos;s used here for convenience)</em>
                 </td>
             </tr>
           </tbody>
