@@ -77,7 +77,7 @@ export function LoginForm(
       <h1 className="text-center mt-2 !mb-0">
         {translationStrings.login}
       </h1>
-      <form className="mt-4">
+      <form className="mt-2">
         <fieldset>
           <label htmlFor="email">{translationStrings.email}</label>
           <input
@@ -149,6 +149,12 @@ export function LoginForm(
               <td className="pr-1">Password</td>
               <td className="pr-1">:</td>
               <td className="pr-1">admin</td>
+            </tr>
+            <tr>
+              <td colSpan={3}>
+                <em>(Note: This is intentionally a simple password to make logging in
+                easier. I understand it's not secure, but it's used here for convenience)</em>
+                </td>
             </tr>
           </tbody>
         </table>
