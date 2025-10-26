@@ -1,0 +1,97 @@
+.crimson-pro-regular {
+  font-family: "Crimson Pro", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background-color: #303030;
+  color: #e0e0e0;
+  font-size: large;
+  line-height: 1.25em;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100vw - 3px);
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  border: 2px solid #808080;
+  border-radius: 10px;
+  width: calc(100% - 40px);
+  min-height: calc(100vh - 40px);
+  justify-content: center;
+  align-items: center;
+}
+
+.my-intro {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  margin-bottom: 5em;
+}
+
+.my-name {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+/* @media only screen and (min-width: 1001px) {
+  .my-intro {
+    width: 600px;
+    margin-bottom: 5em;
+  }
+} */
+
+@media only screen and (max-width: 992px) {
+  body {
+    font-size: 2.5rem;
+  }
+
+  h1 {
+    font-size: 6rem;
+  }
+
+  .my-intro {
+    width: 80%;
+    margin-bottom: 25rem;
+  }
+
+  .my-name {
+    font-size: 3rem;
+  }
+
+  .mt-2 {
+    margin-top: 2rem;
+  }
+
+  .mb-2 {
+    margin-bottom: 2rem;
+  }
+}
